@@ -1,6 +1,10 @@
 import React from "react"
+import { StatusBar } from "expo-status-bar"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { NavigationContainer } from "@react-navigation/native"
+import { Provider as PaperProvider } from "react-native-paper"
+import theme from "./styles/Theme"
+import Navbar from "./components/Layout/Navbar"
 
 import loginView from "./views/login"
 import registerView from "./views/register"
@@ -9,14 +13,28 @@ const Stack = createNativeStackNavigator()
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName="Login"
-                screenOptions={{ headerShown: false }}
-            >
-                <Stack.Screen name="Login" component={loginView} />
-                <Stack.Screen name="Register" component={registerView} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <PaperProvider theme={theme}>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName="Login"
+                    screenOptions={{
+                        header: ({ back, route, navigation }) => (
+                            <Navbar
+                                back={back}
+                                route={route}
+                                navigation={navigation}
+                            />
+                        ),
+                    }}
+                >
+                    <Stack.Screen name="Login" component={loginView} />
+                    <Stack.Screen name="Register" component={registerView} />
+                </Stack.Navigator>
+            </NavigationContainer>
+            <StatusBar
+                animated={true}
+                backgroundColor={theme.colors.primaryDark}
+            />
+        </PaperProvider>
     )
 }

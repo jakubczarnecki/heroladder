@@ -2,15 +2,12 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Entypo } from "@expo/vector-icons"
 import { NavbarWrapper, LogoImg, IconsWrapper } from "./styled"
-import { LinearGradient } from "expo-linear-gradient"
+import GradientWrapper from "../../Layout/GradientWrapper"
 import LogoWhite from "../../../assets/img/logo-01.png"
-import theme from "../../../styles/Theme"
 
 const Navbar = ({ back, route, navigation }) => {
     return (
-        <LinearGradient
-            colors={[theme.colors.primary, theme.colors.primaryDark]}
-        >
+        <GradientWrapper>
             <NavbarWrapper>
                 <LogoImg source={LogoWhite} width="80" />
                 <IconsWrapper>
@@ -24,7 +21,7 @@ const Navbar = ({ back, route, navigation }) => {
                     />
                 </IconsWrapper>
             </NavbarWrapper>
-        </LinearGradient>
+        </GradientWrapper>
     )
 }
 

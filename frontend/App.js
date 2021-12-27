@@ -10,6 +10,7 @@ import Navbar from "./components/Navigation/Navbar"
 
 import loginView from "./views/login"
 import registerView from "./views/register"
+import BottomNav from "./components/Navigation/BottomNav"
 
 const Stack = createNativeStackNavigator()
 
@@ -36,6 +37,7 @@ export default function App() {
                             component={registerView}
                         />
                     </Stack.Navigator>
+                    <BottomNav />
                 </NavigationContainer>
             </View>
 

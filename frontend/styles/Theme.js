@@ -6,7 +6,7 @@ const theme = {
         accent: "#a83f44",
         dark: "#263238",
         white: "#ffffff",
-        grayLight: "#F2F3F3",
+        grayLight: "#ebebeb",
         gray: "#C4C4C4",
         grayDark: "#747474",
     },

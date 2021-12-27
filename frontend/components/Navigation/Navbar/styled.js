@@ -1,4 +1,3 @@
-import theme from "../../../styles/Theme"
 import styled from "styled-components/native"
 
 export const NavbarWrapper = styled.View`
@@ -12,8 +11,8 @@ export const NavbarWrapper = styled.View`
 `
 
 export const LogoImg = styled.Image`
-    width: ${(props) => props.width};
-    height: ${(props) => props.width / 2};
+    width: ${(props) => props.width}px;
+    height: ${(props) => props.width / 2}px;
 `
 
 //flex-start -> same as display: block

@@ -4,19 +4,20 @@ import { View } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { NavigationContainer } from "@react-navigation/native"
-import { Provider as PaperProvider } from "react-native-paper"
+
 import theme from "./styles/Theme"
 import Navbar from "./components/Navigation/Navbar"
+import BottomNav from "./components/Navigation/BottomNav"
 
 import loginView from "./views/login"
 import registerView from "./views/register"
-import BottomNav from "./components/Navigation/BottomNav"
+import drawer from "./views/drawer"
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
     return (
-        <PaperProvider theme={theme}>
+        <>
             <View style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
                 <NavigationContainer>
                     <Stack.Navigator
@@ -36,6 +37,7 @@ export default function App() {
                             name="Register"
                             component={registerView}
                         />
+                        <Stack.Screen name="Drawer" component={drawer} />
                     </Stack.Navigator>
                     <BottomNav />
                 </NavigationContainer>
@@ -45,6 +47,6 @@ export default function App() {
                 animated={true}
                 backgroundColor={theme.colors.primaryDark}
             />
-        </PaperProvider>
+        </>
     )
 }

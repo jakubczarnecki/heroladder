@@ -1,11 +1,11 @@
 import styled from "styled-components/native"
 import theme from "../../styles/Theme"
+import Pressable from "../../components/Layout/Pressable"
 import { FontAwesome5 } from "@expo/vector-icons"
 
 export const DrawerWrapper = styled.View`
-    width: 100%;
-    height: 100%;
     padding: 10px;
+    height: 100%;
     background-color: ${theme.colors.grayLight};
     flex-direction: row;
     flex-wrap: wrap;
@@ -13,7 +13,12 @@ export const DrawerWrapper = styled.View`
     align-items: center;
 `
 
-export const TileContent = styled.View`
+export const TileContent = styled(Pressable).attrs(() => ({
+    pressStyle: {
+        borderRadius: 10,
+        backgroundColor: theme.colors.grayLighter,
+    },
+}))`
     padding: 20px;
     width: 135px;
     height: 135px;

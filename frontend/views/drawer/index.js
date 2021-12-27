@@ -1,5 +1,7 @@
 import React from "react"
+import LayoutWrapper from "../../components/Layout"
 import { Tile } from "../../components/Layout/Tile"
+import BottomNav from "../../components/Navigation/BottomNav"
 import { DrawerWrapper, TileContent, TileCaption, TileIcon } from "./styled"
 
 const navContent = [
@@ -12,16 +14,21 @@ const navContent = [
 ]
 
 const Drawer = () => (
-    <DrawerWrapper>
-        {navContent.map((tile, index) => (
-            <Tile boxMargin="15px" key={index}>
-                <TileContent>
-                    <TileIcon name={tile.icon} />
-                    <TileCaption>{tile.title}</TileCaption>
-                </TileContent>
-            </Tile>
-        ))}
-    </DrawerWrapper>
+    <>
+        <LayoutWrapper>
+            <DrawerWrapper>
+                {navContent.map((tile, index) => (
+                    <Tile boxMargin="15px" key={index}>
+                        <TileContent>
+                            <TileIcon name={tile.icon} />
+                            <TileCaption>{tile.title}</TileCaption>
+                        </TileContent>
+                    </Tile>
+                ))}
+            </DrawerWrapper>
+        </LayoutWrapper>
+        <BottomNav />
+    </>
 )
 
 export default Drawer

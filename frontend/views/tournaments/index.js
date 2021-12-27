@@ -1,15 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { View } from "react-native"
-import { Surface, Text } from "react-native-paper"
+import { Text } from "react-native"
+import LayoutWrapper from "../../components/Layout"
 
 const tournamentsView = ({ navigation }) => {
     return (
-        <Surface>
-            <View>
-                <Text>tournaments</Text>
-            </View>
-        </Surface>
+        <LayoutWrapper>
+            <Text>tournaments</Text>
+        </LayoutWrapper>
     )
 }
 

@@ -14,7 +14,6 @@ const registerView = ({ navigation }) => {
                     onPress={() => navigation.navigate("Login")}
                 />
             </LayoutWrapper>
-            <BottomNav />
         </>
     )
 }

@@ -1,7 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Text, Button } from "react-native"
-import BottomNav from "../../components/Navigation/BottomNav"
 import LayoutWrapper from "../../components/Layout"
 
 const loginView = ({ navigation }) => {
@@ -14,7 +13,6 @@ const loginView = ({ navigation }) => {
                     onPress={() => navigation.navigate("Register")}
                 />
             </LayoutWrapper>
-            <BottomNav />
         </>
     )
 }

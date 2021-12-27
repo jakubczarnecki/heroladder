@@ -9,13 +9,13 @@ const BottomNav = () => {
         <GradientWrapper>
             <BottomNavWrapper>
                 <IconsWrapper>
-                    <FontAwesome5 name="home" size={35} color="white" />
+                    <FontAwesome5 name="home" size={30} color="white" />
                     <FontAwesome5
                         name="map-marker-alt"
-                        size={35}
+                        size={30}
                         color="white"
                     />
-                    <FontAwesome5 name="th-list" size={35} color="white" />
+                    <FontAwesome5 name="th-list" size={30} color="white" />
                 </IconsWrapper>
             </BottomNavWrapper>
         </GradientWrapper>

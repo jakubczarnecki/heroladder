@@ -14,4 +14,5 @@ export const IconsWrapper = styled.View`
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    padding: 2px;
 `

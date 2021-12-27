@@ -1,17 +1,21 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { View } from "react-native"
 import { Text, Button } from "react-native"
+import BottomNav from "../../components/Navigation/BottomNav"
+import LayoutWrapper from "../../components/Layout"
 
 const loginView = ({ navigation }) => {
     return (
-        <View>
-            <Text>Strona Logowania</Text>
-            <Button
-                title="Do rejestracji"
-                onPress={() => navigation.navigate("Register")}
-            />
-        </View>
+        <>
+            <LayoutWrapper>
+                <Text>Strona Logowania</Text>
+                <Button
+                    title="Do rejestracji"
+                    onPress={() => navigation.navigate("Register")}
+                />
+            </LayoutWrapper>
+            <BottomNav />
+        </>
     )
 }
 

@@ -7,7 +7,6 @@ import { NavigationContainer } from "@react-navigation/native"
 
 import theme from "./styles/Theme"
 import Navbar from "./components/Navigation/Navbar"
-import BottomNav from "./components/Navigation/BottomNav"
 
 import loginView from "./views/login"
 import registerView from "./views/register"
@@ -39,7 +38,6 @@ export default function App() {
                         />
                         <Stack.Screen name="Drawer" component={drawer} />
                     </Stack.Navigator>
-                    <BottomNav />
                 </NavigationContainer>
             </View>
 

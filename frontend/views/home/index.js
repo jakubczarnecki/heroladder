@@ -1,15 +1,17 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { View } from "react-native"
-import { Surface, Text } from "react-native-paper"
+import { Text } from "react-native"
+import BottomNav from "../../components/Navigation/BottomNav"
+import LayoutWrapper from "../../components/Layout"
 
 const homeView = ({ navigation }) => {
     return (
-        <Surface>
-            <View>
+        <>
+            <LayoutWrapper>
                 <Text>home</Text>
-            </View>
-        </Surface>
+            </LayoutWrapper>
+            <BottomNav />
+        </>
     )
 }
 

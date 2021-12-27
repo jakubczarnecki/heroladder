@@ -14,7 +14,7 @@ const Navbar = ({ back, route, navigation }) => {
                     {route.name === "Drawer" ? (
                         <FontAwesome5
                             name="times"
-                            size={40}
+                            size={35}
                             color="white"
                             onPress={() => {
                                 navigation.goBack()
@@ -23,7 +23,7 @@ const Navbar = ({ back, route, navigation }) => {
                     ) : (
                         <FontAwesome5
                             name="bars"
-                            size={40}
+                            size={35}
                             color="white"
                             onPress={() => {
                                 navigation.navigate("Drawer")

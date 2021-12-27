@@ -1,5 +1,5 @@
 import React from "react"
-import { FontAwesome } from "@expo/vector-icons"
+import { FontAwesome5 } from "@expo/vector-icons"
 import { BottomNavWrapper } from "./styled"
 import GradientWrapper from "../../Layout/GradientWrapper"
 import { IconsWrapper } from "./styled"
@@ -9,9 +9,13 @@ const BottomNav = () => {
         <GradientWrapper>
             <BottomNavWrapper>
                 <IconsWrapper>
-                    <FontAwesome name="home" size={45} color="white" />
-                    <FontAwesome name="map-marker" size={45} color="white" />
-                    <FontAwesome name="th-list" size={45} color="white" />
+                    <FontAwesome5 name="home" size={35} color="white" />
+                    <FontAwesome5
+                        name="map-marker-alt"
+                        size={35}
+                        color="white"
+                    />
+                    <FontAwesome5 name="th-list" size={35} color="white" />
                 </IconsWrapper>
             </BottomNavWrapper>
         </GradientWrapper>

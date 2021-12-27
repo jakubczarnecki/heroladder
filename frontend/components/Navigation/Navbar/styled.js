@@ -1,7 +1,7 @@
 import styled from "styled-components/native"
 
 export const NavbarWrapper = styled.View`
-    padding: 13px;
+    padding: 14px;
     padding-left: 30px;
     padding-right: 30px;
     display: flex;

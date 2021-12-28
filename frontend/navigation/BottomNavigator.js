@@ -1,13 +1,14 @@
 import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import BottomNav from "../components/Navigation/BottomNav"
+import { BottomNav } from "../components/Navigation"
 
-import homeView from "../views/home"
-import areaView from "../views/area"
-import tournamentsView from "../views/tournaments"
-import loginView from "../views/login"
-import registerView from "../views/register"
-
+import {
+    homeView,
+    areaView,
+    tournamentsView,
+    loginView,
+    registerView,
+} from "../views"
 import { defaultOptions } from "./config"
 
 function BottomNavigator() {

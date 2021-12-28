@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
-import FadeInView from "../../components/Transitions/FadeInView"
+import { FadeInView } from "../../components/Transitions"
 import { Text } from "react-native"
-import LayoutWrapper from "../../components/Layout"
+import { LayoutWrapper } from "../../components/Layout"
 
 const areaView = ({ navigation }) => {
     return (

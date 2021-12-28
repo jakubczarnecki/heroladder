@@ -1,7 +1,7 @@
 import React from "react"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import Navbar from "../components/Navigation/Navbar"
-import DrawerComponent from "../components/Navigation/drawer"
+import { Navbar } from "../components/Navigation"
+import { Drawer as DrawerComponent } from "../components/Navigation"
 import BottomNavigator from "./BottomNavigator"
 
 const Drawer = createDrawerNavigator()

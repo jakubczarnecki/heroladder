@@ -1,7 +1,6 @@
-import styled from "styled-components/native"
+import GradientWrapper from "./GradientWrapper"
+import LayoutWrapper from "./LayoutWrapper"
+import Pressable from "./Pressable"
+import Tile from "./Tile"
 
-const LayoutWrapper = styled.View`
-    flex: 1;
-`
-
-export default LayoutWrapper
+export { GradientWrapper, LayoutWrapper, Pressable, Tile }

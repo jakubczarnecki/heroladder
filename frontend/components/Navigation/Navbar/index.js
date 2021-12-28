@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { FontAwesome5 } from "@expo/vector-icons"
 import { NavbarWrapper, LogoImg, IconsWrapper } from "./styled"
-import GradientWrapper from "../../Layout/GradientWrapper"
+import { GradientWrapper } from "../../Layout"
 import LogoWhite from "../../../assets/img/logo-01.png"
 
 const Navbar = ({ back, route, navigation }) => {

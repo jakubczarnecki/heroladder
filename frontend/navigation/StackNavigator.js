@@ -2,8 +2,7 @@ import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
 import { defaultOptions } from "./config"
-import loginView from "../views/login"
-import registerView from "../views/register"
+import { loginView, registerView } from "../views"
 
 const Stack = createStackNavigator()
 

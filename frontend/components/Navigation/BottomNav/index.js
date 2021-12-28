@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { FontAwesome5 } from "@expo/vector-icons"
 import { BottomNavWrapper, IconWrapper } from "./styled"
-import GradientWrapper from "../../Layout/GradientWrapper"
+import { GradientWrapper } from "../../Layout"
 import { IconsWrapper, BottomNavIcon } from "./styled"
 import content from "./content"
 

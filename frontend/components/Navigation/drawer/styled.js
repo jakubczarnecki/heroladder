@@ -1,6 +1,6 @@
 import styled from "styled-components/native"
 import theme from "../../../styles/Theme"
-import Pressable from "../../Layout/Pressable"
+import { Pressable } from "../../Layout"
 import { FontAwesome5 } from "@expo/vector-icons"
 
 export const DrawerWrapper = styled.View`

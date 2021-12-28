@@ -1,7 +1,7 @@
 import styled from "styled-components/native"
 import theme from "../../styles/Theme"
 
-export const Tile = styled.View`
+const Tile = styled.View`
     border-radius: 10px;
 
     shadow-color: #000;
@@ -21,3 +21,5 @@ export const Tile = styled.View`
         return props.boxMargin ? props.boxMargin : 0
     }};
 `
+
+export default Tile

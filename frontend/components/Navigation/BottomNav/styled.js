@@ -1,7 +1,7 @@
 import styled from "styled-components/native"
+import { FontAwesome5 } from "@expo/vector-icons"
 
 export const BottomNavWrapper = styled.View`
-    padding: 13px;
     padding-left: 30px;
     padding-right: 30px;
     flex-direction: row;
@@ -14,5 +14,16 @@ export const IconsWrapper = styled.View`
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 2px;
+`
+
+export const IconWrapper = styled.Pressable`
+    width: 80px;
+    height: 100%;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: ${(props) => {
+        return props.current ? "#ffffff30" : "transparent"
+    }}; ;
 `

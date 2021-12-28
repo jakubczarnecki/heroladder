@@ -2,12 +2,15 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Text } from "react-native"
 import LayoutWrapper from "../../components/Layout"
+import FadeInView from "../../components/Transitions/FadeInView"
 
 const tournamentsView = ({ navigation }) => {
     return (
-        <LayoutWrapper>
-            <Text>tournaments</Text>
-        </LayoutWrapper>
+        <FadeInView>
+            <LayoutWrapper>
+                <Text>tournaments</Text>
+            </LayoutWrapper>
+        </FadeInView>
     )
 }
 

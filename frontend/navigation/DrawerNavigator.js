@@ -1,27 +1,30 @@
 import React from "react"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import StackNavigator from "./StackNavigator"
 import Navbar from "../components/Navigation/Navbar"
 import DrawerComponent from "../components/Navigation/drawer"
+import BottomNavigator from "./BottomNavigator"
 
 const Drawer = createDrawerNavigator()
 
 const DrawerNavigator = () => {
     return (
         <Drawer.Navigator
-            drawerContent={() => <DrawerComponent />}
+            drawerContent={({ navigation }) => (
+                <DrawerComponent navigation={navigation} />
+            )}
             screenOptions={{
                 headerMode: "float",
                 header: ({ back, route, navigation }) => (
                     <Navbar back={back} route={route} navigation={navigation} />
                 ),
                 drawerPosition: "right",
+                drawerType: "slide",
                 drawerStyle: {
-                    width: "90%",
+                    width: "96%",
                 },
             }}
         >
-            <Drawer.Screen name="Home2" component={StackNavigator} />
+            <Drawer.Screen name="BottomNavigator" component={BottomNavigator} />
         </Drawer.Navigator>
     )
 }

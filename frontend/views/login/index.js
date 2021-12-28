@@ -2,10 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Text, Button } from "react-native"
 import LayoutWrapper from "../../components/Layout"
+import FadeInView from "../../components/Transitions/FadeInView"
 
 const loginView = ({ navigation }) => {
     return (
-        <>
+        <FadeInView>
             <LayoutWrapper>
                 <Text>Strona Logowania</Text>
                 <Button
@@ -13,7 +14,7 @@ const loginView = ({ navigation }) => {
                     onPress={() => navigation.navigate("Register")}
                 />
             </LayoutWrapper>
-        </>
+        </FadeInView>
     )
 }
 

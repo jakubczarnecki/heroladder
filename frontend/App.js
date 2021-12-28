@@ -7,6 +7,7 @@ import theme from "./styles/Theme"
 import MainStackNavigator from "./navigation/StackNavigator"
 import DrawerNavigator from "./navigation/DrawerNavigator"
 import { NavigationContainer } from "@react-navigation/native"
+import BottomNavigator from "./navigation/BottomNavigator"
 
 export default function App() {
     return (

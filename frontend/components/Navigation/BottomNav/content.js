@@ -1,13 +1,13 @@
 export default [
     {
-        title: "Home page",
+        title: "Home",
         icon: "home",
         onPress: (navigation) => {
             navigation.navigate("Home")
         },
     },
     {
-        title: "Your area",
+        title: "Area",
         icon: "map-marker-alt",
         onPress: (navigation) => {
             navigation.navigate("Area")
@@ -18,15 +18,6 @@ export default [
         icon: "th-list",
         onPress: (navigation) => {
             navigation.navigate("Tournaments")
-        },
-    },
-    { title: "", icon: "" },
-    { title: "", icon: "" },
-    {
-        title: "Logout",
-        icon: "sign-out-alt",
-        onPress: (navigation) => {
-            navigation.navigate("Login")
         },
     },
 ]

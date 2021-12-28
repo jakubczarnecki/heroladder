@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import LayoutWrapper from "../../Layout"
 import { Tile } from "../../Layout/Tile"
 import { DrawerWrapper, TileContent, TileCaption, TileIcon } from "./styled"
@@ -18,5 +19,9 @@ const Drawer = ({ navigation }) => (
         </DrawerWrapper>
     </LayoutWrapper>
 )
+
+Drawer.propTypes = {
+    navigation: PropTypes.object,
+}
 
 export default Drawer

@@ -1,6 +1,6 @@
 import React from "react"
-import LayoutWrapper from "../../components/Layout"
-import { Tile } from "../../components/Layout/Tile"
+import LayoutWrapper from "../../Layout"
+import { Tile } from "../../Layout/Tile"
 import { DrawerWrapper, TileContent, TileCaption, TileIcon } from "./styled"
 import navContent from "./content"
 

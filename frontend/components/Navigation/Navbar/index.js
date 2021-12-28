@@ -17,7 +17,7 @@ const Navbar = ({ back, route, navigation }) => {
                             size={35}
                             color="white"
                             onPress={() => {
-                                navigation.goBack()
+                                navigation.toggleDrawer()
                             }}
                         />
                     ) : (
@@ -26,7 +26,7 @@ const Navbar = ({ back, route, navigation }) => {
                             size={35}
                             color="white"
                             onPress={() => {
-                                navigation.navigate("Drawer")
+                                navigation.toggleDrawer()
                             }}
                         />
                     )}

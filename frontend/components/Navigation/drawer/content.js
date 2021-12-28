@@ -2,23 +2,23 @@ export default [
     {
         title: "Home page",
         icon: "home",
-        onPress: (navigation) => navigation.navigate("Home"),
+        onPress: (navigation) => {},
     },
     {
         title: "Your area",
         icon: "map-marker-alt",
-        onPress: (navigation) => navigation.navigate("Area"),
+        onPress: (navigation) => {},
     },
     {
         title: "Tournaments",
         icon: "th-list",
-        onPress: (navigation) => navigation.navigate("Tournaments"),
+        onPress: (navigation) => {},
     },
     { title: "", icon: "" },
     { title: "", icon: "" },
     {
         title: "Logout",
         icon: "sign-out-alt",
-        onPress: (navigation) => navigation.navigate("Login"),
+        onPress: (navigation) => {},
     },
 ]

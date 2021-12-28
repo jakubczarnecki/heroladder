@@ -11,6 +11,9 @@ export const ButtonWrapper = styled(Pressable).attrs(() => ({
     background-color: ${(props) => {
         return props.type === "contained" ? props.color : "transparent"
     }};
+    min-width: ${(props) => {
+        return props.size === "wide" ? "150px" : "0px"
+    }};
     padding: 14px;
     padding-left: 30px;
     padding-right: 30px;

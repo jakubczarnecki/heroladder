@@ -24,6 +24,7 @@ function BottomNavigator() {
                 />
             )}
             screenOptions={{ headerShown: false }}
+            initialRouteName="Login"
         >
             <Tab.Screen
                 name="Home"

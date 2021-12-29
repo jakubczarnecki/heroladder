@@ -30,6 +30,7 @@ const DrawerNavigator = () => {
                     width: "96%",
                 },
             }}
+            initialRouteName="Login"
         >
             <Drawer.Screen name="Home" component={homeView} />
             <Drawer.Screen name="Area" component={areaView} />

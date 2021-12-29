@@ -1,13 +1,31 @@
 import styled from "styled-components/native"
-import { GradientBackground, Tile, TitleSmall } from "../../components/Layout"
+import {
+    GradientBackground,
+    LayoutWrapperScroll,
+    Tile,
+    TitleSmall,
+} from "../../components/Layout"
 import { TextInput } from "../../components/Form"
 
 export const LoginWrapper = styled(GradientBackground)`
     flex: 1;
-    align-items: center;
-    justify-content: space-between;
+`
+
+export const LoginWrapperScroll = styled(LayoutWrapperScroll).attrs(() => ({
+    contentContainerStyle: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+}))`
+    flex: 1;
     padding-top: 40px;
     padding-bottom: 40px;
+`
+
+export const LogoWrapper = styled.View`
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 `
 
 export const StyledTile = styled(Tile)`
@@ -25,7 +43,7 @@ export const ButtonWrapper = styled.View`
 
 export const LoginTitle = styled(TitleSmall)`
     margin-top: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     margin-left: 3px;
 `
 

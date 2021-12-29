@@ -3,7 +3,7 @@ import styled from "styled-components/native"
 import { LinearGradient } from "expo-linear-gradient"
 
 const GradientWrapper = styled(LinearGradient).attrs({
-    colors: [theme.colors.primaryDarker, theme.colors.accent],
+    colors: [theme.colors.primary, theme.colors.accent],
 })``
 
 export default GradientWrapper

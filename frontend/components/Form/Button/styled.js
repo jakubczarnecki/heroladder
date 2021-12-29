@@ -12,7 +12,7 @@ export const ButtonWrapper = styled(Pressable).attrs(() => ({
         return props.type === "contained" ? props.color : "transparent"
     }};
     min-width: ${(props) => {
-        return props.size === "wide" ? "150px" : "0px"
+        return props.size === "wide" ? "150px" : "0"
     }};
     padding: 14px;
     padding-left: 30px;

@@ -7,7 +7,7 @@ export const Title = styled.Text`
     color: ${theme.colors.dark};
 `
 export const TitleSmall = styled.Text`
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: ${theme.colors.dark};
 `

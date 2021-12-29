@@ -26,7 +26,6 @@ const loginView = ({ navigation }) => {
                         <LoginTitle>Log in</LoginTitle>
                         <LoginInput placeholder="Login" />
                         <TextInput password={true} placeholder="***** ***" />
-                        <CircleButton icon="plus" />
                         <ButtonWrapper>
                             <Button
                                 title="Register"

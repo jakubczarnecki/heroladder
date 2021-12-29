@@ -38,7 +38,7 @@ export const StyledTile = styled(Tile)`
 export const ButtonWrapper = styled.View`
     flex-direction: row;
     align-self: center;
-    margin-top: 50px;
+    margin-top: 20px;
 `
 
 export const LoginTitle = styled(TitleSmall)`
@@ -47,7 +47,7 @@ export const LoginTitle = styled(TitleSmall)`
     margin-left: 3px;
 `
 
-export const LoginInput = styled(TextInput)`
-    margin-top: 10px;
-    margin-bottom: 10px;
+export const FormInput = styled(TextInput)`
+    margin-top: 8px;
+    margin-bottom: 8px;
 `

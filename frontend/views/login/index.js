@@ -2,14 +2,14 @@ import React from "react"
 import PropTypes from "prop-types"
 import { LogoImg } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { TextInput, Button, CircleButton } from "../../components/Form"
+import { Button } from "../../components/Form"
 import {
     ButtonWrapper,
     LoginWrapper,
     LoginWrapperScroll,
     StyledTile,
     LoginTitle,
-    LoginInput,
+    FormInput,
     LogoWrapper,
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
@@ -24,8 +24,8 @@ const loginView = ({ navigation }) => {
                     </LogoWrapper>
                     <StyledTile>
                         <LoginTitle>Log in</LoginTitle>
-                        <LoginInput placeholder="Login" />
-                        <TextInput password={true} placeholder="***** ***" />
+                        <FormInput placeholder="Login" />
+                        <FormInput password={true} placeholder="***** ***" />
                         <ButtonWrapper>
                             <Button
                                 title="Register"

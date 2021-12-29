@@ -47,12 +47,7 @@ export const LoginTitle = styled(TitleSmall)`
     margin-left: 3px;
 `
 
-export const LoginInput = styled(TextInput)`
-    margin-top: 10px;
-    margin-bottom: 10px;
-`
-
-export const PasswordInput = styled(TextInput)`
-    margin-top: 10px;
-    margin-bottom: 10px;
+export const FormInput = styled(TextInput)`
+    margin-top: 8px;
+    margin-bottom: 8px;
 `

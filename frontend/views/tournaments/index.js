@@ -12,6 +12,7 @@ import {
 } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
 import { TextInput, Button } from "../../components/Form"
+import MapMarker from "../../components/misc/MapMarker"
 
 const tournamentsView = ({ navigation }) => {
     return (
@@ -20,27 +21,31 @@ const tournamentsView = ({ navigation }) => {
                 <Text>TOURNAMENTS</Text>
                 <TextInput placeholder="Login" />
                 <TextInput password={true} placeholder="***** ***" />
-                <Button
-                    title="Do rejestracji"
-                    onPress={() => navigation.navigate("Register")}
-                />
+                <Button title="Do rejestracji" />
                 <Button
                     type="contained"
                     icon="eye"
                     disabled={true}
                     title="Do rejestracji"
-                    onPress={() => navigation.navigate("Register")}
                 />
                 <Button
                     type="outlined"
                     icon="eye"
                     color="accent"
                     title="Do rejestracji"
-                    onPress={() => navigation.navigate("Register")}
                 />
                 <Title>Title</Title>
                 <Subtitle>Subtitle</Subtitle>
                 <DetailText>28.12.2021 21:37</DetailText>
+                <MapMarker
+                    title="Turniej - siatkówka"
+                    icon="volleyball-ball"
+                    premium={false}
+                    date="30.11.2021 16:00"
+                    teamSize={6}
+                    teamCount={4}
+                    teamsAvailible={3}
+                />
                 <Paragraph>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Dolore possimus exercitationem, quas facilis eveniet est

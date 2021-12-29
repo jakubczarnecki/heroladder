@@ -12,8 +12,6 @@ export const ButtonWrapper = styled.View`
     }};
     position: relative;
     border-radius: 10px;
-    align-self: flex-start;
-    margin: 10px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -27,7 +25,9 @@ export const ButtonWrapper = styled.View`
 `
 
 export const ButtonContent = styled.View`
-    padding: 14px;
+    padding: ${(props) => {
+        return props.size === "thin" ? "8px" : "14px"
+    }};
     padding-left: 30px;
     padding-right: 30px;
 `

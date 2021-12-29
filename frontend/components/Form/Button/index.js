@@ -9,17 +9,25 @@ import {
 } from "./styled"
 import theme from "../../../styles/Theme"
 
-const Button = ({ title, icon, type, color, disabled, onPress, size }) => {
+const Button = ({
+    style,
+    title,
+    icon,
+    type,
+    color,
+    disabled,
+    onPress,
+    size,
+}) => {
     let themeColor = color ? theme.colors[color] : theme.colors.primary
 
     if (disabled) {
         themeColor = theme.colors.grayDark
-        onPress = null
     }
 
     return (
-        <ButtonWrapper type={type} color={themeColor} size={size}>
-            <ButtonContent>
+        <ButtonWrapper type={type} color={themeColor} size={size} style={style}>
+            <ButtonContent size={size}>
                 {icon && (
                     <ButtonIcon name="eye" type={type} color={themeColor} />
                 )}
@@ -28,13 +36,14 @@ const Button = ({ title, icon, type, color, disabled, onPress, size }) => {
                 </ButtonText>
             </ButtonContent>
 
-            <PressableOverlay onPress={onPress} />
+            {!disabled && <PressableOverlay onPress={onPress} />}
         </ButtonWrapper>
     )
 }
 
 Button.propTypes = {
-    size: PropTypes.oneOf(["normal", "wide"]),
+    style: PropTypes.array,
+    size: PropTypes.oneOf(["normal", "wide", "thin"]),
     title: PropTypes.string.isRequired,
     icon: PropTypes.string,
     type: PropTypes.oneOf(["text", "contained", "outlined"]),

@@ -10,11 +10,6 @@ export const NavbarWrapper = styled.View`
     align-items: center;
 `
 
-export const LogoImg = styled.Image`
-    width: ${(props) => props.width}px;
-    height: ${(props) => props.width / 2}px;
-`
-
 //flex-start -> same as display: block
 export const IconsWrapper = styled.View`
     justify-content: center;

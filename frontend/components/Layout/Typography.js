@@ -6,6 +6,11 @@ export const Title = styled.Text`
     font-weight: bold;
     color: ${theme.colors.dark};
 `
+export const TitleSmall = styled.Text`
+    font-size: 18px;
+    font-weight: bold;
+    color: ${theme.colors.dark};
+`
 
 export const Subtitle = styled.Text`
     font-size: 16px;

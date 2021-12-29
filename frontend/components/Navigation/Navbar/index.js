@@ -1,11 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { FontAwesome5 } from "@expo/vector-icons"
-import { NavbarWrapper, LogoImg, IconsWrapper } from "./styled"
-import { GradientWrapper } from "../../Layout"
+import { NavbarWrapper, IconsWrapper } from "./styled"
+import { LogoImg, GradientWrapper } from "../../Layout"
 import LogoWhite from "../../../assets/img/logo-01.png"
 
-const Navbar = ({ back, route, navigation }) => {
+const Navbar = ({ route, navigation }) => {
     return (
         <GradientWrapper>
             <NavbarWrapper>
@@ -37,7 +37,6 @@ const Navbar = ({ back, route, navigation }) => {
 }
 
 Navbar.propTypes = {
-    back: PropTypes.object,
     route: PropTypes.object,
     navigation: PropTypes.object,
 }

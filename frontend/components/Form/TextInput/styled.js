@@ -17,7 +17,6 @@ export const Input = styled.TextInput`
     padding-right: ${(props) => {
         return props.password ? "55px" : "14px"
     }};
-    margin: 10px;
 `
 
 export const InputWrapper = styled.View`
@@ -27,7 +26,7 @@ export const InputWrapper = styled.View`
 export const EyeIconWrapper = styled.Pressable`
     position: absolute;
     right: 30px;
-    top: 20px; ;
+    top: 25px;
 `
 
 export const EyeIcon = styled(FontAwesome5).attrs(() => ({

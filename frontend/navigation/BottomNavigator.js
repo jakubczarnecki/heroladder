@@ -25,33 +25,7 @@ function BottomNavigator() {
             )}
             screenOptions={{ headerShown: false }}
             initialRouteName="Login"
-        >
-            <Tab.Screen
-                name="Home"
-                component={homeView}
-                options={defaultOptions}
-            />
-            <Tab.Screen
-                name="Area"
-                component={areaView}
-                options={defaultOptions}
-            />
-            <Tab.Screen
-                name="Tournaments"
-                component={tournamentsView}
-                options={defaultOptions}
-            />
-            <Tab.Screen
-                name="Login"
-                component={loginView}
-                options={defaultOptions}
-            />
-            <Tab.Screen
-                name="Register"
-                component={registerView}
-                options={defaultOptions}
-            />
-        </Tab.Navigator>
+        ></Tab.Navigator>
     )
 }
 

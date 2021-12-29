@@ -18,7 +18,7 @@ const loginView = ({ navigation }) => {
             <LoginWrapper>
                 <LogoImg source={LogoWhite} width="275" />
                 <StyledTile>
-                    <LoginTitle>Logowanie</LoginTitle>
+                    <LoginTitle>Log in</LoginTitle>
                     <LoginInput placeholder="Login" />
                     <LoginInput password={true} placeholder="***** ***" />
                     <ButtonWrapper>

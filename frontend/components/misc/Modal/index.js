@@ -26,7 +26,7 @@ const Modal = ({
     }
 
     if (!submitText) {
-        submitText = "S"
+        submitText = "Save"
     }
 
     return (

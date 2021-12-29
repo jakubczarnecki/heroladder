@@ -2,7 +2,14 @@ import React from "react"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { Navbar } from "../components/Navigation"
 import { Drawer as DrawerComponent } from "../components/Navigation"
-import BottomNavigator from "./BottomNavigator"
+
+import {
+    homeView,
+    areaView,
+    tournamentsView,
+    loginView,
+    registerView,
+} from "../views"
 
 const Drawer = createDrawerNavigator()
 
@@ -24,7 +31,19 @@ const DrawerNavigator = () => {
                 },
             }}
         >
-            <Drawer.Screen name="BottomNavigator" component={BottomNavigator} />
+            <Drawer.Screen name="Home" component={homeView} />
+            <Drawer.Screen name="Area" component={areaView} />
+            <Drawer.Screen name="Tournaments" component={tournamentsView} />
+            <Drawer.Screen
+                name="Login"
+                component={loginView}
+                options={{ swipeEnabled: false, headerShown: false }}
+            />
+            <Drawer.Screen
+                name="Register"
+                component={registerView}
+                options={{ swipeEnabled: false, headerShown: false }}
+            />
         </Drawer.Navigator>
     )
 }

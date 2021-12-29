@@ -2,11 +2,7 @@ import styled from "styled-components/native"
 import { Pressable } from "../../Layout"
 import { FontAwesome5 } from "@expo/vector-icons"
 
-export const CircleButtonWrapper = styled(Pressable).attrs(() => ({
-    pressStyle: {
-        //Todo
-    },
-}))`
+export const CircleButtonWrapper = styled.View`
     background-color: ${(props) => {
         return props.color
     }};
@@ -20,7 +16,6 @@ export const CircleButtonWrapper = styled(Pressable).attrs(() => ({
     align-self: flex-start;
     width: 65px;
     height: 65px;
-    padding: 10px;
     border-radius: 50px;
     margin: 10px;
 
@@ -32,3 +27,16 @@ export const ButtonIcon = styled(FontAwesome5).attrs(() => ({
     size: 35,
     color: "white",
 }))``
+
+export const PressableOverlay = styled(Pressable).attrs(() => ({
+    pressStyle: {
+        backgroundColor: "#2927231d",
+    },
+}))`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    border-radius: 50px;
+`

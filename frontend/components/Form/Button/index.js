@@ -1,6 +1,12 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { ButtonIcon, ButtonText, ButtonWrapper } from "./styled"
+import {
+    ButtonContent,
+    ButtonIcon,
+    ButtonText,
+    ButtonWrapper,
+    PressableOverlay,
+} from "./styled"
 import theme from "../../../styles/Theme"
 
 const Button = ({ title, icon, type, color, disabled, onPress, size }) => {
@@ -12,16 +18,17 @@ const Button = ({ title, icon, type, color, disabled, onPress, size }) => {
     }
 
     return (
-        <ButtonWrapper
-            type={type}
-            color={themeColor}
-            onPress={onPress}
-            size={size}
-        >
-            {icon && <ButtonIcon name="eye" type={type} color={themeColor} />}
-            <ButtonText type={type} color={themeColor}>
-                {title}
-            </ButtonText>
+        <ButtonWrapper type={type} color={themeColor} size={size}>
+            <ButtonContent>
+                {icon && (
+                    <ButtonIcon name="eye" type={type} color={themeColor} />
+                )}
+                <ButtonText type={type} color={themeColor}>
+                    {title}
+                </ButtonText>
+            </ButtonContent>
+
+            <PressableOverlay onPress={onPress} />
         </ButtonWrapper>
     )
 }

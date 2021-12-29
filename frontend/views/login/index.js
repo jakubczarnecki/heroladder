@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { LogoImg } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { TextInput, Button } from "../../components/Form"
+import { TextInput, Button, CircleButton } from "../../components/Form"
 import {
     ButtonWrapper,
     LoginWrapper,
@@ -26,6 +26,7 @@ const loginView = ({ navigation }) => {
                         <LoginTitle>Log in</LoginTitle>
                         <LoginInput placeholder="Login" />
                         <TextInput password={true} placeholder="***** ***" />
+                        <CircleButton icon="plus" />
                         <ButtonWrapper>
                             <Button
                                 title="Register"

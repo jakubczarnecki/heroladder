@@ -1,18 +1,29 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { EyeIcon, EyeIconWrapper, Input, InputWrapper } from "./styled"
+import {
+    ErrorText,
+    EyeIcon,
+    EyeIconWrapper,
+    Input,
+    InputWrapper,
+} from "./styled"
 
-const TextInput = ({ style, ...rest }) => {
+const TextInput = ({ style, error, password, ...rest }) => {
     const [hidden, setHidden] = useState(true)
 
     return (
         <InputWrapper style={style}>
-            <Input secureTextEntry={rest.password ? hidden : false} {...rest} />
-            {rest.password && (
+            <Input
+                secureTextEntry={password ? hidden : false}
+                error={error}
+                {...rest}
+            />
+            {password && (
                 <EyeIconWrapper onPress={() => setHidden(!hidden)}>
                     <EyeIcon name={hidden ? "eye" : "eye-slash"} />
                 </EyeIconWrapper>
             )}
+            {error && <ErrorText>{error}</ErrorText>}
         </InputWrapper>
     )
 }

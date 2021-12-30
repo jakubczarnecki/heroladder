@@ -1,9 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
-import { View } from "react-native"
-import { LogoImg } from "../../components/Layout"
+import { LogoImg, Title } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { Button } from "../../components/Form"
 import {
     ButtonWrapper,
     LoginWrapper,
@@ -16,7 +15,19 @@ import {
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
 
+import { loginUser } from "../../redux/actions/userActions"
+
 const loginView = ({ navigation }) => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const dispatch = useDispatch()
+
+    const loading = useSelector((state) => state.ui.loading)
+
+    const onSubmit = () => {
+        dispatch(loginUser({ email, password }))
+    }
+
     return (
         <FadeInView>
             <LoginWrapper>
@@ -25,9 +36,18 @@ const loginView = ({ navigation }) => {
                         <LogoImg source={LogoWhite} width="250" />
                     </LogoWrapper>
                     <StyledTile>
+                        {loading && <Title>Loading</Title>}
+
                         <LoginTitle>Log in</LoginTitle>
-                        <FormInput placeholder="Login" />
-                        <FormInput password={true} placeholder="***** ***" />
+                        <FormInput
+                            placeholder="Email"
+                            onChangeText={setEmail}
+                        />
+                        <FormInput
+                            password={true}
+                            placeholder="***** ***"
+                            onChangeText={setPassword}
+                        />
                         <ButtonWrapper>
                             <LoginButton
                                 title="Register"
@@ -40,7 +60,7 @@ const loginView = ({ navigation }) => {
                                 color="primary"
                                 title="Log in"
                                 size="wide"
-                                onPress={() => navigation.navigate("Home")}
+                                onPress={onSubmit}
                             />
                         </ButtonWrapper>
                     </StyledTile>

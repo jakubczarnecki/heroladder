@@ -29,6 +29,7 @@ authRouter.post("/register", async (req, res, next) => {
   }
 });
 
+
 //login
 authRouter.post("/login", async (req, res, next) => {
   try {

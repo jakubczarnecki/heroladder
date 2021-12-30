@@ -5,7 +5,7 @@ import {
     Tile,
     TitleSmall,
 } from "../../components/Layout"
-import { TextInput } from "../../components/Form"
+import { Button, TextInput } from "../../components/Form"
 
 export const LoginWrapper = styled(GradientBackground)`
     flex: 1;
@@ -13,26 +13,24 @@ export const LoginWrapper = styled(GradientBackground)`
 
 export const LoginWrapperScroll = styled(LayoutWrapperScroll).attrs(() => ({
     contentContainerStyle: {
-        justifyContent: "center",
+        flexGrow: 1,
+        justifyContent: "space-between",
         alignItems: "center",
     },
-}))`
-    flex: 1;
-    padding-top: 40px;
-    padding-bottom: 40px;
-`
+}))``
 
 export const LogoWrapper = styled.View`
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 25px;
+    flex-grow: 1;
 `
 
 export const StyledTile = styled(Tile)`
     /* height: 65%; */
-    margin-top: 13%;
     width: 90%;
     padding: 20px;
+    margin-bottom: 20px;
 `
 
 export const ButtonWrapper = styled.View`
@@ -50,4 +48,8 @@ export const LoginTitle = styled(TitleSmall)`
 export const FormInput = styled(TextInput)`
     margin-top: 8px;
     margin-bottom: 8px;
+`
+
+export const LoginButton = styled(Button)`
+    margin: 10px;
 `

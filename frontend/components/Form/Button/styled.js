@@ -30,6 +30,7 @@ export const ButtonContent = styled.View`
     }};
     padding-left: 30px;
     padding-right: 30px;
+    flex-direction: row;
 `
 
 export const ButtonText = styled.Text`

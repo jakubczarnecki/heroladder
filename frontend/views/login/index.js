@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { View } from "react-native"
 import { LogoImg } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
 import { Button } from "../../components/Form"
@@ -11,6 +12,7 @@ import {
     LoginTitle,
     FormInput,
     LogoWrapper,
+    LoginButton,
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
 
@@ -27,13 +29,13 @@ const loginView = ({ navigation }) => {
                         <FormInput placeholder="Login" />
                         <FormInput password={true} placeholder="***** ***" />
                         <ButtonWrapper>
-                            <Button
+                            <LoginButton
                                 title="Register"
                                 size="wide"
                                 color="primaryDarker"
                                 onPress={() => navigation.navigate("Register")}
                             />
-                            <Button
+                            <LoginButton
                                 type="contained"
                                 color="primary"
                                 title="Log in"

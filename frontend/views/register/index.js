@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { LogoImg } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { Button } from "../../components/Form"
 import {
     ButtonWrapper,
     LoginWrapper,
@@ -11,6 +10,7 @@ import {
     FormInput,
     LoginTitle,
     LogoWrapper,
+    LoginButton,
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
 
@@ -32,13 +32,13 @@ const registerView = ({ navigation }) => {
                             placeholder="Repeat password"
                         />
                         <ButtonWrapper>
-                            <Button
+                            <LoginButton
                                 title="Back to login"
                                 color="primaryDarker"
                                 size="wide"
                                 onPress={() => navigation.navigate("Login")}
                             />
-                            <Button
+                            <LoginButton
                                 type="contained"
                                 color="primary"
                                 title="Register"

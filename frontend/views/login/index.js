@@ -23,6 +23,7 @@ const loginView = ({ navigation }) => {
     const dispatch = useDispatch()
 
     const loading = useSelector((state) => state.ui.loading)
+    const error = useSelector((state) => state.ui.errors)
 
     const onSubmit = () => {
         dispatch(loginUser({ email, password }))
@@ -47,6 +48,7 @@ const loginView = ({ navigation }) => {
                             password={true}
                             placeholder="***** ***"
                             onChangeText={setPassword}
+                            error={error}
                         />
                         <ButtonWrapper>
                             <LoginButton

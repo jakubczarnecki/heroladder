@@ -3,13 +3,10 @@ import { CLEAR_ERRORS, SET_ERRORS, SET_LOADING_UI, SET_USER } from "../types"
 
 export const loginUser = (userData) => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
-    console.log("Logowanie...")
     axios
         .post("/auth/login", userData)
         .then((res) => {
-            // console.log(res)
             setAuthorizationHeader(res.data.token)
-
             const user = {
                 id: res.data.id,
                 username: res.data.username,
@@ -18,20 +15,16 @@ export const loginUser = (userData) => (dispatch) => {
                 tournamentsHistory: res.data.tournamentsHistory,
             }
 
-            console.log(user)
-
             dispatch({
                 type: SET_USER,
                 payload: user,
             })
-
             dispatch({ type: CLEAR_ERRORS })
-
             // navigate to home
         })
         .catch((err) => {
-            console.log("err", err)
-            // dispatch({ type: SET_ERRORS, payload: err.response.data })
+            console.log("err", err.response.data)
+            dispatch({ type: SET_ERRORS, payload: err.response.data })
         })
 }
 

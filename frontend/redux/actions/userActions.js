@@ -1,5 +1,11 @@
 import axios from "axios"
-import { CLEAR_ERRORS, SET_ERRORS, SET_LOADING_UI, SET_USER } from "../types"
+import {
+    CLEAR_ERRORS,
+    SET_ERRORS,
+    SET_LOADING_UI,
+    SET_USER,
+    SET_UNAUTHENTICATED,
+} from "../types"
 
 export const loginUser = (userData) => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
@@ -8,7 +14,7 @@ export const loginUser = (userData) => (dispatch) => {
         .then((res) => {
             setAuthorizationHeader(res.data.token)
             const user = {
-                id: res.data.id,
+                id: res.data._id,
                 username: res.data.username,
                 email: res.data.email,
                 achievements: res.data.achievements,
@@ -31,6 +37,10 @@ export const loginUser = (userData) => (dispatch) => {
 export const getUserData = () => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
     console.log("getUserData")
+}
+
+export const logout = () => (dispatch) => {
+    dispatch({ type: SET_UNAUTHENTICATED })
 }
 
 const setAuthorizationHeader = (token) => {

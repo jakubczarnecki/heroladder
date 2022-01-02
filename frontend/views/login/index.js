@@ -25,6 +25,9 @@ const loginView = ({ navigation }) => {
     const loading = useSelector((state) => state.ui.loading)
     const error = useSelector((state) => state.ui.errors)
 
+    const userID = useSelector((state) => state.user.id)
+    console.log("LOGIN: ", userID)
+
     const onSubmit = () => {
         dispatch(loginUser({ email, password }))
     }

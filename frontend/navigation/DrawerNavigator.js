@@ -1,4 +1,5 @@
 import React from "react"
+import { useSelector } from "react-redux"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { Navbar } from "../components/Navigation"
 import { Drawer as DrawerComponent } from "../components/Navigation"
@@ -14,6 +15,8 @@ import {
 const Drawer = createDrawerNavigator()
 
 const DrawerNavigator = () => {
+    const userID = useSelector((state) => state.user.id)
+
     return (
         <Drawer.Navigator
             drawerContent={({ navigation }) => (
@@ -32,19 +35,29 @@ const DrawerNavigator = () => {
             }}
             initialRouteName="Area"
         >
-            <Drawer.Screen name="Home" component={homeView} />
-            <Drawer.Screen name="Area" component={areaView} />
-            <Drawer.Screen name="Tournaments" component={tournamentsView} />
-            <Drawer.Screen
-                name="Login"
-                component={loginView}
-                options={{ swipeEnabled: false, headerShown: false }}
-            />
-            <Drawer.Screen
-                name="Register"
-                component={registerView}
-                options={{ swipeEnabled: false, headerShown: false }}
-            />
+            {userID ? (
+                <>
+                    <Drawer.Screen name="Home" component={homeView} />
+                    <Drawer.Screen name="Area" component={areaView} />
+                    <Drawer.Screen
+                        name="Tournaments"
+                        component={tournamentsView}
+                    />
+                </>
+            ) : (
+                <>
+                    <Drawer.Screen
+                        name="Login"
+                        component={loginView}
+                        options={{ swipeEnabled: false, headerShown: false }}
+                    />
+                    <Drawer.Screen
+                        name="Register"
+                        component={registerView}
+                        options={{ swipeEnabled: false, headerShown: false }}
+                    />
+                </>
+            )}
         </Drawer.Navigator>
     )
 }

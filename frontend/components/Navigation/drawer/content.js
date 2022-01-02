@@ -1,3 +1,5 @@
+import { logout } from "../../../redux/actions/userActions"
+
 export default [
     {
         title: "Home page",
@@ -25,8 +27,9 @@ export default [
     {
         title: "Logout",
         icon: "sign-out-alt",
-        onPress: (navigation) => {
-            navigation.navigate("Login")
+        onPress: (navigation, dispatch) => {
+            navigation.closeDrawer()
+            dispatch(logout())
         },
     },
 ]

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import { LogoImg, Title } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
+import Loader from "frontend/components/misc/Loader.js"
 import {
     ButtonWrapper,
     LoginWrapper,
@@ -12,6 +13,8 @@ import {
     FormInput,
     LogoWrapper,
     LoginButton,
+    LoadingWrapper,
+    LoadingView,
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
 
@@ -26,7 +29,7 @@ const loginView = ({ navigation }) => {
     const error = useSelector((state) => state.ui.errors)
 
     // skip login page
-    dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
+    // dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
 
     const onSubmit = () => {
         dispatch(loginUser({ email, password }))
@@ -39,38 +42,48 @@ const loginView = ({ navigation }) => {
                     <LogoWrapper>
                         <LogoImg source={LogoWhite} width="250" />
                     </LogoWrapper>
-                    <StyledTile>
-                        {loading && <Title>Loading</Title>}
+                    <LoadingView>
+                        <StyledTile>
+                            <LoginTitle>Log in</LoginTitle>
+                            <FormInput
+                                title="Email"
+                                placeholder="Email"
+                                // value="piponsz@gmail.com"
+                                onChangeText={setEmail}
+                            />
+                            <FormInput
+                                title="Password"
+                                password={true}
+                                // value="qwerty123"
+                                placeholder="***** ***"
+                                onChangeText={setPassword}
+                                error={error}
+                            />
 
-                        <LoginTitle>Log in</LoginTitle>
-                        <FormInput
-                            title="Email"
-                            placeholder="Email"
-                            onChangeText={setEmail}
-                        />
-                        <FormInput
-                            title="Password"
-                            password={true}
-                            placeholder="***** ***"
-                            onChangeText={setPassword}
-                            error={error}
-                        />
-                        <ButtonWrapper>
-                            <LoginButton
-                                title="Register"
-                                size="wide"
-                                color="primaryDarker"
-                                onPress={() => navigation.navigate("Register")}
-                            />
-                            <LoginButton
-                                type="contained"
-                                color="primary"
-                                title="Log in"
-                                size="wide"
-                                onPress={onSubmit}
-                            />
-                        </ButtonWrapper>
-                    </StyledTile>
+                            <ButtonWrapper>
+                                <LoginButton
+                                    title="Register"
+                                    size="wide"
+                                    color="primaryDarker"
+                                    onPress={() =>
+                                        navigation.navigate("Register")
+                                    }
+                                />
+                                <LoginButton
+                                    type="contained"
+                                    color="primary"
+                                    title="Log in"
+                                    size="wide"
+                                    onPress={onSubmit}
+                                />
+                            </ButtonWrapper>
+                        </StyledTile>
+                        {loading && (
+                            <LoadingWrapper>
+                                <Loader size={40} color="white" />
+                            </LoadingWrapper>
+                        )}
+                    </LoadingView>
                 </LoginWrapperScroll>
             </LoginWrapper>
         </FadeInView>

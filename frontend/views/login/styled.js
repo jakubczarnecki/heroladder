@@ -26,11 +26,19 @@ export const LogoWrapper = styled.View`
     flex-grow: 1;
 `
 
+export const LoadingView = styled.View`
+    position: relative;
+    width: 90%;
+    /* padding: 20px; */
+    margin-bottom: 20px;
+`
+
 export const StyledTile = styled(Tile)`
     /* height: 65%; */
-    width: 90%;
+    /* position: relative;
+    /* width: 90%; */
     padding: 20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 `
 
 export const ButtonWrapper = styled.View`
@@ -52,4 +60,13 @@ export const FormInput = styled(TextInput)`
 
 export const LoginButton = styled(Button)`
     margin: 10px;
+`
+export const LoadingWrapper = styled.View`
+    width: 100%;
+    height: 100%;
+    background-color: #00000077;
+    position: absolute;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
 `

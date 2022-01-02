@@ -14,18 +14,22 @@ export const CircleButtonWrapper = styled.View`
     elevation: 3;
 
     align-self: flex-start;
-    width: 65px;
-    height: 65px;
-    border-radius: 50px;
+    width: ${(props) => {
+        return props.size ? props.size * 65 : 65
+    }}px;
+    height: ${(props) => {
+        return props.size ? props.size * 65 : 65
+    }}px;
+    border-radius: 500px;
     margin: 10px;
 
     justify-content: center;
     align-items: center;
 `
 
-export const ButtonIcon = styled(FontAwesome5).attrs(() => ({
-    size: 35,
-    color: "white",
+export const ButtonIcon = styled(FontAwesome5).attrs((props) => ({
+    size: props.size ? 35 * props.size : 35,
+    color: props.color,
 }))``
 
 export const PressableOverlay = styled(Pressable).attrs(() => ({

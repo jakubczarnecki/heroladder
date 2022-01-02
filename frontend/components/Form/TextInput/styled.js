@@ -32,7 +32,7 @@ export const InputWrapper = styled.View`
 export const EyeIconWrapper = styled.Pressable`
     position: absolute;
     right: 30px;
-    top: 10px;
+    top: 26px;
 `
 
 export const EyeIcon = styled(FontAwesome5).attrs(() => ({

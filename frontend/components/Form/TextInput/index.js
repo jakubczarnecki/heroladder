@@ -7,12 +7,14 @@ import {
     Input,
     InputWrapper,
 } from "./styled"
+import { DetailText } from "../../Layout"
 
-const TextInput = ({ style, error, password, ...rest }) => {
+const TextInput = ({ style, error, title, password, ...rest }) => {
     const [hidden, setHidden] = useState(true)
 
     return (
         <InputWrapper style={style}>
+            <DetailText>{title}</DetailText>
             <Input
                 secureTextEntry={password ? hidden : false}
                 error={error}
@@ -30,6 +32,8 @@ const TextInput = ({ style, error, password, ...rest }) => {
 
 TextInput.propTypes = {
     style: PropTypes.array,
+    error: PropTypes.string,
+    title: PropTypes.string,
     password: PropTypes.bool,
 }
 

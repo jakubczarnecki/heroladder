@@ -12,6 +12,12 @@ export const TitleSmall = styled.Text`
     color: ${theme.colors.dark};
 `
 
+export const TitleSmaller = styled.Text`
+    font-size: 16px;
+    font-weight: bold;
+    color: ${theme.colors.dark};
+`
+
 export const Subtitle = styled.Text`
     font-size: 16px;
     color: ${theme.colors.grayDark};

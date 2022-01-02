@@ -7,6 +7,8 @@ import {
 } from "../../components/Layout"
 import defaultBackground from "../../assets/img/defaultProfileBackground.jpg"
 import { LinearGradient } from "expo-linear-gradient"
+import { FontAwesome5 } from "@expo/vector-icons"
+import { CircleButton } from "../../components/Form"
 
 export const ProfileWrapperScroll = styled(LayoutWrapperScroll)`
     background-color: ${theme.colors.grayLight};
@@ -24,6 +26,17 @@ export const BackgroundWrapper = styled.ImageBackground.attrs((props) => ({
 }))`
     height: 250px;
     width: 100%;
+`
+
+export const SettingsIcon = styled(CircleButton).attrs(() => ({
+    color: "white",
+    iconColor: "dark",
+    icon: "ellipsis-h",
+    size: 0.75,
+}))`
+    position: absolute;
+    right: 25px;
+    top: 25px;
 `
 
 export const GradientOverlay = styled(LinearGradient).attrs({

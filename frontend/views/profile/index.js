@@ -1,37 +1,35 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import {
     AvatarWrapper,
     BackgroundWrapper,
     GradientOverlay,
     ProfileContent,
-    ProfileDetails,
     ProfileHeader,
     ProfileWrapperScroll,
     Section,
     SectionHeader,
+    SettingsIcon,
     TournamentHistory,
     UserSubtitle,
 } from "./styled"
 import { FadeInView } from "../../components/Transitions"
 import bg2 from "../../assets/img/bg2.jpg"
 import { Avatar } from "../../components/misc"
-import {
-    DetailText,
-    Paragraph,
-    Subtitle,
-    Tile,
-    Title,
-} from "../../components/Layout"
+import { Paragraph, Title } from "../../components/Layout"
 import { TournamentSmallTile } from "../../components/Tournaments"
+import SettingsModal from "./SettingsModal"
 
 const profileView = ({ navigation }) => {
+    const [modalOpen, setModalOpen] = useState(false)
+
     return (
         <FadeInView>
             <ProfileWrapperScroll>
                 <ProfileHeader>
-                    <BackgroundWrapper profileBackground={bg2}>
+                    <BackgroundWrapper>
                         <GradientOverlay />
+                        <SettingsIcon onPress={() => setModalOpen(true)} />
                     </BackgroundWrapper>
                     <AvatarWrapper>
                         <Avatar
@@ -81,6 +79,11 @@ const profileView = ({ navigation }) => {
                     </Section>
                 </ProfileContent>
             </ProfileWrapperScroll>
+            <SettingsModal
+                isOpen={modalOpen}
+                onCancel={() => setModalOpen(false)}
+                onSubmit={() => setModalOpen(false)}
+            />
         </FadeInView>
     )
 }

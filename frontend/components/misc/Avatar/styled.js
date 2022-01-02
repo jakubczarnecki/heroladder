@@ -5,6 +5,12 @@ import { Pressable } from "../../Layout"
 export const AvatarWrapper = styled.View`
     border-radius: 500px;
     overflow: hidden;
+
+    shadow-color: #000;
+    shadow-opacity: 0.25;
+    shadow-radius: 3px;
+    shadow-offset: 0px 2px;
+    elevation: 3;
 `
 
 export const RoundedPressable = styled(Pressable)``

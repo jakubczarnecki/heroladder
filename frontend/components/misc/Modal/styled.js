@@ -2,18 +2,20 @@ import styled from "styled-components/native"
 import theme from "../../../styles/Theme"
 import { Tile } from "../../Layout"
 
-export const ModalBackdrop = styled.View`
+export const ModalBackdrop = styled.ScrollView.attrs(() => ({
+    contentContainerStyle: {
+        justifyContent: "center",
+    },
+}))`
     background-color: #00000097;
     position: absolute;
-    justify-content: center;
     width: 100%;
     height: 100%;
 `
 
 export const ModalWrapper = styled(Tile)`
     padding: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 20px;
 `
 
 export const ModalHeader = styled.View`
@@ -24,8 +26,8 @@ export const ModalHeader = styled.View`
 `
 
 export const ModalContent = styled.View`
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
 `
 
 export const ButtonsWrapper = styled.View`

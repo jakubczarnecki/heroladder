@@ -8,6 +8,7 @@ import { LogoImg } from "./LogoImg"
 import {
     Title,
     TitleSmall,
+    TitleSmaller,
     Subtitle,
     Paragraph,
     ParagraphBold,
@@ -24,6 +25,7 @@ export {
     Tile,
     Title,
     TitleSmall,
+    TitleSmaller,
     Subtitle,
     Paragraph,
     ParagraphBold,

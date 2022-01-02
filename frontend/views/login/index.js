@@ -44,10 +44,12 @@ const loginView = ({ navigation }) => {
 
                         <LoginTitle>Log in</LoginTitle>
                         <FormInput
+                            title="Email"
                             placeholder="Email"
                             onChangeText={setEmail}
                         />
                         <FormInput
+                            title="Password"
                             password={true}
                             placeholder="***** ***"
                             onChangeText={setPassword}

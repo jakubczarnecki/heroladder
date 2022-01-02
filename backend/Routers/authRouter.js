@@ -29,7 +29,6 @@ authRouter.post("/register", async (req, res, next) => {
   }
 });
 
-
 //login
 authRouter.post("/login", async (req, res, next) => {
   try {
@@ -42,7 +41,7 @@ authRouter.post("/login", async (req, res, next) => {
     );
     !isPasswordValid && res.status(404).json("Wrong Password.");
 
-    const token = jwt.sign({ email: user.email }, process.env.PRIVATE_KEY, {
+    const token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, {
       expiresIn: "600s",
     });
 
@@ -62,10 +61,9 @@ const authenticate = (req, res, next) => {
 
   !token && res.status(401).send("Missing token.");
 
-  jwt.verify(token, process.env.PRIVATE_KEY, (err, email) => {
+  jwt.verify(token, process.env.PRIVATE_KEY, (err, _id) => {
+    res._id = _id;
     err && res.status(403).send("Invalid token.");
-
-    req.email = email;
     next();
   });
 };

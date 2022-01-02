@@ -24,29 +24,29 @@ userRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-//update user by id
-userRouter.put("/:id", async (req, res, next) => {
+//update yourself
+userRouter.put("/", async (req, res, next) => {
+  req.body.password &&
+    (req.body.password = await utils.encryptPassword(req.body.password));
   try {
-    req.body.password &&
-      (req.body.password = await utils.encryptPassword(req.body.password));
-    const user = await User.findOneAndUpdate(
-      { _id: req.params.id },
+    await User.findOneAndUpdate(
+      { _id: res._id.id },
       {
         $set: req.body,
       },
       { useFindAndModify: false }
     );
-    res.status(200).send(`Account ${user.username} has been updated.`);
+    res.status(200).send(`Your account has been updated.`);
   } catch (err) {
     next(err);
   }
 });
 
-//delete user by id
-userRouter.delete("/:id", async (req, res, next) => {
+//delete yourself
+userRouter.delete("/", async (req, res, next) => {
   try {
-    const user = await User.findOneAndDelete({ _id: req.params.id });
-    res.status(200).send(`Account ${user.username} has been deleted.`);
+    await User.findOneAndDelete({ _id: res._id.id });
+    res.status(200).send(`Your account has been deleted successfully.`);
   } catch (err) {
     next(err);
   }

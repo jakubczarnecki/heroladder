@@ -9,6 +9,13 @@ export default [
         },
     },
     {
+        title: "Your profile",
+        icon: "user-alt",
+        onPress: (navigation) => {
+            navigation.navigate("Profile")
+        },
+    },
+    {
         title: "Your area",
         icon: "map-marker-alt",
         onPress: (navigation) => {
@@ -22,7 +29,6 @@ export default [
             navigation.navigate("Tournaments")
         },
     },
-    { title: "", icon: "" },
     { title: "", icon: "" },
     {
         title: "Logout",

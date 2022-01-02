@@ -1,4 +1,5 @@
 import axios from "axios"
+import * as SecureStore from "expo-secure-store"
 import {
     CLEAR_ERRORS,
     SET_ERRORS,
@@ -43,8 +44,9 @@ export const logout = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED })
 }
 
-const setAuthorizationHeader = (token) => {
+const setAuthorizationHeader = async (token) => {
     const authHeader = `Bearer ${token}`
     // set header to some local storage
+    await SecureStore.setItemAsync("authToken", authHeader)
     axios.defaults.headers.common["authorization"] = authHeader
 }

@@ -19,7 +19,11 @@ const Tile = styled.View`
 
     margin: ${(props) => {
         return props.boxMargin ? props.boxMargin : 0
-    }};
+    }}px;
+
+    padding: ${(props) => {
+        return props.boxPadding ? props.boxPadding : 0
+    }}px;
 `
 
 export default Tile

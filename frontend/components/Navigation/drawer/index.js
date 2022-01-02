@@ -12,7 +12,7 @@ const Drawer = ({ navigation }) => {
         <LayoutWrapper>
             <DrawerWrapper>
                 {navContent.map((tile, index) => (
-                    <Tile boxMargin="15px" key={index}>
+                    <Tile boxMargin="15" key={index}>
                         <TileContent
                             onPress={() => tile.onPress(navigation, dispatch)}
                         >

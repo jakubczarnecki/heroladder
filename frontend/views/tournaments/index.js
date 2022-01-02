@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Text } from "react-native"
+import * as SecureStore from "expo-secure-store"
 import {
     LayoutWrapperScroll,
     Paragraph,
@@ -11,8 +12,17 @@ import {
     ParagraphBold,
 } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { TextInput, Button } from "../../components/Form"
-import MapMarker from "../../components/misc/MapMarker"
+import { TextInput, Button, CircleButton } from "../../components/Form"
+import { MapMarker } from "../../components/misc"
+
+async function getValueFor(key) {
+    let result = await SecureStore.getItemAsync(key)
+    if (result) {
+        console.log(result)
+    } else {
+        console.log("No values stored under that key.")
+    }
+}
 
 const tournamentsView = ({ navigation }) => {
     return (
@@ -33,9 +43,11 @@ const tournamentsView = ({ navigation }) => {
                     icon="eye"
                     color="accent"
                     title="Do rejestracji"
+                    onPress={() => getValueFor("authToken")}
                 />
                 <Title>Title</Title>
                 <Subtitle>Subtitle</Subtitle>
+                <CircleButton icon="plus" />
                 <DetailText>28.12.2021 21:37</DetailText>
                 <MapMarker
                     title="Turniej - siatkówka"

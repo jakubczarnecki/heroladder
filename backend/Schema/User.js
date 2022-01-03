@@ -22,14 +22,20 @@ const UserSchema = new mongoose.Schema(
       require: true,
       min: 6,
     },
-    picture: {
-      data: Buffer,
-      contentType: String,
+
+    avatarId: {
+      type: String,
     },
+
+    backgroundId: {
+      type: String,
+    },
+
     tournamentsHistory: {
       type: Array,
       default: [],
     },
+
     achievements: {
       type: Array,
       default: [],

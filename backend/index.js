@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import cors from "cors";
+import upload from "multer";
 
 const app = express();
 

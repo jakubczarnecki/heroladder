@@ -10,4 +10,12 @@ const comparePassword = async (password, databasePassword) => {
   return await compare(password, databasePassword);
 };
 
-export default { encryptPassword, comparePassword };
+const pictureFrom = (file) => {
+  return {
+    name: file.originalname,
+    data: file.buffer,
+    contentType: "image/png",
+  };
+};
+
+export default { encryptPassword, comparePassword, pictureFrom };

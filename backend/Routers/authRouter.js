@@ -17,9 +17,6 @@ authRouter.post("/register", async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
-      picture: req.body.picture,
-      tournamentsHistory: req.body.tournamentsHistory,
-      achievements: req.body.achievements,
     });
 
     const finalUser = await newUser.save();
@@ -42,7 +39,7 @@ authRouter.post("/login", async (req, res, next) => {
     !isPasswordValid && res.status(404).json("Wrong Password.");
 
     const token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, {
-      expiresIn: "600s",
+      expiresIn: "6000s",
     });
 
     user._doc.token = token;

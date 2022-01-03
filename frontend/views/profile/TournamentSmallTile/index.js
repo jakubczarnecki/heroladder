@@ -8,7 +8,7 @@ import {
     Tile,
     Title,
     TitleSmall,
-} from "../../Layout"
+} from "../../../components/Layout"
 import { TournamentIcon, TournamentWrapper } from "./styled"
 
 const TournamentSmallTile = ({ icon, title, date, tournamentID }) => {

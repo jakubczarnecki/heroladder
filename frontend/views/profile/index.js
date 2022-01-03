@@ -17,7 +17,7 @@ import { FadeInView } from "../../components/Transitions"
 import bg2 from "../../assets/img/bg2.jpg"
 import { Avatar } from "../../components/misc"
 import { Paragraph, Title } from "../../components/Layout"
-import { TournamentSmallTile } from "../../components/Tournaments"
+import TournamentSmallTile from "./TournamentSmallTile"
 import SettingsModal from "./SettingsModal"
 
 const profileView = ({ navigation }) => {

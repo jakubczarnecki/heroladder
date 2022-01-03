@@ -13,8 +13,8 @@ const HelloBox = () => {
             <TextWrapper>
                 <Title>Hello {username}!</Title>
                 <Paragraph>
-                    Słuchaczy o mocnych nerwach zapraszmy na mocną dawkę
-                    metalowego łojenia
+                    Słuchaczy o mocnych nerwach zapraszmy na porcję ostrego,
+                    metalowego łojenia, przed państwem zespół ,
                 </Paragraph>
             </TextWrapper>
             <AvatarWrapper>

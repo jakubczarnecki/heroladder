@@ -18,6 +18,7 @@ export const TextWrapper = styled.View`
 export const AvatarWrapper = styled.View`
     align-items: center;
     justify-content: flex-start;
-    padding-right: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
     padding-top: 7px;
 `

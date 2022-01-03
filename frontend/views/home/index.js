@@ -4,6 +4,8 @@ import { LayoutWrapperScroll } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
 import { HomeWrapper } from "./styled"
 import HelloBox from "./HelloBox"
+import { View } from "react-native"
+import TournamentFeedItem from "./TournamentFeedItem"
 
 const homeView = ({ navigation }) => {
     return (
@@ -11,6 +13,11 @@ const homeView = ({ navigation }) => {
             <LayoutWrapperScroll>
                 <HomeWrapper>
                     <HelloBox />
+                    <TournamentFeedItem />
+                    <TournamentFeedItem />
+                    <TournamentFeedItem />
+                    <TournamentFeedItem />
+                    <TournamentFeedItem />
                 </HomeWrapper>
             </LayoutWrapperScroll>
         </FadeInView>

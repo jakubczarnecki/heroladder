@@ -1,5 +1,5 @@
 import styled from "styled-components/native"
-import { Tile } from "../../Layout"
+import { Tile } from "../../../components/Layout"
 import { FontAwesome5 } from "@expo/vector-icons"
 import theme from "../../../styles/Theme"
 

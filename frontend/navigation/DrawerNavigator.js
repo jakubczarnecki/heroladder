@@ -8,6 +8,7 @@ import {
     homeView,
     areaView,
     tournamentsView,
+    tournamentView,
     loginView,
     registerView,
     profileView,
@@ -34,10 +35,14 @@ const DrawerNavigator = () => {
                     width: "96%",
                 },
             }}
-            initialRouteName="Home"
+            initialRouteName="Tournament"
         >
             {userID ? (
                 <>
+                    <Drawer.Screen
+                        name="Tournament"
+                        component={tournamentView}
+                    />
                     <Drawer.Screen name="Home" component={homeView} />
                     <Drawer.Screen name="Area" component={areaView} />
                     <Drawer.Screen name="Profile" component={profileView} />

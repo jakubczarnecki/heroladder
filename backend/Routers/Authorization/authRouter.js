@@ -1,7 +1,8 @@
 import { Router } from "express";
-import User from "../../Schema/User.js";
-import utils from "../../utils.js";
 import jwt from "jsonwebtoken";
+
+import utils from "../../utils.js";
+import User from "../../Schema/User.js";
 
 const authRouter = Router();
 
@@ -30,13 +31,10 @@ authRouter.post("/register", async (req, res, next) => {
 authRouter.post("/login", async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(404).json("User not found.");
+    !user && res.status(404).json("That wasn't correct. Try again?");
 
-    const isPasswordValid = await utils.comparePassword(
-      req.body.password,
-      user.password
-    );
-    !isPasswordValid && res.status(404).json("Wrong Password.");
+    const isPasswordValid = await utils.comparePassword(req.body.password, user.password);
+    !isPasswordValid && res.status(404).json("That wasn't correct. Try again?");
 
     const token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, {
       expiresIn: "6000s",

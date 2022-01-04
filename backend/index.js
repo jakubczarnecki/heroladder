@@ -9,7 +9,7 @@ import upload from "multer";
 const app = express();
 
 import authRouter from "./Routers/Authorization/authRouter.js";
-import userRouter from "./Routers/userRouter.js";
+import userRouter from "./Routers/User//userRouter.js";
 import tournamentRouter from "./Routers/Tournament/tournamentRouter.js";
 import authenticate from "./Routers/Authorization/middlewares.js";
 
@@ -29,13 +29,9 @@ app.use("/api/users", authenticate, userRouter);
 app.use("/api/tournaments", authenticate, tournamentRouter);
 
 //connection
-mongoose.connect(
-  process.env.MONGO_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
-  () => {
-    console.log("Connected to MongoDB.");
-  }
-);
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {
+  console.log("Connected to MongoDB.");
+});
 
 app.listen("8800", () => {
   console.log(`Server started at port ${PORT}`);

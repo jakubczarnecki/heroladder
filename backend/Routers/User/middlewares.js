@@ -1,7 +1,7 @@
 import User from "../../Schema/User.js";
 import userRouter from "./userRouter.js";
 
-const checkifExists = async (req, res, next, id) => {
+const checkIfUserExists = async (req, res, next, id) => {
   try {
     const exists = await User.exists({ _id: id });
     if (!exists) {
@@ -14,4 +14,4 @@ const checkifExists = async (req, res, next, id) => {
   }
 };
 
-export default checkifExists;
+export default checkIfUserExists;

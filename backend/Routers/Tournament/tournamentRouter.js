@@ -1,8 +1,24 @@
-import Tournament from "../../Schema/Tournament.js";
-import authorizeOrginizer from "./middlewares.js";
 import { Router } from "express";
 
+import authorizeOrginizer from "./middlewares.js";
+import Tournament from "../../Schema/Tournament.js";
+
 const tournamentRouter = Router();
+
+const checkifExists = async (req, res, next, id) => {
+  try {
+    const exists = await Tournament.exists({ _id: id });
+    if (!exists) {
+      res.status(404).send("Tournament with this ID doesn't exists.");
+      return;
+    }
+    next();
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+tournamentRouter.param("id", checkifExists);
 
 //create tournament
 tournamentRouter.post("/create", async (req, res, next) => {

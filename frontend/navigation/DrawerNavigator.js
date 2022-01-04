@@ -12,6 +12,7 @@ import {
     loginView,
     registerView,
     profileView,
+    aboutView,
 } from "../views"
 
 const Drawer = createDrawerNavigator()
@@ -46,6 +47,7 @@ const DrawerNavigator = () => {
                     <Drawer.Screen name="Home" component={homeView} />
                     <Drawer.Screen name="Area" component={areaView} />
                     <Drawer.Screen name="Profile" component={profileView} />
+                    <Drawer.Screen name="About" component={aboutView} />
                     <Drawer.Screen
                         name="Tournaments"
                         component={tournamentsView}

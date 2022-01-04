@@ -36,21 +36,22 @@ const DrawerNavigator = () => {
                     width: "96%",
                 },
             }}
-            initialRouteName="Tournament"
+            initialRouteName="Tournaments"
         >
             {userID ? (
                 <>
                     <Drawer.Screen
-                        name="Tournament"
-                        component={tournamentView}
+                        name="Tournaments"
+                        component={tournamentsView}
                     />
                     <Drawer.Screen name="Home" component={homeView} />
                     <Drawer.Screen name="Area" component={areaView} />
                     <Drawer.Screen name="Profile" component={profileView} />
                     <Drawer.Screen name="About" component={aboutView} />
+
                     <Drawer.Screen
-                        name="Tournaments"
-                        component={tournamentsView}
+                        name="Tournament"
+                        component={tournamentView}
                     />
                 </>
             ) : (

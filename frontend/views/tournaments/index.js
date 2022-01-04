@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Text } from "react-native"
 import * as SecureStore from "expo-secure-store"
@@ -12,8 +12,12 @@ import {
     ParagraphBold,
 } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { TextInput, Button, CircleButton } from "../../components/Form"
-import MapMarker from "../area/MapMarker"
+import {
+    TextInput,
+    Button,
+    CircleButton,
+    Dropdown,
+} from "../../components/Form"
 
 async function getValueFor(key) {
     let result = await SecureStore.getItemAsync(key)
@@ -25,6 +29,10 @@ async function getValueFor(key) {
 }
 
 const tournamentsView = ({ navigation }) => {
+    const [dropdownValue, setDropdownValue] = useState(null)
+
+    console.log(dropdownValue)
+
     return (
         <FadeInView>
             <LayoutWrapperScroll>
@@ -32,6 +40,17 @@ const tournamentsView = ({ navigation }) => {
                 <TextInput placeholder="Login" />
                 <TextInput password={true} placeholder="***** ***" />
                 <Button title="Do rejestracji" />
+                <Dropdown
+                    title="Discipline"
+                    items={[
+                        { icon: "volleyball-ball", value: "volleyball" },
+                        { icon: "baseball-ball", value: "baseball" },
+                        { icon: "table-tennis", value: "table tenis" },
+                        { icon: "futbol", value: "football" },
+                    ]}
+                    value={dropdownValue}
+                    onChange={setDropdownValue}
+                />
                 <Button
                     type="contained"
                     icon="eye"

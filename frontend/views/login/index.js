@@ -48,13 +48,12 @@ const loginView = ({ navigation }) => {
                             <FormInput
                                 title="Email"
                                 placeholder="Email"
-                                // value="piponsz@gmail.com"
                                 onChangeText={setEmail}
+                                keyboardType="email-address"
                             />
                             <FormInput
                                 title="Password"
                                 password={true}
-                                // value="qwerty123"
                                 placeholder="***** ***"
                                 onChangeText={setPassword}
                                 error={error}

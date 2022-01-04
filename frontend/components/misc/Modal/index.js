@@ -4,6 +4,7 @@ import { Title } from "../../Layout"
 import {
     ButtonsWrapper,
     ModalBackdrop,
+    ModalButton,
     ModalContent,
     ModalHeader,
     ModalWrapper,
@@ -41,13 +42,13 @@ const Modal = ({
                     <ModalContent>{children}</ModalContent>
                     <ButtonsWrapper>
                         {type === "confirm" && (
-                            <Button
+                            <ModalButton
                                 type="text"
                                 title={cancelText}
                                 onPress={onCancel}
                             />
                         )}
-                        <Button
+                        <ModalButton
                             type="contained"
                             title={submitText}
                             onPress={onSubmit}

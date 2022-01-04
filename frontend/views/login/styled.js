@@ -33,10 +33,11 @@ export const LoadingView = styled.View`
     margin-bottom: 20px;
 `
 
-export const StyledTile = styled.View`
+export const StyledTile = styled(Tile)`
     /* height: 65%; */
     /* position: relative;
     /* width: 90%; */
+    elevation: 0;
     border-radius: 10px;
     padding: 20px;
     /* margin-bottom: 20px; */

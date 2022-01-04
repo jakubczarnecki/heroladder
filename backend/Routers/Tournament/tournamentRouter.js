@@ -1,11 +1,12 @@
 import { Router } from "express";
 
 import authorizeOrginizer from "./middlewares.js";
+import checkIfUserExists from "../User/middlewares.js";
 import Tournament from "../../Schema/Tournament.js";
 
 const tournamentRouter = Router();
 
-const checkifExists = async (req, res, next, id) => {
+const checkIfTournamentExists = async (req, res, next, id) => {
   try {
     const exists = await Tournament.exists({ _id: id });
     if (!exists) {
@@ -18,7 +19,7 @@ const checkifExists = async (req, res, next, id) => {
   }
 };
 
-tournamentRouter.param("id", checkifExists);
+tournamentRouter.param("id", checkIfTournamentExists);
 
 //create tournament
 tournamentRouter.post("/create", async (req, res, next) => {
@@ -29,6 +30,7 @@ tournamentRouter.post("/create", async (req, res, next) => {
       organizerId: res._id.id,
       date: req.body.date,
       bracketSize: req.body.bracketSize,
+      teamSize: req.body.teamSize,
       location: req.body.location,
       description: req.body.description,
     });
@@ -46,7 +48,7 @@ tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => 
   try {
     const arr = [];
 
-    if (res.tournament.matches) {
+    if (res.tournament.matches.length != 0) {
       res.status(400).json("Tournament has been already initialized.");
       return;
     }
@@ -54,7 +56,7 @@ tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => 
     for (let i = 1; i < res.tournament.bracketSize; i++) {
       arr.push({
         number: i,
-        participants: [],
+        teams: [],
         winnerID: null,
       });
     }
@@ -68,6 +70,43 @@ tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => 
     );
 
     res.status(200).json("Tournament has been initialized succesfully.");
+  } catch (err) {
+    next(err);
+  }
+});
+
+//add team to the tournament
+//TODO:
+//error when full(when half - 1 matches is full),
+//error when any user is already a participant
+//error when teamName is not unique wihin tournament
+tournamentRouter.put("/:id/join", async (req, res, next) => {
+  try {
+    const tournament = await Tournament.findById(req.params.id);
+
+    req.body.members = [res._id.id, ...req.body.members];
+    const team = {
+      teamName: req.body.teamName,
+      members: req.body.members,
+    };
+
+    tournament.matches.every((match) => {
+      if (match.teams.length < 2) {
+        match.teams.push(team);
+        return false;
+      }
+      return true;
+    });
+
+    await Tournament.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: { matches: tournament.matches },
+      },
+      { useFindAndModify: false }
+    );
+
+    res.status(200).json(team);
   } catch (err) {
     next(err);
   }

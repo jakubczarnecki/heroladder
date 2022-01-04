@@ -37,7 +37,7 @@ authRouter.post("/login", async (req, res, next) => {
     !isPasswordValid && res.status(404).json("That wasn't correct. Try again?");
 
     const token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, {
-      expiresIn: "6000s",
+      expiresIn: "60000s",
     });
 
     user._doc.token = token;

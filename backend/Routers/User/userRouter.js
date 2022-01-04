@@ -6,12 +6,12 @@ import User from "../../Schema/User.js";
 import Tournament from "../../Schema/Tournament.js";
 import Avatar from "../../Schema/Avatar.js";
 import Background from "../../Schema/Background.js";
-import checkifExists from "../tournament/middlewares.js";
+import checkIfUserExists from "../tournament/middlewares.js";
 
 const userRouter = Router();
 const upload = multer();
 
-userRouter.param("id", checkifExists);
+userRouter.param("id", checkIfUserExists);
 
 //get all users
 userRouter.get("/all", async (req, res, next) => {

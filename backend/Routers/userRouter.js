@@ -2,9 +2,8 @@ import User from "../Schema/User.js";
 import { Router } from "express";
 import utils from "../utils.js";
 import multer from "multer";
-import Image4ioAPI from "@image4io/image4ionodejssdk";
-import fs from "fs";
 import Avatar from "../Schema/Avatar.js";
+import Tournament from "../Schema/Tournament.js";
 import Background from "../Schema/Background.js";
 
 const userRouter = Router();
@@ -32,13 +31,17 @@ userRouter.get("/:id", async (req, res, next) => {
 
 //update yourself
 userRouter.put("/", async (req, res, next) => {
-  req.body.password &&
-    (req.body.password = await utils.encryptPassword(req.body.password));
   try {
+    req.body.password && (req.body.password = await utils.encryptPassword(req.body.password));
+
+    const updatedUser = {};
+    req.body.username && (updatedUser.username = req.body.username);
+    req.body.password && (updatedUser.password = req.body.password);
+
     await User.findOneAndUpdate(
       { _id: res._id.id },
       {
-        $set: req.body,
+        $set: updatedUser,
       },
       { useFindAndModify: false }
     );
@@ -121,44 +124,40 @@ userRouter.get("/:id/background", async (req, res, next) => {
 });
 
 //update your background
-userRouter.put(
-  "/background",
-  upload.single("background"),
-  async (req, res, next) => {
-    try {
-      const user = await User.findById(res._id.id);
-      const data = utils.pictureFrom(req.file);
+userRouter.put("/background", upload.single("background"), async (req, res, next) => {
+  try {
+    const user = await User.findById(res._id.id);
+    const data = utils.pictureFrom(req.file);
 
-      if (user.backgroundId == null) {
-        const newBackground = new Background(data);
-        const background = await newBackground.save();
+    if (user.backgroundId == null) {
+      const newBackground = new Background(data);
+      const background = await newBackground.save();
 
-        await User.findOneAndUpdate(
-          { _id: res._id.id },
-          {
-            $set: { backgroundId: background.id },
-          },
-          { useFindAndModify: false }
-        );
-
-        res.status(200).send(`Your background has been added.`);
-        return;
-      }
-
-      await Avatar.findOneAndUpdate(
-        { _id: user.backgroundId },
+      await User.findOneAndUpdate(
+        { _id: res._id.id },
         {
-          $set: data,
+          $set: { backgroundId: background.id },
         },
         { useFindAndModify: false }
       );
 
-      res.status(200).send(`Your background has been updated.`);
-    } catch (err) {
-      next(err);
+      res.status(200).send(`Your background has been added.`);
+      return;
     }
+
+    await Avatar.findOneAndUpdate(
+      { _id: user.backgroundId },
+      {
+        $set: data,
+      },
+      { useFindAndModify: false }
+    );
+
+    res.status(200).send(`Your background has been updated.`);
+  } catch (err) {
+    next(err);
   }
-);
+});
 
 userRouter.use((err, req, res, next) => {
   res.status(500).json(err);

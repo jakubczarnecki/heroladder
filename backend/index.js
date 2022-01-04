@@ -8,9 +8,10 @@ import upload from "multer";
 
 const app = express();
 
-import authRouter from "./Routers/authRouter.js";
+import authRouter from "./Routers/Authorization/authRouter.js";
 import userRouter from "./Routers/userRouter.js";
-import tournamentRouter from "./Routers/tournamentRouter.js";
+import tournamentRouter from "./Routers/Tournament/tournamentRouter.js";
+import authenticate from "./Routers/Authorization/middlewares.js";
 
 const PORT = "8800";
 
@@ -23,9 +24,9 @@ app.use(morgan("tiny"));
 app.use(cors());
 
 //routing middleware
-app.use("/api/auth", authRouter.authRouter);
-app.use("/api/users", authRouter.authenticate, userRouter);
-app.use("/api/tournaments", authRouter.authenticate, tournamentRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/users", authenticate, userRouter);
+app.use("/api/tournaments", authenticate, tournamentRouter);
 
 //connection
 mongoose.connect(

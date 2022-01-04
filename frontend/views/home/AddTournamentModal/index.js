@@ -1,10 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
 import { Paragraph, TitleSmaller } from "../../../components/Layout"
-import { DateFormInput, FormInput, Section } from "./styled"
+import { DateFormInput, DropdownFormInput, FormInput, Section } from "./styled"
 
 const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
+    const [discipline, setDiscipline] = useState(null)
+    const [teamsCount, setTeamsCount] = useState(null)
+
     return (
         <Modal
             type="confirm"
@@ -23,14 +26,36 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                     multiline={true}
                     numberOfLines={2}
                 />
-            </Section>
-            <Section>
-                <TitleSmaller>Discipline</TitleSmaller>
-                <Paragraph>Insert drop list here</Paragraph>
+                <DropdownFormInput
+                    title="Discipline"
+                    items={[
+                        { icon: "volleyball-ball", value: "volleyball" },
+                        { icon: "baseball-ball", value: "tennis" },
+                        { icon: "table-tennis", value: "table tennis" },
+                        { icon: "basketball-ball", value: "basketball" },
+                        { icon: "futbol", value: "football" },
+                        { icon: "running", value: "custom" },
+                    ]}
+                    value={discipline}
+                    onChange={setDiscipline}
+                />
+                {discipline === "custom" && (
+                    <FormInput title="Custom discipline name" />
+                )}
             </Section>
             <Section>
                 <TitleSmaller>Teams details</TitleSmaller>
-                <Paragraph>Insert drop list here but without icons</Paragraph>
+                <DropdownFormInput
+                    title="Teams count"
+                    items={[
+                        { value: "2" },
+                        { value: "4" },
+                        { value: "8" },
+                        { value: "16" },
+                    ]}
+                    value={teamsCount}
+                    onChange={setTeamsCount}
+                />
                 <FormInput title="Team size" keyboardType="numeric" />
             </Section>
             <Section>

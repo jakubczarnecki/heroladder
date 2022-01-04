@@ -1,13 +1,17 @@
-import User from "../Schema/User.js";
 import { Router } from "express";
-import utils from "../utils.js";
+import utils from "../../utils.js";
 import multer from "multer";
-import Avatar from "../Schema/Avatar.js";
-import Tournament from "../Schema/Tournament.js";
-import Background from "../Schema/Background.js";
+
+import User from "../../Schema/User.js";
+import Tournament from "../../Schema/Tournament.js";
+import Avatar from "../../Schema/Avatar.js";
+import Background from "../../Schema/Background.js";
+import checkifExists from "../tournament/middlewares.js";
 
 const userRouter = Router();
 const upload = multer();
+
+userRouter.param("id", checkifExists);
 
 //get all users
 userRouter.get("/all", async (req, res, next) => {
@@ -24,6 +28,16 @@ userRouter.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//get tournaments by userId
+userRouter.get("/:id/tournaments", async (req, res, next) => {
+  try {
+    const tournaments = await Tournament.find({ organizerId: req.params.id });
+    res.status(200).json(tournaments);
   } catch (err) {
     next(err);
   }
@@ -54,6 +68,7 @@ userRouter.put("/", async (req, res, next) => {
 //delete yourself
 userRouter.delete("/", async (req, res, next) => {
   try {
+    await Tournament.deleteMany({ organizerId: res._id.id });
     await User.findOneAndDelete({ _id: res._id.id });
     res.status(200).send(`Your account has been deleted successfully.`);
   } catch (err) {

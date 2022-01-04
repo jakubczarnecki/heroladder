@@ -29,7 +29,13 @@ export default [
             navigation.navigate("Tournaments")
         },
     },
-    { title: "", icon: "" },
+    {
+        title: "About",
+        icon: "info-circle",
+        onPress: (navigation) => {
+            navigation.navigate("About")
+        },
+    },
     {
         title: "Logout",
         icon: "sign-out-alt",

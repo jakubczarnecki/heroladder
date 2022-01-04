@@ -5,6 +5,7 @@ import registerView from "./register"
 import tournamentsView from "./tournaments"
 import tournamentView from "./tournament"
 import profileView from "./profile"
+import aboutView from "./about"
 
 export {
     areaView,
@@ -14,4 +15,5 @@ export {
     tournamentsView,
     tournamentView,
     profileView,
+    aboutView,
 }

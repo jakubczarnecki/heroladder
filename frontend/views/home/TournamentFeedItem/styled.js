@@ -20,7 +20,8 @@ export const FeedWrapper = styled(Tile)`
 export const FeedHeader = styled.View`
     flex-direction: row;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
+    padding-bottom: 10px;
 `
 
 export const HeaderTextWrapper = styled.View`
@@ -28,11 +29,12 @@ export const HeaderTextWrapper = styled.View`
     width: 80%;
     justify-content: center;
     padding-left: 10px;
+    margin-bottom: 10px;
 `
 
 export const DateText = styled(DetailText)`
     align-self: flex-end;
-    font-size: 11px;
+    font-size: 10px;
 `
 
 export const ActionText = styled(Paragraph)`

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
-import { LogoImg, Title } from "../../components/Layout"
+import { LogoImg } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
 import Loader from "frontend/components/misc/Loader.js"
 import {

@@ -33,24 +33,24 @@ const TournamentFeedItem = () => {
             <FeedHeader>
                 <Avatar size={50} img={bg2} />
                 <HeaderTextWrapper>
-                    <DateText>sobota 20.11.2021 16:00</DateText>
+                    <DateText>Saturday, 20.11.2021 16:00</DateText>
                     <TitleSmaller>Michał Dzieciuchowicz</TitleSmaller>
-                    <ActionText>dodał nowy turniej</ActionText>
+                    <ActionText>has created a new tournament</ActionText>
                 </HeaderTextWrapper>
             </FeedHeader>
             <FeedContent>
                 <Description>
                     <DescriptionHeader>
                         <HeaderIcon name="volleyball-ball" />
-                        <TitleSmaller>Siatkówka</TitleSmaller>
+                        <TitleSmaller>Volleyball</TitleSmaller>
                     </DescriptionHeader>
                     <DescriptionItem>
                         <ItemIcon name="user-alt" />
-                        <ItemText>team size: 6</ItemText>
+                        <ItemText>Team size: 6</ItemText>
                     </DescriptionItem>
                     <DescriptionItem>
                         <ItemIcon name="users" />
-                        <ItemText>teams: 3/4</ItemText>
+                        <ItemText>Slots: 3/4</ItemText>
                     </DescriptionItem>
                     <DescriptionItem>
                         <ItemIcon name="calendar" />

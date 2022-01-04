@@ -68,7 +68,7 @@ Modal.propTypes = {
     onSubmit: PropTypes.func,
     submitText: PropTypes.string,
     title: PropTypes.string,
-    children: PropTypes.object,
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
 
 export default Modal

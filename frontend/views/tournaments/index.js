@@ -13,7 +13,7 @@ import {
 } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
 import { TextInput, Button, CircleButton } from "../../components/Form"
-import { MapMarker } from "../../components/misc"
+import MapMarker from "../area/MapMarker"
 
 async function getValueFor(key) {
     let result = await SecureStore.getItemAsync(key)
@@ -49,15 +49,6 @@ const tournamentsView = ({ navigation }) => {
                 <Subtitle>Subtitle</Subtitle>
                 <CircleButton icon="plus" />
                 <DetailText>28.12.2021 21:37</DetailText>
-                <MapMarker
-                    title="Turniej - siatkówka"
-                    icon="volleyball-ball"
-                    premium={false}
-                    date="30.11.2021 16:00"
-                    teamSize={6}
-                    teamCount={4}
-                    teamsAvailible={3}
-                />
                 <Paragraph>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Dolore possimus exercitationem, quas facilis eveniet est

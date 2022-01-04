@@ -35,7 +35,7 @@ const DrawerNavigator = () => {
                     width: "96%",
                 },
             }}
-            initialRouteName="Tournament"
+            initialRouteName="Area"
         >
             {userID ? (
                 <>

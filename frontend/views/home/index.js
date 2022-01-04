@@ -1,13 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { LayoutWrapperScroll } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { HomeWrapper } from "./styled"
+import { FixedButton, HomeWrapper } from "./styled"
 import HelloBox from "./HelloBox"
 import { View } from "react-native"
 import TournamentFeedItem from "./TournamentFeedItem"
+import { CircleButton } from "../../components/Form"
+import AddTournamentModal from "./AddTournamentModal"
 
 const homeView = ({ navigation }) => {
+    const [modalOpen, setModalOpen] = useState(false)
+
     return (
         <FadeInView>
             <LayoutWrapperScroll>
@@ -20,6 +24,12 @@ const homeView = ({ navigation }) => {
                     <TournamentFeedItem />
                 </HomeWrapper>
             </LayoutWrapperScroll>
+            <FixedButton icon="plus" onPress={() => setModalOpen(true)} />
+            <AddTournamentModal
+                isOpen={modalOpen}
+                onCancel={() => setModalOpen(false)}
+                onSubmit={() => setModalOpen(false)}
+            />
         </FadeInView>
     )
 }

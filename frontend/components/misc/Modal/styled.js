@@ -1,5 +1,6 @@
 import styled from "styled-components/native"
 import theme from "../../../styles/Theme"
+import { Button } from "../../Form"
 import { Tile } from "../../Layout"
 
 export const ModalBackdrop = styled.ScrollView.attrs(() => ({
@@ -34,4 +35,8 @@ export const ButtonsWrapper = styled.View`
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+`
+
+export const ModalButton = styled(Button)`
+    margin-left: 10px;
 `

@@ -17,6 +17,9 @@ export const Input = styled.TextInput`
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 
+    text-align-vertical: top;
+    max-height: 120px;
+
     font-size: 18px;
     padding: 8px;
     padding-left: 14px;

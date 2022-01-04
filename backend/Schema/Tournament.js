@@ -14,7 +14,7 @@ const TournamentSchema = new mongoose.Schema(
       min: 3,
       max: 40,
     },
-    organizer: {
+    organizerId: {
       type: String,
       require: true,
       min: 3,

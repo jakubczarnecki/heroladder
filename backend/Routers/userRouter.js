@@ -2,8 +2,6 @@ import User from "../Schema/User.js";
 import { Router } from "express";
 import utils from "../utils.js";
 import multer from "multer";
-import Image4ioAPI from "@image4io/image4ionodejssdk";
-import fs from "fs";
 import Avatar from "../Schema/Avatar.js";
 import Background from "../Schema/Background.js";
 

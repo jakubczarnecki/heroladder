@@ -1,7 +1,7 @@
 import { Router } from "express";
-import User from "../Schema/User.js";
+import User from "../../Schema/User.js";
+import utils from "../../utils.js";
 import jwt from "jsonwebtoken";
-import utils from "../utils.js";
 
 const authRouter = Router();
 
@@ -53,16 +53,4 @@ authRouter.use((err, req, res, next) => {
   res.status(500).json(err);
 });
 
-const authenticate = (req, res, next) => {
-  const token = req.headers["authorization"]?.split(" ")[1];
-
-  !token && res.status(401).send("Missing token.");
-
-  jwt.verify(token, process.env.PRIVATE_KEY, (err, _id) => {
-    res._id = _id;
-    err && res.status(403).send("Invalid token.");
-    next();
-  });
-};
-
-export default { authRouter, authenticate };
+export default authRouter;

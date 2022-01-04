@@ -1,4 +1,5 @@
-import Tournament from "../Schema/Tournament.js";
+import Tournament from "../../Schema/Tournament.js";
+import authorizeOrginizer from "./middlewares.js";
 import { Router } from "express";
 
 const tournamentRouter = Router();
@@ -9,7 +10,7 @@ tournamentRouter.post("/create", async (req, res, next) => {
     const newTournament = new Tournament({
       tournamentName: req.body.tournamentName,
       discipline: req.body.discipline,
-      organizer: req.body.organizer,
+      organizerId: res._id.id,
       date: req.body.date,
       bracketSize: req.body.bracketSize,
       location: req.body.location,
@@ -18,6 +19,61 @@ tournamentRouter.post("/create", async (req, res, next) => {
 
     const finalTournament = await newTournament.save();
     res.status(200).json(finalTournament);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//open tournament by id and
+//generate empty bracket for tournament with specified bracketSize
+tournamentRouter.put(
+  "/:id/init",
+  authorizeOrginizer,
+  async (req, res, next) => {
+    try {
+      const arr = [];
+
+      if (res.tournament.matches) {
+        res.status(400).json("Tournament has been already initialized.");
+        return;
+      }
+
+      for (let i = 1; i < res.tournament.bracketSize; i++) {
+        arr.push({
+          number: i,
+          participants: [],
+          winnerID: null,
+        });
+      }
+
+      await Tournament.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: { matches: arr },
+        },
+        { useFindAndModify: false }
+      );
+
+      console.log("c");
+
+      res.status(200).json("Tournament has been initialized succesfully.");
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+//update tournament by id
+tournamentRouter.put("/:id", async (req, res, next) => {
+  try {
+    await Tournament.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: req.body,
+      },
+      { useFindAndModify: false }
+    );
+    res.status(200).send(`Tournament has been updated.`);
   } catch (err) {
     next(err);
   }
@@ -38,22 +94,6 @@ tournamentRouter.get("/:id", async (req, res, next) => {
   try {
     const tournament = await Tournament.findById(req.params.id);
     res.status(200).json(tournament);
-  } catch (err) {
-    next(err);
-  }
-});
-
-//update tournament by id
-tournamentRouter.put("/:id", async (req, res, next) => {
-  try {
-    await Tournament.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        $set: req.body,
-      },
-      { useFindAndModify: false }
-    );
-    res.status(200).send(`Tournament has been updated.`);
   } catch (err) {
     next(err);
   }

@@ -13,7 +13,7 @@ import {
 } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
 import { TextInput, Button, CircleButton } from "../../components/Form"
-import { MapMarker } from "../../components/misc"
+import MapMarker from "../area/MapMarker"
 
 async function getValueFor(key) {
     let result = await SecureStore.getItemAsync(key)

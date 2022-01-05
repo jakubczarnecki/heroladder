@@ -31,7 +31,7 @@ const Modal = ({
     }
 
     return (
-        <RNModal visible={isOpen} transparent={true}>
+        <RNModal animationType="fade" visible={isOpen} transparent={true}>
             <ModalBackdrop>
                 <ModalWrapper>
                     {title && (

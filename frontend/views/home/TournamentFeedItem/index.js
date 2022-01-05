@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import MapView from "react-native"
 import {
     Paragraph,
@@ -27,7 +28,7 @@ import {
 import { Button } from "../../../components/Form"
 import { Marker } from "react-native-maps"
 
-const TournamentFeedItem = () => {
+const TournamentFeedItem = ({ navigation }) => {
     return (
         <FeedWrapper>
             <FeedHeader>
@@ -60,6 +61,7 @@ const TournamentFeedItem = () => {
                         title="Register a team"
                         type="contained"
                         size="thin"
+                        onPress={() => navigation.navigate("Tournament")}
                     />
                 </Description>
                 <MapWrapper
@@ -85,6 +87,10 @@ const TournamentFeedItem = () => {
             </FeedContent>
         </FeedWrapper>
     )
+}
+
+TournamentFeedItem.propTypes = {
+    navigation: PropTypes.object,
 }
 
 export default TournamentFeedItem

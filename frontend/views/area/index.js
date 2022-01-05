@@ -22,20 +22,6 @@ const areaView = ({ navigation }) => {
                 return
             }
 
-            // every 1s
-            // await Location.watchPositionAsync(
-            //     {
-            //         timeInterval: 1000,
-            //         accuracy: Location.Accuracy.High,
-            //     },
-            //     (loc) => {
-            //         setLocation({
-            //             latitude: loc.coords.latitude,
-            //             longitude: loc.coords.longitude,
-            //         })
-            //     }
-            // )
-
             //just once
             let loc = await Location.getCurrentPositionAsync()
             setLocation({

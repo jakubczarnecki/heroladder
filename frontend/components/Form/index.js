@@ -4,5 +4,14 @@ import CircleButton from "./CircleButton"
 import DateInput from "./DateInput"
 import Dropdown from "./Dropdown"
 import LocationInput from "./LocationInput"
+import FileInput from "./FileInput"
 
-export { TextInput, Button, CircleButton, DateInput, Dropdown, LocationInput }
+export {
+    TextInput,
+    Button,
+    CircleButton,
+    DateInput,
+    Dropdown,
+    LocationInput,
+    FileInput,
+}

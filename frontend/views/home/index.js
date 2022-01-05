@@ -17,11 +17,11 @@ const homeView = ({ navigation }) => {
             <LayoutWrapperScroll>
                 <HomeWrapper>
                     <HelloBox />
-                    <TournamentFeedItem />
-                    <TournamentFeedItem />
-                    <TournamentFeedItem />
-                    <TournamentFeedItem />
-                    <TournamentFeedItem />
+                    <TournamentFeedItem navigation={navigation} />
+                    <TournamentFeedItem navigation={navigation} />
+                    <TournamentFeedItem navigation={navigation} />
+                    <TournamentFeedItem navigation={navigation} />
+                    <TournamentFeedItem navigation={navigation} />
                 </HomeWrapper>
             </LayoutWrapperScroll>
             <FixedButton icon="plus" onPress={() => setModalOpen(true)} />

@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
 import { DetailText, TitleSmaller } from "../../../components/Layout"
 import { FileInputWrapper, FileName, FormInput, Section } from "./styled"
-import { Button } from "../../../components/Form"
+import { Button, FileInput } from "../../../components/Form"
 
 const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
+    const [profileImg, setProfileImg] = useState(null)
+
     return (
         <Modal
             type="confirm"
@@ -25,17 +27,11 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
             </Section>
             <Section>
                 <TitleSmaller>Change profile image</TitleSmaller>
-                <FileInputWrapper>
-                    <Button title="Upload" type="contained" size="wide" />
-                    <FileName>newfile.png</FileName>
-                </FileInputWrapper>
+                <FileInput value={profileImg} onChange={setProfileImg} />
             </Section>
             <Section>
                 <TitleSmaller>Change profile background</TitleSmaller>
-                <FileInputWrapper>
-                    <Button title="Upload" type="contained" size="wide" />
-                    <FileName>newfile.png</FileName>
-                </FileInputWrapper>
+                <FileInput />
             </Section>
         </Modal>
     )

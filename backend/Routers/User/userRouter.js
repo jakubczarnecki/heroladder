@@ -6,7 +6,7 @@ import User from "../../Schema/User.js";
 import Tournament from "../../Schema/Tournament.js";
 import Avatar from "../../Schema/Avatar.js";
 import Background from "../../Schema/Background.js";
-import checkIfUserExists from "../tournament/middlewares.js";
+import checkIfUserExists from "../User/middlewares.js";
 
 const userRouter = Router();
 const upload = multer();

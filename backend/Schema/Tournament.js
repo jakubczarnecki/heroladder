@@ -1,9 +1,16 @@
 import mongoose from "mongoose";
 
+const Member = new mongoose.Schema(
+  {
+    type: mongoose.SchemaTypes.ObjectId,
+  },
+  { _id: false }
+);
+
 const Team = new mongoose.Schema(
   {
     teamName: String,
-    members: Array,
+    members: [],
   },
   { _id: false }
 );
@@ -15,7 +22,7 @@ const Match = new mongoose.Schema(
       require: true,
     },
     teams: [Team],
-    winnerID: {
+    winnerId: {
       type: String,
     },
   },
@@ -37,7 +44,7 @@ const TournamentSchema = new mongoose.Schema(
       max: 40,
     },
     organizerId: {
-      type: String,
+      type: mongoose.SchemaTypes.ObjectId,
       require: true,
       min: 3,
       max: 40,
@@ -66,11 +73,8 @@ const TournamentSchema = new mongoose.Schema(
       max: 500,
       default: "",
     },
-    matches: [Match],
-    winner: {
-      type: Array,
-      default: [],
-    },
+    matches: [[Match]],
+    winners: [mongoose.SchemaTypes.ObjectId],
   },
   {
     timestamps: true,

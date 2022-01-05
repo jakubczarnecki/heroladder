@@ -1,5 +1,4 @@
 import User from "../../Schema/User.js";
-import userRouter from "./userRouter.js";
 
 const checkIfUserExists = async (req, res, next, id) => {
   try {

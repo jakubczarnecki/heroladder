@@ -3,10 +3,14 @@ import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
 import { Paragraph, TitleSmaller } from "../../../components/Layout"
 import { DateFormInput, DropdownFormInput, FormInput, Section } from "./styled"
+import { LocationInput } from "../../../components/Form"
 
 const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
     const [discipline, setDiscipline] = useState(null)
     const [teamsCount, setTeamsCount] = useState(null)
+    const [location, setLocation] = useState(null)
+
+    console.log(location)
 
     return (
         <Modal
@@ -60,6 +64,7 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
             </Section>
             <Section>
                 <TitleSmaller>Location</TitleSmaller>
+                <LocationInput value={location} onChange={setLocation} />
             </Section>
         </Modal>
     )

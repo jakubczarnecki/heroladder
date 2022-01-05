@@ -35,7 +35,7 @@ const FadeInView = ({ children }) => {
 }
 
 FadeInView.propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
 
 export default FadeInView

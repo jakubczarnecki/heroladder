@@ -29,11 +29,13 @@ const Button = ({
         <ButtonWrapper type={type} color={themeColor} size={size} style={style}>
             <ButtonContent size={size}>
                 {icon && (
-                    <ButtonIcon name="eye" type={type} color={themeColor} />
+                    <ButtonIcon name={icon} type={type} color={themeColor} />
                 )}
-                <ButtonText type={type} color={themeColor}>
-                    {title}
-                </ButtonText>
+                {title && (
+                    <ButtonText type={type} color={themeColor}>
+                        {title}
+                    </ButtonText>
+                )}
             </ButtonContent>
 
             {!disabled && <PressableOverlay onPress={onPress} />}
@@ -44,7 +46,7 @@ const Button = ({
 Button.propTypes = {
     style: PropTypes.array,
     size: PropTypes.oneOf(["normal", "wide", "thin"]),
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     icon: PropTypes.string,
     type: PropTypes.oneOf(["text", "contained", "outlined"]),
     color: PropTypes.string,

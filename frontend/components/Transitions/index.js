@@ -1,3 +1,4 @@
 import FadeInView from "./FadeInView"
+import SlideView from "./SlideView"
 
-export { FadeInView }
+export { FadeInView, SlideView }

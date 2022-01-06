@@ -16,7 +16,7 @@ const FadeInView = ({ children }) => {
         return () => {
             Animated.timing(fadeAnim, {
                 toValue: 0,
-                duration: 250,
+                duration: 200,
                 useNativeDriver: true,
             }).start()
         }

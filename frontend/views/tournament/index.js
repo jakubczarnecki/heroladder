@@ -24,11 +24,20 @@ import {
 import { Avatar } from "../../components/misc"
 import bg2 from "../../assets/img/bg2.jpg"
 import { Marker } from "react-native-maps"
+import Ladder from "./Ladder"
 
 const tournamentView = ({ navigation }) => {
     return (
         <FadeInView>
             <LayoutWrapperScroll>
+                <Section>
+                    <SectionHeader>
+                        <SectionTitle>Ladder</SectionTitle>
+                    </SectionHeader>
+                    <SectionContent>
+                        <Ladder />
+                    </SectionContent>
+                </Section>
                 <Section>
                     <SectionHeader>
                         <SectionTitle>Tournament details</SectionTitle>
@@ -112,13 +121,6 @@ const tournamentView = ({ navigation }) => {
                             />
                         </Stretch>
                     </SectionContent>
-                </Section>
-
-                <Section>
-                    <SectionHeader>
-                        <SectionTitle>Ladder</SectionTitle>
-                    </SectionHeader>
-                    <SectionContent></SectionContent>
                 </Section>
             </LayoutWrapperScroll>
         </FadeInView>

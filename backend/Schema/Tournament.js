@@ -22,8 +22,8 @@ const Match = new mongoose.Schema(
       require: true,
     },
     teams: [Team],
-    winnerId: {
-      type: String,
+    winner: {
+      type: Number,
     },
   },
   { _id: false }
@@ -74,7 +74,7 @@ const TournamentSchema = new mongoose.Schema(
       default: "",
     },
     matches: [[Match]],
-    winners: [mongoose.SchemaTypes.ObjectId],
+    winners: Team,
   },
   {
     timestamps: true,

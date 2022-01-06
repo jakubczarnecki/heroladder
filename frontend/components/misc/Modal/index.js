@@ -9,8 +9,7 @@ import {
     ModalHeader,
     ModalWrapper,
 } from "./styled"
-import { Modal as RNModal, ScrollView } from "react-native"
-import { Button } from "../../Form"
+import { Modal as RNModal } from "react-native"
 
 const Modal = ({
     type,

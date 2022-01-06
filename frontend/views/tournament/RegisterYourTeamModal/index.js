@@ -12,19 +12,31 @@ import {
     DeleteButton,
     DropdownFormInput,
     FormInput,
+    SearchUserInput,
     Section,
     SectionHeader,
     TeamItemWrapper,
     TeammateWrapper,
     UserAvatar,
 } from "./styled"
+import { Searchbox } from "../../../components/Form"
+
+const tmpUsers = [
+    { username: "Piponsz" },
+    { username: "Oskar" },
+    { username: "Miciu" },
+    { username: "Fici" },
+]
 
 const RegisterYourTeamModal = ({ isOpen, onCancel, onSubmit }) => {
-    const [team, setTeam] = useState([
-        { username: "Piponsz" },
-        { username: "Oskar" },
-        { username: "Miciu" },
-    ])
+    const [team, setTeam] = useState([])
+
+    const addUser = (user) => {
+        console.log(user)
+        team.indexOf(user) === -1
+            ? setTeam([...team, user])
+            : console.log("already exist")
+    }
 
     return (
         <Modal
@@ -44,7 +56,13 @@ const RegisterYourTeamModal = ({ isOpen, onCancel, onSubmit }) => {
                     <TitleSmaller>Your team</TitleSmaller>
                     <TitleSmaller>{team.length + 1}/8</TitleSmaller>
                 </SectionHeader>
-                <TitleSmaller>Searchbox here</TitleSmaller>
+
+                <SearchUserInput
+                    list={tmpUsers}
+                    onSelect={addUser}
+                    exclude={team}
+                />
+
                 <TeamItemWrapper>
                     <TeammateWrapper>
                         <UserAvatar img={bg2} size={40} />

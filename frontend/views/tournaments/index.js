@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Text } from "react-native"
-import * as SecureStore from "expo-secure-store"
 import {
     LayoutWrapperScroll,
     Paragraph,
@@ -18,15 +17,6 @@ import {
     CircleButton,
     Dropdown,
 } from "../../components/Form"
-
-async function getValueFor(key) {
-    let result = await SecureStore.getItemAsync(key)
-    if (result) {
-        console.log(result)
-    } else {
-        console.log("No values stored under that key.")
-    }
-}
 
 const tournamentsView = ({ navigation }) => {
     const [dropdownValue, setDropdownValue] = useState(null)
@@ -62,7 +52,6 @@ const tournamentsView = ({ navigation }) => {
                     icon="eye"
                     color="accent"
                     title="Do rejestracji"
-                    onPress={() => getValueFor("authToken")}
                 />
                 <Title>Title</Title>
                 <Subtitle>Subtitle</Subtitle>

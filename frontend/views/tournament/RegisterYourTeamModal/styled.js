@@ -4,6 +4,7 @@ import {
     DateInput,
     Dropdown,
     Button,
+    Searchbox,
 } from "../../../components/Form"
 import { Avatar } from "../../../components/misc"
 
@@ -49,3 +50,8 @@ export const TeammateWrapper = styled.View`
 `
 
 export const DeleteButton = styled(Button)``
+
+export const SearchUserInput = styled(Searchbox)`
+    margin-top: 10px;
+    margin-bottom: 10px;
+`

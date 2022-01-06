@@ -5,6 +5,7 @@ import DateInput from "./DateInput"
 import Dropdown from "./Dropdown"
 import LocationInput from "./LocationInput"
 import FileInput from "./FileInput"
+import Searchbox from "./Searchbox"
 
 export {
     TextInput,
@@ -14,4 +15,5 @@ export {
     Dropdown,
     LocationInput,
     FileInput,
+    Searchbox,
 }

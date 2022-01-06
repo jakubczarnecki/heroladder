@@ -73,6 +73,10 @@ const TournamentSchema = new mongoose.Schema(
       max: 500,
       default: "",
     },
+    premium: {
+      type: Boolean,
+      default: false,
+    },
     matches: [[Match]],
     winners: Team,
   },

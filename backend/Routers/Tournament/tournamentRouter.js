@@ -36,6 +36,7 @@ tournamentRouter.post("/create", async (req, res, next) => {
       teamSize: req.body.teamSize,
       location: req.body.location,
       description: req.body.description,
+      premium: req.body.description,
     });
 
     const finalTournament = await newTournament.save();

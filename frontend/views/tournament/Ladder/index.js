@@ -1,6 +1,7 @@
 import React from "react"
 import Svg, { G, Line, Rect, Text } from "react-native-svg"
 import { LadderWrapper } from "./styled"
+import theme from "../../../styles/Theme"
 
 const exampleTournament = {
     bracketSize: 8,
@@ -8,83 +9,89 @@ const exampleTournament = {
         [
             {
                 number: 1,
-                teams: ["Team A", "Team B"],
+                teams: [{ teamname: "Team A" }, { teamname: "Team B" }],
                 id: 1,
+                winnerId: "Team A",
             },
             {
                 number: 2,
-                teams: ["Team C", "Team D"],
+                teams: [{ teamname: "Team C" }, { teamname: "Team D" }],
                 id: 2,
+                winnerId: "Team D",
             },
             {
                 number: 3,
-                teams: ["Team E", "Team F"],
+                teams: [{ teamname: "Team E" }, { teamname: "Team F" }],
                 id: 3,
+                winnerId: "",
             },
             {
                 number: 4,
-                teams: ["Team G", "Team H"],
+                teams: [{ teamname: "Team G" }, { teamname: "Team H" }],
                 id: 4,
             },
             {
                 number: 5,
-                teams: ["Team I", "Team J"],
+                teams: [{ teamname: "Team I" }, { teamname: "Team J" }],
                 id: 5,
             },
             {
                 number: 6,
-                teams: ["Team K", "Team L"],
+                teams: [{ teamname: "Team K" }, { teamname: "Team L" }],
                 id: 6,
+                winnerId: "Team K",
             },
             {
                 number: 7,
-                teams: ["Team M", "Team N"],
+                teams: [{ teamname: "Team M" }, { teamname: "Team N" }],
                 id: 7,
+                winnerId: "",
             },
             {
                 number: 8,
-                teams: ["Team O", "Team P"],
+                teams: [{ teamname: "Team O" }, { teamname: "Team P" }],
                 id: 8,
+                winnerId: "Team O",
             },
         ],
         [
             {
                 number: 9,
-                teams: ["Team A", "Team B"],
+                teams: [{ teamname: "Team A" }, { teamname: "Team B" }],
                 id: 9,
             },
             {
                 number: 10,
-                teams: ["Team C", "Team D"],
+                teams: [{ teamname: "Team C" }, { teamname: "Team D" }],
                 id: 10,
             },
             {
                 number: 11,
-                teams: ["Team E", "Team F"],
+                teams: [{ teamname: "Team E" }, { teamname: "Team F" }],
                 id: 11,
             },
             {
                 number: 12,
-                teams: ["Team G", "Team H"],
+                teams: [{ teamname: "Team G" }, { teamname: "Team H" }],
                 id: 12,
             },
         ],
         [
             {
                 number: 13,
-                teams: ["Team A", "Team B"],
+                teams: [{ teamname: "Team A" }, { teamname: "Team B" }],
                 id: 13,
             },
             {
                 number: 14,
-                teams: ["Team C", "Team D"],
+                teams: [{ teamname: "Team C" }, { teamname: "Team D" }],
                 id: 14,
             },
         ],
         [
             {
                 number: 15,
-                teams: ["Team A", "Team B"],
+                teams: [{ teamname: "Team A" }, { teamname: "Team B" }],
                 id: 15,
             },
         ],
@@ -92,7 +99,7 @@ const exampleTournament = {
 }
 
 const ladderSizes = {
-    BOX_WIDTH: 120,
+    BOX_WIDTH: 170,
     BOX_HEIGHT: 70,
     BOX_V_SPACE: 35,
     BOX_H_SPACE: 40,
@@ -136,13 +143,13 @@ const GenerateLadder = () => {
                                     }
                                     width={ladderSizes.BOX_WIDTH}
                                     height={ladderSizes.BOX_HEIGHT / 2}
-                                    stroke="black"
+                                    stroke={theme.colors.dark}
                                     strokeWidth="1"
                                 />
                                 <Text
-                                    fill="black"
+                                    fill={theme.colors.dark}
                                     fontSize="16"
-                                    x={x + 15}
+                                    x={x + 25}
                                     y={
                                         y +
                                         23 +
@@ -151,8 +158,28 @@ const GenerateLadder = () => {
                                             2
                                     }
                                 >
-                                    {team}
+                                    {team.teamname}
                                 </Text>
+                                <Rect
+                                    x={x}
+                                    y={
+                                        y +
+                                        ((teamIndex % 2) *
+                                            ladderSizes.BOX_HEIGHT) /
+                                            2
+                                    }
+                                    height={ladderSizes.BOX_HEIGHT / 2}
+                                    width={15}
+                                    fill={
+                                        match.winnerId
+                                            ? match.winnerId === team.teamname
+                                                ? theme.colors.green
+                                                : theme.colors.accent
+                                            : theme.colors.gray
+                                    }
+                                    stroke={theme.colors.dark}
+                                    strokeWidth="1"
+                                />
                             </G>
                         )
                     })}
@@ -188,7 +215,7 @@ const GenerateLadder = () => {
                                         ladderSizes.BOX_V_SPACE
                                 }
                                 y2={y + ladderSizes.BOX_V_SPACE}
-                                stroke="black"
+                                stroke={theme.colors.dark}
                                 strokeWidth={1}
                             />
                             <Line
@@ -216,7 +243,7 @@ const GenerateLadder = () => {
                                         ladderSizes.BOX_V_SPACE) /
                                         2
                                 }
-                                stroke="black"
+                                stroke={theme.colors.dark}
                                 strokeWidth={1}
                             />
                         </G>

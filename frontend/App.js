@@ -11,8 +11,8 @@ import { DrawerNavigator } from "./navigation"
 import { NavigationContainer } from "@react-navigation/native"
 
 // 10.0.2.2 - przekierowanie emulatora na localhost gospodarza (domyślne)
-axios.defaults.baseURL = "http://10.0.2.2:8800/api/"
-// axios.defaults.baseURL = "http://192.168.0.144:8800/api/"
+// axios.defaults.baseURL = "http://10.0.2.2:8800/api/"
+axios.defaults.baseURL = "http://192.168.0.144:8800/api/"
 
 export default function App() {
     return (

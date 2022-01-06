@@ -10,7 +10,10 @@ const checkIfTournamentExists = async (req, res, next, id) => {
   try {
     const exists = await Tournament.exists({ _id: id });
     if (!exists) {
-      res.status(404).send("Tournament with this ID doesn't exists.");
+      res.status(404).send({
+        message: "Tournament with this ID doesn't exists.",
+        type: "general",
+      });
       return;
     }
     next();
@@ -46,25 +49,35 @@ tournamentRouter.post("/create", async (req, res, next) => {
 //generate empty bracket for tournament with specified bracketSize
 tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => {
   try {
-    const arr = [];
-
     if (res.tournament.matches.length != 0) {
       res.status(400).json("Tournament has been already initialized.");
       return;
     }
 
-    for (let i = 1; i < res.tournament.bracketSize; i++) {
-      arr.push({
-        number: i,
-        teams: [],
-        winnerID: null,
-      });
+    let arr = [];
+    let updatedMatches = [];
+    let steps = Math.log2(res.tournament.bracketSize);
+    let stepDivider = 2;
+    let count = 1;
+
+    for (let i = 1; i <= steps; i++) {
+      for (let j = 1; j <= res.tournament.bracketSize / stepDivider; j++) {
+        arr.push({
+          number: count,
+          teams: [],
+          winnerId: null,
+        });
+        count++;
+      }
+      updatedMatches.push(arr);
+      stepDivider *= 2;
+      arr = [];
     }
 
     await Tournament.findOneAndUpdate(
       { _id: req.params.id },
       {
-        $set: { matches: arr },
+        $set: { matches: updatedMatches },
       },
       { useFindAndModify: false }
     );
@@ -77,7 +90,7 @@ tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => 
 
 //add team to the tournament
 //TODO:
-//error when full(when half - 1 matches is full),
+//error when full
 //error when any user is already a participant
 //error when teamName is not unique wihin tournament
 tournamentRouter.put("/:id/join", async (req, res, next) => {
@@ -90,13 +103,18 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
       members: req.body.members,
     };
 
+    // console.log(req.body.members);
+
     tournament.matches.every((match) => {
       if (match.teams.length < 2) {
         match.teams.push(team);
         return false;
       }
+      console.log(team);
       return true;
     });
+
+    // console.log(tournament.matches.find((match) => (match.number = 1)));
 
     await Tournament.findOneAndUpdate(
       { _id: req.params.id },
@@ -107,6 +125,27 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
     );
 
     res.status(200).json(team);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//claim winner of the match
+tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, next) => {
+  try {
+    const tournament = await Tournament.findById(req.params.id);
+
+    tournament.matches.find((match) => match.number == req.body.number).winnerId = req.body.winnerId;
+
+    await Tournament.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: { matches: tournament.matches },
+      },
+      { useFindAndModify: false }
+    );
+
+    res.status(200).send(`Tournament has been updated.`);
   } catch (err) {
     next(err);
   }

@@ -56,11 +56,11 @@ tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => 
 
     let arr = [];
     let updatedMatches = [];
-    let steps = Math.log2(res.tournament.bracketSize);
+    let stages = Math.log2(res.tournament.bracketSize);
     let stepDivider = 2;
     let count = 1;
 
-    for (let i = 1; i <= steps; i++) {
+    for (let i = 1; i <= stages; i++) {
       for (let j = 1; j <= res.tournament.bracketSize / stepDivider; j++) {
         arr.push({
           number: count,
@@ -89,32 +89,67 @@ tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => 
 });
 
 //add team to the tournament
-//TODO:
-//error when full
-//error when any user is already a participant
-//error when teamName is not unique wihin tournament
 tournamentRouter.put("/:id/join", async (req, res, next) => {
   try {
     const tournament = await Tournament.findById(req.params.id);
 
+    //check if last match is full of teams
+    const nrOfTeamsInLastMatch = tournament.matches[0].find((match) => match.number == tournament.matches[0].length).teams.length;
+    if (nrOfTeamsInLastMatch == 2) {
+      res.status(403).send("This tournament is full!");
+      return;
+    }
+
+    //create new team object
     req.body.members = [res._id.id, ...req.body.members];
-    const team = {
+    const newTeam = {
       teamName: req.body.teamName,
       members: req.body.members,
     };
 
-    // console.log(req.body.members);
+    //for every member registered in tournament check if equal to one of members in new team
+    let forbiddenTeamName;
+    let forbiddenMembers = [];
 
-    tournament.matches.every((match) => {
-      if (match.teams.length < 2) {
-        match.teams.push(team);
-        return false;
-      }
-      console.log(team);
-      return true;
+    req.body.members.forEach((newMember) => {
+      tournament.matches[0].forEach((match) => {
+        match.teams.forEach((team) => {
+          if (team.teamName == newTeam.teamName) forbiddenTeamName = team.teamName;
+          team.members.forEach((existingMember) => {
+            if (newMember == existingMember) {
+              forbiddenMembers.push(newMember);
+            }
+          });
+        });
+      });
     });
 
-    // console.log(tournament.matches.find((match) => (match.number = 1)));
+    // if (forbiddenTeamName || forbiddenMembers.length > 0) {
+    //   let err = [];
+    //   if (forbiddenTeamName) {
+    //     err.push({
+    //       message: `Team with name: ${forbiddenTeamName} is already registered in this tournament!`,
+    //       type: "teamName",
+    //     });
+    //   }
+    //   if (forbiddenMembers.length > 0) {
+    //     err.push({
+    //       message: `Following members are already registered in this tournament: ${forbiddenMembers.map((member) => `${member}`)}`,
+    //       type: "members",
+    //     });
+    //   }
+    //   res.status(403).send(err);
+    //   return;
+    // }
+
+    //add team to empty match
+    tournament.matches[0].every((match) => {
+      if (match.teams.length < 2) {
+        match.teams.push(newTeam);
+        return false;
+      }
+      return true;
+    });
 
     await Tournament.findOneAndUpdate(
       { _id: req.params.id },
@@ -124,18 +159,45 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
       { useFindAndModify: false }
     );
 
-    res.status(200).json(team);
+    res.status(200).json(newTeam);
   } catch (err) {
     next(err);
   }
 });
 
 //claim winner of the match
+//request fields:
+//number: 5 (number of match)
+//stage: 1 (// in size-16 tournament stage(for 1/8 matches) = 0; stage(for 1/4 matches) = 1 etc.)
+//winner: 0 (0 - first team; 1 - second team)
 tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, next) => {
   try {
     const tournament = await Tournament.findById(req.params.id);
 
-    tournament.matches.find((match) => match.number == req.body.number).winnerId = req.body.winnerId;
+    let currentStage = Number(req.body.stage);
+    let winnerNumber = req.body.winner;
+
+    let winnerTeam = tournament.matches[currentStage].find((match) => match.number == req.body.number).teams[winnerNumber];
+    let nextStage = currentStage + 1;
+    let numberOfMatchInNextStage = Math.floor((req.body.number - 1 - tournament.matches[currentStage - 1].at(-1).number) / 2);
+
+    //if match is a final update winner of a tournament
+    if (nextStage == Math.log2(tournament.bracketSize)) {
+      await Tournament.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: { winners: winnerTeam },
+        },
+        { useFindAndModify: false }
+      );
+
+      res.status(200).send("Winner of the tournament has beed updated succesfully.");
+      return;
+    }
+
+    //update winner in current match and promote to next stage
+    tournament.matches[currentStage].find((match) => match.number == req.body.number).winner = winnerNumber;
+    tournament.matches[nextStage][numberOfMatchInNextStage].teams.push(winnerTeam);
 
     await Tournament.findOneAndUpdate(
       { _id: req.params.id },
@@ -145,7 +207,7 @@ tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, ne
       { useFindAndModify: false }
     );
 
-    res.status(200).send(`Tournament has been updated.`);
+    res.status(200).send(`Winner has beed updated succesfully.`);
   } catch (err) {
     next(err);
   }

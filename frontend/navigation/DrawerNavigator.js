@@ -38,7 +38,7 @@ const DrawerNavigator = () => {
             }}
             initialRouteName="Tournament"
         >
-            {userID ? (
+            {!userID ? (
                 <>
                     <Drawer.Screen
                         name="Tournament"

@@ -18,8 +18,6 @@ export const loginUser = (userData) => (dispatch) => {
                 id: res.data._id,
                 username: res.data.username,
                 email: res.data.email,
-                achievements: res.data.achievements,
-                tournamentsHistory: res.data.tournamentsHistory,
             }
 
             dispatch({
@@ -27,7 +25,6 @@ export const loginUser = (userData) => (dispatch) => {
                 payload: user,
             })
             dispatch({ type: CLEAR_ERRORS })
-            // navigate to home
         })
         .catch((err) => {
             console.log("err", err.response.data)
@@ -46,7 +43,6 @@ export const logout = () => (dispatch) => {
 
 const setAuthorizationHeader = async (token) => {
     const authHeader = `Bearer ${token}`
-    // set header to some local storage
     await SecureStore.setItemAsync("authToken", authHeader)
     axios.defaults.headers.common["authorization"] = authHeader
 }

@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { View } from "react-native"
 import {
     ButtonContent,
     ButtonIcon,
@@ -26,20 +27,29 @@ const Button = ({
     }
 
     return (
-        <ButtonWrapper type={type} color={themeColor} size={size} style={style}>
-            <ButtonContent size={size}>
-                {icon && (
-                    <ButtonIcon name={icon} type={type} color={themeColor} />
-                )}
-                {title && (
-                    <ButtonText type={type} color={themeColor}>
-                        {title}
-                    </ButtonText>
-                )}
-            </ButtonContent>
-
-            {!disabled && <PressableOverlay onPress={onPress} />}
-        </ButtonWrapper>
+        <View style={[style, { borderRadius: 10, overflow: "hidden" }]}>
+            <ButtonWrapper
+                type={type}
+                color={themeColor}
+                size={size}
+                onPress={onPress}
+            >
+                <ButtonContent size={size}>
+                    {icon && (
+                        <ButtonIcon
+                            name={icon}
+                            type={type}
+                            color={themeColor}
+                        />
+                    )}
+                    {title && (
+                        <ButtonText type={type} color={themeColor}>
+                            {title}
+                        </ButtonText>
+                    )}
+                </ButtonContent>
+            </ButtonWrapper>
+        </View>
     )
 }
 

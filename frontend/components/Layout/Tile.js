@@ -3,6 +3,7 @@ import theme from "../../styles/Theme"
 
 const Tile = styled.View`
     border-radius: 10px;
+    overflow: hidden;
 
     shadow-color: #000;
     shadow-opacity: 0.25;

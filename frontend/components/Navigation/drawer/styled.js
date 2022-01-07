@@ -13,12 +13,7 @@ export const DrawerWrapper = styled.View`
     align-items: center;
 `
 
-export const TileContent = styled(Pressable).attrs(() => ({
-    pressStyle: {
-        borderRadius: 10,
-        backgroundColor: theme.colors.grayLighter,
-    },
-}))`
+export const TileContent = styled(Pressable)`
     padding: 20px;
     width: 135px;
     height: 135px;

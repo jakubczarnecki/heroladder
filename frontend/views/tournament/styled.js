@@ -38,5 +38,5 @@ export const Row = styled.View`
 
 export const MapWrapper = styled(MapView)`
     width: 100%;
-    height: 250px;
+    height: ${(props) => props.height}px;
 `

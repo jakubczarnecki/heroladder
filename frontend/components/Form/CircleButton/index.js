@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { View } from "react-native"
 import { ButtonIcon, CircleButtonWrapper, PressableOverlay } from "./styled"
 import theme from "../../../styles/Theme"
 
@@ -10,10 +11,23 @@ const CircleButton = ({ style, icon, color, iconColor, size, onPress }) => {
         : theme.colors.white
 
     return (
-        <CircleButtonWrapper color={themeColor} style={style} size={size}>
-            <ButtonIcon name={icon} size={size} color={themeColorIcon} />
-            <PressableOverlay onPress={onPress} />
-        </CircleButtonWrapper>
+        <View
+            style={[
+                style,
+                {
+                    borderRadius: 700,
+                    overflow: "hidden",
+                },
+            ]}
+        >
+            <CircleButtonWrapper
+                color={themeColor}
+                size={size}
+                onPress={onPress}
+            >
+                <ButtonIcon name={icon} size={size} color={themeColorIcon} />
+            </CircleButtonWrapper>
+        </View>
     )
 }
 

@@ -1,7 +1,12 @@
 import styled from "styled-components/native"
 import { Button } from "../../../components/Form"
 import { Paragraph } from "../../../components/Layout"
+import { Avatar } from "../../../components/misc"
 import theme from "../../../styles/Theme"
+
+export const DetailsWrapper = styled.View`
+    flex: 1;
+`
 
 export const TournamentDescription = styled(Paragraph)`
     padding-bottom: 20px;
@@ -23,6 +28,10 @@ export const TeamSquad = styled.ScrollView.attrs(() => ({
 }))`
     flex-direction: row;
     max-width: 155px;
+`
+
+export const UserAvatar = styled(Avatar)`
+    margin: 5px;
 `
 
 export const RegisterButton = styled(Button)`

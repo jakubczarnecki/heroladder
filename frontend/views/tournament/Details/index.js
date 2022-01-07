@@ -15,6 +15,8 @@ import {
     RegisterButton,
     ContentColumn,
     TournamentDescription,
+    DetailsWrapper,
+    UserAvatar,
 } from "./styled"
 
 import {
@@ -25,25 +27,20 @@ import {
 
 import { Avatar } from "../../../components/misc"
 import bg2 from "../../../assets/img/bg2.jpg"
-import { Marker } from "react-native-maps"
 import RegisterYourTeamModal from "../RegisterYourTeamModal"
 
 const Details = () => {
     const [modalOpen, setModalOpen] = useState(false)
 
     return (
-        <>
+        <DetailsWrapper>
             <Section>
                 <SectionHeader>
                     <SectionTitle>Tournament title</SectionTitle>
                 </SectionHeader>
                 <SectionContent>
                     <TournamentDescription>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Error nesciunt maxime fuga expedita rerum nulla cumque
-                        nobis autem adipisci? Ea doloremque voluptatibus ipsa
-                        consequuntur nihil nesciunt expedita asperiores.
-                        Dignissimos, dolor?
+                        Lorem ipsum dolor sit ame
                     </TournamentDescription>
 
                     <Row>
@@ -67,27 +64,6 @@ const Details = () => {
 
             <Section>
                 <SectionHeader>
-                    <SectionTitle>Location</SectionTitle>
-                </SectionHeader>
-                <MapWrapper
-                    initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
-                >
-                    <Marker
-                        coordinate={{
-                            latitude: 37.78825,
-                            longitude: -122.4324,
-                        }}
-                    />
-                </MapWrapper>
-            </Section>
-
-            <Section>
-                <SectionHeader>
                     <SectionTitle>Teams</SectionTitle>
                     <SectionTitle>3/4</SectionTitle>
                 </SectionHeader>
@@ -96,40 +72,40 @@ const Details = () => {
                         <Team>
                             <TitleSmaller>Team A</TitleSmaller>
                             <TeamSquad>
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
                             </TeamSquad>
                         </Team>
                         <Team>
                             <TitleSmaller>Team B</TitleSmaller>
                             <TeamSquad>
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
                             </TeamSquad>
                         </Team>
                         <Team>
                             <TitleSmaller>Team C</TitleSmaller>
                             <TeamSquad>
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
-                                <Avatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
+                                <UserAvatar img={bg2} size={45} />
                             </TeamSquad>
                         </Team>
                         <RegisterButton
@@ -145,7 +121,7 @@ const Details = () => {
                 onCancel={() => setModalOpen(false)}
                 onSubmit={() => setModalOpen(false)}
             />
-        </>
+        </DetailsWrapper>
     )
 }
 

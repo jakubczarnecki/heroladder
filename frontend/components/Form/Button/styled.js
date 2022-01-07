@@ -3,7 +3,7 @@ import theme from "../../../styles/Theme"
 import { FontAwesome5 } from "@expo/vector-icons"
 import { Pressable } from "../../Layout"
 
-export const ButtonWrapper = styled.View`
+export const ButtonWrapper = styled(Pressable)`
     background-color: ${(props) => {
         return props.type === "contained" ? props.color : "transparent"
     }};
@@ -50,17 +50,4 @@ export const ButtonIcon = styled(FontAwesome5).attrs(() => ({
     color: ${(props) => {
         return props.type === "contained" ? theme.colors.white : props.color
     }};
-`
-
-export const PressableOverlay = styled(Pressable).attrs(() => ({
-    pressStyle: {
-        backgroundColor: "#2927231d",
-    },
-}))`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-    border-radius: 10px;
 `

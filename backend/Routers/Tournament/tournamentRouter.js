@@ -36,7 +36,7 @@ tournamentRouter.post("/create", async (req, res, next) => {
       teamSize: req.body.teamSize,
       location: req.body.location,
       description: req.body.description,
-      premium: req.body.description,
+      premium: req.body.premium,
     });
 
     const finalTournament = await newTournament.save();
@@ -51,7 +51,10 @@ tournamentRouter.post("/create", async (req, res, next) => {
 tournamentRouter.put("/:id/init", authorizeOrginizer, async (req, res, next) => {
   try {
     if (res.tournament.matches.length != 0) {
-      res.status(400).json("Tournament has been already initialized.");
+      res.status(400).json({
+        type: "init",
+        message: "Tournament has been already initialized.",
+      });
       return;
     }
 
@@ -97,7 +100,10 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
     //check if last match is full of teams
     const nrOfTeamsInLastMatch = tournament.matches[0].find((match) => match.number == tournament.matches[0].length).teams.length;
     if (nrOfTeamsInLastMatch == 2) {
-      res.status(403).send("This tournament is full!");
+      res.status(403).send({
+        type: "createTournament",
+        message: "This tournament is full!",
+      });
       return;
     }
 
@@ -194,7 +200,6 @@ tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, ne
         },
         { useFindAndModify: false }
       );
-
       res.status(200).send("Winner of the tournament has beed updated succesfully.");
       return;
     }

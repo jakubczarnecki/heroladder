@@ -30,16 +30,6 @@ const UserSchema = new mongoose.Schema(
     backgroundId: {
       type: String,
     },
-
-    tournamentsHistory: {
-      type: Array,
-      default: [],
-    },
-
-    achievements: {
-      type: Array,
-      default: [],
-    },
   },
   {
     timestamps: true,

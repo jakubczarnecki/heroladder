@@ -56,8 +56,8 @@ userRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-//get tournaments by userId
-userRouter.get("/:id/tournaments", async (req, res, next) => {
+//get tournaments organized by user
+userRouter.get("/:id/organizedTournaments", async (req, res, next) => {
   try {
     const tournaments = await Tournament.find({ organizerId: req.params.id });
     res.status(200).json(tournaments);
@@ -66,8 +66,46 @@ userRouter.get("/:id/tournaments", async (req, res, next) => {
   }
 });
 
+//get participated tournaments by user
+userRouter.get("/:id/participatedTournaments", async (req, res, next) => {
+  try {
+    const tournaments = await Tournament.find({ organizerId: req.params.id });
+    res.status(200).json(tournaments);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//get tournamentsHistory by userId
+userRouter.get("/:id/tournamentsHistory", async (req, res, next) => {
+  try {
+    const tournaments = await Tournament.find({ organizerId: req.params.id });
+    res.status(200).json(tournaments);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//confirm operation by sending password
+const confirmOperation = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ _id: res._id.id });
+
+    const isPasswordValid = await utils.comparePassword(req.body.confirmPassword, user.password);
+    if (!isPasswordValid) {
+      res.status(400).json({
+        type: "login",
+        message: "That wasn't correct. Try again?",
+      });
+      return;
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 //update yourself
-userRouter.put("/", async (req, res, next) => {
+userRouter.put("/", confirmOperation, async (req, res, next) => {
   try {
     req.body.password && (req.body.password = await utils.encryptPassword(req.body.password));
 
@@ -89,7 +127,7 @@ userRouter.put("/", async (req, res, next) => {
 });
 
 //delete yourself
-userRouter.delete("/", async (req, res, next) => {
+userRouter.delete("/", confirmOperation, async (req, res, next) => {
   try {
     await Tournament.deleteMany({ organizerId: res._id.id });
     await User.findOneAndDelete({ _id: res._id.id });

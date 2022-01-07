@@ -30,7 +30,12 @@ const Modal = ({
     }
 
     return (
-        <RNModal animationType="fade" visible={isOpen} transparent={true}>
+        <RNModal
+            animationType="fade"
+            visible={isOpen}
+            transparent={true}
+            onRequestClose={type === "confirm" ? onCancel : onSubmit}
+        >
             <ModalBackdrop>
                 <ModalWrapper>
                     {title && (

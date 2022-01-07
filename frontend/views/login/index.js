@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import { LogoImg } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import Loader from "frontend/components/misc/Loader.js"
+import { Loader } from "../../components/misc"
 import {
     ButtonWrapper,
     LoginWrapper,
@@ -29,7 +29,7 @@ const loginView = ({ navigation }) => {
     const error = useSelector((state) => state.ui.errors)
 
     // skip login page
-    dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
+    // dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
 
     const onSubmit = () => {
         dispatch(loginUser({ email, password }))

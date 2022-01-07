@@ -27,10 +27,7 @@ export const LogoWrapper = styled.View`
 `
 
 export const StyledTile = styled(Tile)`
-    /* height: 65%; */
-    margin: 10px;
-    margin-bottom: 20px;
-    width: 90%;
+    elevation: 0;
     padding: 20px;
 `
 
@@ -47,10 +44,27 @@ export const LoginTitle = styled(TitleSmall)`
 `
 
 export const FormInput = styled(TextInput)`
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 `
 
 export const LoginButton = styled(Button)`
     margin: 10px;
+`
+
+export const LoadingView = styled.View`
+    position: relative;
+    width: 90%;
+    /* padding: 20px; */
+    margin-bottom: 20px;
+`
+
+export const LoadingWrapper = styled.View`
+    width: 100%;
+    height: 100%;
+    background-color: #00000077;
+    position: absolute;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
 `

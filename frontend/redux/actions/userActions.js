@@ -32,6 +32,17 @@ export const loginUser = (userData) => (dispatch) => {
         })
 }
 
+export const registerUser = (userData) => (dispatch) => {
+    dispatch({ type: SET_LOADING_UI })
+    axios
+        .post("/auth/register", userData)
+        .then((res) => res)
+        .catch((err) => {
+            console.log("err", err.response.data)
+            dispatch({ type: SET_ERRORS, payload: err.response.data })
+        })
+}
+
 export const getUserData = () => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
     console.log("getUserData")

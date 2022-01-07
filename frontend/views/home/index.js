@@ -4,9 +4,7 @@ import { LayoutWrapperScroll } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
 import { FixedButton, HomeWrapper } from "./styled"
 import HelloBox from "./HelloBox"
-import { View } from "react-native"
 import TournamentFeedItem from "./TournamentFeedItem"
-import { CircleButton } from "../../components/Form"
 import AddTournamentModal from "./AddTournamentModal"
 
 const homeView = ({ navigation }) => {

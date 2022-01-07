@@ -10,8 +10,6 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
     const [teamsCount, setTeamsCount] = useState(null)
     const [location, setLocation] = useState(null)
 
-    console.log(location)
-
     return (
         <Modal
             type="confirm"

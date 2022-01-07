@@ -101,7 +101,7 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
     const nrOfTeamsInLastMatch = tournament.matches[0].find((match) => match.number == tournament.matches[0].length).teams.length;
     if (nrOfTeamsInLastMatch == 2) {
       res.status(403).send({
-        type: "createTournament",
+        type: "join",
         message: "This tournament is full!",
       });
       return;

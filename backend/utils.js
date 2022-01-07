@@ -10,10 +10,6 @@ const comparePassword = async (password, databasePassword) => {
   return await compare(password, databasePassword);
 };
 
-const repeatPassword = async (req, respassword) => {
-  return await compare(password, databasePassword);
-};
-
 const pictureFrom = (file) => {
   return {
     name: file.originalname,

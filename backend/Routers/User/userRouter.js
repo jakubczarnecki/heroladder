@@ -66,25 +66,25 @@ userRouter.get("/:id/organizedTournaments", async (req, res, next) => {
   }
 });
 
-//get participated tournaments by user
-userRouter.get("/:id/participatedTournaments", async (req, res, next) => {
-  try {
-    const tournaments = await Tournament.find({ organizerId: req.params.id });
-    res.status(200).json(tournaments);
-  } catch (err) {
-    next(err);
-  }
-});
+// //get participated tournaments by user
+// userRouter.get("/:id/participatedTournaments", async (req, res, next) => {
+//   try {
+//     const tournaments = await Tournament.find({ organizerId: req.params.id });
+//     res.status(200).json(tournaments);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
-//get tournamentsHistory by userId
-userRouter.get("/:id/tournamentsHistory", async (req, res, next) => {
-  try {
-    const tournaments = await Tournament.find({ organizerId: req.params.id });
-    res.status(200).json(tournaments);
-  } catch (err) {
-    next(err);
-  }
-});
+// //get tournamentsHistory by userId
+// userRouter.get("/:id/tournamentsHistory", async (req, res, next) => {
+//   try {
+//     const tournaments = await Tournament.find({ organizerId: req.params.id });
+//     res.status(200).json(tournaments);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 //confirm operation by sending password
 const confirmOperation = async (req, res, next) => {

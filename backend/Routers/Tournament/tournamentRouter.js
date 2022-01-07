@@ -36,6 +36,7 @@ tournamentRouter.post("/create", async (req, res, next) => {
       teamSize: req.body.teamSize,
       location: req.body.location,
       description: req.body.description,
+      premium: req.body.description,
     });
 
     const finalTournament = await newTournament.save();
@@ -124,23 +125,23 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
       });
     });
 
-    // if (forbiddenTeamName || forbiddenMembers.length > 0) {
-    //   let err = [];
-    //   if (forbiddenTeamName) {
-    //     err.push({
-    //       message: `Team with name: ${forbiddenTeamName} is already registered in this tournament!`,
-    //       type: "teamName",
-    //     });
-    //   }
-    //   if (forbiddenMembers.length > 0) {
-    //     err.push({
-    //       message: `Following members are already registered in this tournament: ${forbiddenMembers.map((member) => `${member}`)}`,
-    //       type: "members",
-    //     });
-    //   }
-    //   res.status(403).send(err);
-    //   return;
-    // }
+    if (forbiddenTeamName || forbiddenMembers.length > 0) {
+      let err = [];
+      if (forbiddenTeamName) {
+        err.push({
+          message: `Team with name: ${forbiddenTeamName} is already registered in this tournament!`,
+          type: "teamName",
+        });
+      }
+      if (forbiddenMembers.length > 0) {
+        err.push({
+          message: `Following members are already registered in this tournament: ${forbiddenMembers.map((member) => `${member}`)}`,
+          type: "members",
+        });
+      }
+      res.status(403).send(err);
+      return;
+    }
 
     //add team to empty match
     tournament.matches[0].every((match) => {
@@ -179,7 +180,10 @@ tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, ne
 
     let winnerTeam = tournament.matches[currentStage].find((match) => match.number == req.body.number).teams[winnerNumber];
     let nextStage = currentStage + 1;
-    let numberOfMatchInNextStage = Math.floor((req.body.number - 1 - tournament.matches[currentStage - 1].at(-1).number) / 2);
+
+    let minus = 0;
+    if (currentStage > 0) minus = tournament.matches[currentStage - 1].at(-1).number;
+    let numberOfMatchInNextStage = Math.floor((req.body.number - 1 - minus) / 2);
 
     //if match is a final update winner of a tournament
     if (nextStage == Math.log2(tournament.bracketSize)) {

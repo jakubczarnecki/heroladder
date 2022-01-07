@@ -23,6 +23,29 @@ userRouter.get("/all", async (req, res, next) => {
   }
 });
 
+//get user by username
+userRouter.get("/byUsername", async (req, res, next) => {
+  try {
+    const string = req.body.username;
+
+    if (string == "") {
+      res.status(200).send(null);
+      return;
+    }
+
+    const users = await User.find({ username: { $regex: string, $options: "i" } });
+
+    if (users.length == 0) {
+      res.status(400).send({ message: "Sorry, we couldnt find any matches for this username :(", type: "login" });
+      return;
+    }
+
+    res.status(200).json(users.slice(0, 8));
+  } catch (err) {
+    next(err);
+  }
+});
+
 //get user by id
 userRouter.get("/:id", async (req, res, next) => {
   try {

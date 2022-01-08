@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 import Svg, { G, Line, Rect, Text } from "react-native-svg"
 import { LadderWrapper } from "./styled"
 import theme from "../../../styles/Theme"
+import SelectWinnersModal from "../SelectWinnersModal"
 
 const exampleTournament = {
     bracketSize: 8,
@@ -107,160 +108,171 @@ const ladderSizes = {
     LINE_WIDTH: 20,
 }
 
-const GenerateLadder = () => {
-    let nextBaseHeight = 1
-    let baseHeight = 0
+const Ladder = () => {
+    const [winnerModalOpen, setWinnerModalOpen] = useState(false)
+    const [matchToEdit, setMatchToEdit] = useState(null)
 
-    return exampleTournament.matches.map((column, columnIndex) => {
-        if (columnIndex > 0) {
-            baseHeight = nextBaseHeight
-            nextBaseHeight = columnIndex * 3 + baseHeight
-        }
-        return column.map((match, matchIndex) => {
-            const x =
-                columnIndex * (ladderSizes.BOX_WIDTH + ladderSizes.BOX_H_SPACE)
-            const y =
-                (baseHeight +
-                    (columnIndex != 0) * 0.5 +
-                    matchIndex * (2 + nextBaseHeight)) *
-                ladderSizes.BOX_V_SPACE
+    const GenerateLadder = () => {
+        let nextBaseHeight = 1
+        let baseHeight = 0
 
-            return (
-                <G key={`${columnIndex}${matchIndex}`}>
-                    {[{}, {}].map((team, teamIndex) => {
-                        return (
-                            <G
-                                key={`${columnIndex}${matchIndex}${teamIndex}`}
-                                onPress={() =>
-                                    console.log(match.teams[teamIndex])
-                                }
-                            >
-                                <Rect
-                                    x={x}
-                                    y={
-                                        y +
-                                        ((teamIndex % 2) *
-                                            ladderSizes.BOX_HEIGHT) /
-                                            2
-                                    }
-                                    width={ladderSizes.BOX_WIDTH}
-                                    height={ladderSizes.BOX_HEIGHT / 2}
-                                    stroke={theme.colors.dark}
-                                    strokeWidth="1"
-                                />
-                                <Text
-                                    fill={theme.colors.dark}
-                                    fontSize="16"
-                                    x={x + 25}
-                                    y={
-                                        y +
-                                        23 +
-                                        ((teamIndex % 2) *
-                                            ladderSizes.BOX_HEIGHT) /
-                                            2
-                                    }
+        return exampleTournament.matches.map((column, columnIndex) => {
+            if (columnIndex > 0) {
+                baseHeight = nextBaseHeight
+                nextBaseHeight = columnIndex * 3 + baseHeight
+            }
+            return column.map((match, matchIndex) => {
+                const x =
+                    columnIndex *
+                    (ladderSizes.BOX_WIDTH + ladderSizes.BOX_H_SPACE)
+                const y =
+                    (baseHeight +
+                        (columnIndex != 0) * 0.5 +
+                        matchIndex * (2 + nextBaseHeight)) *
+                    ladderSizes.BOX_V_SPACE
+
+                return (
+                    <G key={`${columnIndex}${matchIndex}`}>
+                        {[{}, {}].map((team, teamIndex) => {
+                            return (
+                                <G
+                                    key={`${columnIndex}${matchIndex}${teamIndex}`}
+                                    onPress={() => {
+                                        if (
+                                            !match.winnerId &&
+                                            match.teams.length == 2
+                                        ) {
+                                            setMatchToEdit(match)
+                                            setWinnerModalOpen(true)
+                                        }
+                                    }}
                                 >
-                                    {match.teams[teamIndex] &&
-                                        match.teams[teamIndex].teamname}
-                                </Text>
-                                <Rect
-                                    x={x}
-                                    y={
+                                    <Rect
+                                        x={x}
+                                        y={
+                                            y +
+                                            ((teamIndex % 2) *
+                                                ladderSizes.BOX_HEIGHT) /
+                                                2
+                                        }
+                                        width={ladderSizes.BOX_WIDTH}
+                                        height={ladderSizes.BOX_HEIGHT / 2}
+                                        stroke={theme.colors.dark}
+                                        strokeWidth="1"
+                                    />
+                                    <Text
+                                        fill={theme.colors.dark}
+                                        fontSize="16"
+                                        x={x + 25}
+                                        y={
+                                            y +
+                                            23 +
+                                            ((teamIndex % 2) *
+                                                ladderSizes.BOX_HEIGHT) /
+                                                2
+                                        }
+                                    >
+                                        {match.teams[teamIndex] &&
+                                            match.teams[teamIndex].teamname}
+                                    </Text>
+                                    <Rect
+                                        x={x}
+                                        y={
+                                            y +
+                                            ((teamIndex % 2) *
+                                                ladderSizes.BOX_HEIGHT) /
+                                                2
+                                        }
+                                        height={ladderSizes.BOX_HEIGHT / 2}
+                                        width={15}
+                                        fill={
+                                            match.winnerId
+                                                ? match.winnerId ===
+                                                      match.teams[teamIndex]
+                                                          .teamname &&
+                                                  match.teams[teamIndex]
+                                                      .teamname
+                                                    ? theme.colors.green
+                                                    : theme.colors.accent
+                                                : theme.colors.gray
+                                        }
+                                        stroke={theme.colors.dark}
+                                        strokeWidth="1"
+                                    />
+                                </G>
+                            )
+                        })}
+                        <Line
+                            x1={x + ladderSizes.BOX_WIDTH}
+                            x2={
+                                x +
+                                ladderSizes.BOX_WIDTH +
+                                ladderSizes.BOX_H_SPACE / 2
+                            }
+                            y1={y + ladderSizes.BOX_V_SPACE}
+                            y2={y + ladderSizes.BOX_V_SPACE}
+                            stroke="black"
+                            strokeWidth={1}
+                        />
+                        {matchIndex % 2 != 0 && (
+                            <G>
+                                <Line
+                                    x1={
+                                        x +
+                                        ladderSizes.BOX_WIDTH +
+                                        ladderSizes.BOX_H_SPACE / 2
+                                    }
+                                    x2={
+                                        x +
+                                        ladderSizes.BOX_WIDTH +
+                                        ladderSizes.BOX_H_SPACE / 2
+                                    }
+                                    y1={
                                         y +
-                                        ((teamIndex % 2) *
-                                            ladderSizes.BOX_HEIGHT) /
+                                        ladderSizes.BOX_V_SPACE -
+                                        (nextBaseHeight + 2) *
+                                            ladderSizes.BOX_V_SPACE
+                                    }
+                                    y2={y + ladderSizes.BOX_V_SPACE}
+                                    stroke={theme.colors.dark}
+                                    strokeWidth={1}
+                                />
+                                <Line
+                                    x1={
+                                        x +
+                                        ladderSizes.BOX_WIDTH +
+                                        ladderSizes.BOX_H_SPACE / 2
+                                    }
+                                    x2={
+                                        x +
+                                        ladderSizes.BOX_WIDTH +
+                                        +ladderSizes.BOX_H_SPACE
+                                    }
+                                    y1={
+                                        y +
+                                        ladderSizes.BOX_V_SPACE -
+                                        ((nextBaseHeight + 2) *
+                                            ladderSizes.BOX_V_SPACE) /
                                             2
                                     }
-                                    height={ladderSizes.BOX_HEIGHT / 2}
-                                    width={15}
-                                    fill={
-                                        match.winnerId
-                                            ? match.winnerId ===
-                                                  match.teams[teamIndex]
-                                                      .teamname &&
-                                              match.teams[teamIndex].teamname
-                                                ? theme.colors.green
-                                                : theme.colors.accent
-                                            : theme.colors.gray
+                                    y2={
+                                        y +
+                                        ladderSizes.BOX_V_SPACE -
+                                        ((nextBaseHeight + 2) *
+                                            ladderSizes.BOX_V_SPACE) /
+                                            2
                                     }
                                     stroke={theme.colors.dark}
-                                    strokeWidth="1"
+                                    strokeWidth={1}
                                 />
                             </G>
-                        )
-                    })}
-                    <Line
-                        x1={x + ladderSizes.BOX_WIDTH}
-                        x2={
-                            x +
-                            ladderSizes.BOX_WIDTH +
-                            ladderSizes.BOX_H_SPACE / 2
-                        }
-                        y1={y + ladderSizes.BOX_V_SPACE}
-                        y2={y + ladderSizes.BOX_V_SPACE}
-                        stroke="black"
-                        strokeWidth={1}
-                    />
-                    {matchIndex % 2 != 0 && (
-                        <G>
-                            <Line
-                                x1={
-                                    x +
-                                    ladderSizes.BOX_WIDTH +
-                                    ladderSizes.BOX_H_SPACE / 2
-                                }
-                                x2={
-                                    x +
-                                    ladderSizes.BOX_WIDTH +
-                                    ladderSizes.BOX_H_SPACE / 2
-                                }
-                                y1={
-                                    y +
-                                    ladderSizes.BOX_V_SPACE -
-                                    (nextBaseHeight + 2) *
-                                        ladderSizes.BOX_V_SPACE
-                                }
-                                y2={y + ladderSizes.BOX_V_SPACE}
-                                stroke={theme.colors.dark}
-                                strokeWidth={1}
-                            />
-                            <Line
-                                x1={
-                                    x +
-                                    ladderSizes.BOX_WIDTH +
-                                    ladderSizes.BOX_H_SPACE / 2
-                                }
-                                x2={
-                                    x +
-                                    ladderSizes.BOX_WIDTH +
-                                    +ladderSizes.BOX_H_SPACE
-                                }
-                                y1={
-                                    y +
-                                    ladderSizes.BOX_V_SPACE -
-                                    ((nextBaseHeight + 2) *
-                                        ladderSizes.BOX_V_SPACE) /
-                                        2
-                                }
-                                y2={
-                                    y +
-                                    ladderSizes.BOX_V_SPACE -
-                                    ((nextBaseHeight + 2) *
-                                        ladderSizes.BOX_V_SPACE) /
-                                        2
-                                }
-                                stroke={theme.colors.dark}
-                                strokeWidth={1}
-                            />
-                        </G>
-                    )}
-                </G>
-            )
+                        )}
+                    </G>
+                )
+            })
         })
-    })
-}
+    }
 
-const Ladder = () => {
     return (
         <LadderWrapper>
             <Svg
@@ -277,6 +289,12 @@ const Ladder = () => {
             >
                 <GenerateLadder />
             </Svg>
+            <SelectWinnersModal
+                isOpen={winnerModalOpen}
+                onCancel={() => setWinnerModalOpen(false)}
+                onSubmit={() => setWinnerModalOpen(false)}
+                match={matchToEdit}
+            />
         </LadderWrapper>
     )
 }

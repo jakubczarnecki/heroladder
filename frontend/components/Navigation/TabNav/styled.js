@@ -28,5 +28,5 @@ export const HeaderItem = styled(Pressable)`
 `
 
 export const NavContent = styled.View`
-    flex: 1;
+    flex-grow: 1;
 `

@@ -84,14 +84,14 @@ const exampleTournament = {
             },
             {
                 number: 14,
-                teams: [{ teamname: "Team C" }, { teamname: "Team D" }],
+                teams: [],
                 id: 14,
             },
         ],
         [
             {
                 number: 15,
-                teams: [{ teamname: "Team A" }, { teamname: "Team B" }],
+                teams: [],
                 id: 15,
             },
         ],
@@ -127,11 +127,13 @@ const GenerateLadder = () => {
 
             return (
                 <G key={`${columnIndex}${matchIndex}`}>
-                    {match.teams.map((team, teamIndex) => {
+                    {[{}, {}].map((team, teamIndex) => {
                         return (
                             <G
                                 key={`${columnIndex}${matchIndex}${teamIndex}`}
-                                onPress={() => console.log(team)}
+                                onPress={() =>
+                                    console.log(match.teams[teamIndex])
+                                }
                             >
                                 <Rect
                                     x={x}
@@ -158,7 +160,8 @@ const GenerateLadder = () => {
                                             2
                                     }
                                 >
-                                    {team.teamname}
+                                    {match.teams[teamIndex] &&
+                                        match.teams[teamIndex].teamname}
                                 </Text>
                                 <Rect
                                     x={x}
@@ -172,7 +175,10 @@ const GenerateLadder = () => {
                                     width={15}
                                     fill={
                                         match.winnerId
-                                            ? match.winnerId === team.teamname
+                                            ? match.winnerId ===
+                                                  match.teams[teamIndex]
+                                                      .teamname &&
+                                              match.teams[teamIndex].teamname
                                                 ? theme.colors.green
                                                 : theme.colors.accent
                                             : theme.colors.gray

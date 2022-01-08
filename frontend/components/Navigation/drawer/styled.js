@@ -6,12 +6,8 @@ import { FontAwesome5 } from "@expo/vector-icons"
 export const DrawerWrapper = styled.View`
     padding: 10px;
     padding-top: 30px;
-    height: 100%;
+    flex: 1;
     background-color: ${theme.colors.grayLight};
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
 `
 
 export const TileContent = styled(Pressable)`
@@ -36,12 +32,23 @@ export const TileIcon = styled(FontAwesome5).attrs({
     padding: 10px;
 `
 
+export const DrawerContent = styled.View`
+    flex-grow: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+`
+
+export const DrawerFooter = styled.View`
+    justify-content: center;
+    align-items: center;
+`
+
 export const MenuDetailText = styled(DetailText)`
-    position: absolute;
-    bottom: 15px;
+    margin-bottom: 5px;
 `
 
 export const MenuLogo = styled(LogoImg)`
-    position: absolute;
-    bottom: 40px;
+    margin-bottom: 8px;
 `

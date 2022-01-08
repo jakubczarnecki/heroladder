@@ -10,6 +10,8 @@ import {
     TileIcon,
     MenuDetailText,
     MenuLogo,
+    DrawerFooter,
+    DrawerContent,
 } from "./styled"
 import navContent from "./content"
 import LogoWhite from "../../../assets/img/logo-01.png"
@@ -20,22 +22,28 @@ const Drawer = ({ navigation }) => {
     return (
         <LayoutWrapper>
             <DrawerWrapper>
-                {navContent.map((tile, index) => (
-                    <Tile boxMargin="15" key={index}>
-                        <TileContent
-                            onPress={() => tile.onPress(navigation, dispatch)}
-                        >
-                            <TileIcon name={tile.icon} />
-                            <TileCaption>{tile.title}</TileCaption>
-                        </TileContent>
-                    </Tile>
-                ))}
-                <MenuLogo
-                    source={LogoWhite}
-                    width="85"
-                    style={{ tintColor: theme.colors.gray }}
-                />
-                <MenuDetailText>© All Rights Reserved 2022</MenuDetailText>
+                <DrawerContent>
+                    {navContent.map((tile, index) => (
+                        <Tile boxMargin="15" key={index}>
+                            <TileContent
+                                onPress={() =>
+                                    tile.onPress(navigation, dispatch)
+                                }
+                            >
+                                <TileIcon name={tile.icon} />
+                                <TileCaption>{tile.title}</TileCaption>
+                            </TileContent>
+                        </Tile>
+                    ))}
+                </DrawerContent>
+                <DrawerFooter>
+                    <MenuLogo
+                        source={LogoWhite}
+                        width="85"
+                        style={{ tintColor: theme.colors.gray }}
+                    />
+                    <MenuDetailText>© All Rights Reserved 2022</MenuDetailText>
+                </DrawerFooter>
             </DrawerWrapper>
         </LayoutWrapper>
     )

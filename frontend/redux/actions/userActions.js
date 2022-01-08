@@ -2,7 +2,7 @@ import axios from "axios"
 import * as SecureStore from "expo-secure-store"
 import {
     CLEAR_ERRORS,
-    SET_ERRORS,
+    ADD_ERROR,
     SET_LOADING_UI,
     SET_USER,
     SET_UNAUTHENTICATED,
@@ -10,6 +10,7 @@ import {
 
 export const loginUser = (userData) => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
+    dispatch({ type: CLEAR_ERRORS })
     axios
         .post("/auth/login", userData)
         .then((res) => {
@@ -28,7 +29,7 @@ export const loginUser = (userData) => (dispatch) => {
         })
         .catch((err) => {
             console.log("err", err.response.data)
-            dispatch({ type: SET_ERRORS, payload: err.response.data })
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
         })
 }
 
@@ -39,7 +40,7 @@ export const registerUser = (userData) => (dispatch) => {
         .then((res) => res)
         .catch((err) => {
             console.log("err", err.response.data)
-            dispatch({ type: SET_ERRORS, payload: err.response.data })
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
         })
 }
 

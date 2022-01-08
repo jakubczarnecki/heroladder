@@ -9,15 +9,21 @@ import {
 } from "./styled"
 import { DetailText } from "../../Layout"
 
-const TextInput = ({ style, error, title, password, ...rest }) => {
+const TextInput = ({ style, errors, errorType, title, password, ...rest }) => {
     const [hidden, setHidden] = useState(true)
+
+    const error =
+        errors && errors.length > 0
+            ? errors.find((error) => error.type === errorType)
+            : null
+    const errorMsg = error && error.message
 
     return (
         <InputWrapper style={style}>
             <DetailText>{title}</DetailText>
             <Input
                 secureTextEntry={password ? hidden : false}
-                error={error}
+                error={errorMsg}
                 {...rest}
             />
             {password && (
@@ -25,14 +31,15 @@ const TextInput = ({ style, error, title, password, ...rest }) => {
                     <EyeIcon name={hidden ? "eye" : "eye-slash"} />
                 </EyeIconWrapper>
             )}
-            {error && <ErrorText>{error}</ErrorText>}
+            {errorMsg && <ErrorText>{errorMsg}</ErrorText>}
         </InputWrapper>
     )
 }
 
 TextInput.propTypes = {
     style: PropTypes.array,
-    error: PropTypes.string,
+    errors: PropTypes.array,
+    errorType: PropTypes.string,
     title: PropTypes.string,
     password: PropTypes.bool,
 }

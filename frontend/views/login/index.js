@@ -19,6 +19,7 @@ import {
 import LogoWhite from "../../assets/img/logo-01.png"
 
 import { loginUser } from "../../redux/actions/userActions"
+import { ErrorBox } from "../../components/Form"
 
 const loginView = ({ navigation }) => {
     const [email, setEmail] = useState("")
@@ -26,10 +27,10 @@ const loginView = ({ navigation }) => {
     const dispatch = useDispatch()
 
     const loading = useSelector((state) => state.ui.loading)
-    const error = useSelector((state) => state.ui.errors)
+    const errors = useSelector((state) => state.ui.errors)
 
     // skip login page
-    dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
+    // dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
 
     const onSubmit = () => {
         dispatch(loginUser({ email, password }))
@@ -48,6 +49,7 @@ const loginView = ({ navigation }) => {
                             <FormInput
                                 title="Email"
                                 placeholder="Email"
+                                value={email}
                                 onChangeText={setEmail}
                                 keyboardType="email-address"
                             />
@@ -55,8 +57,10 @@ const loginView = ({ navigation }) => {
                                 title="Password"
                                 password={true}
                                 placeholder="***** ***"
+                                value={password}
                                 onChangeText={setPassword}
-                                error={error}
+                                errors={errors}
+                                errorType="login"
                             />
 
                             <ButtonWrapper>

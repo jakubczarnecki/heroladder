@@ -1,5 +1,5 @@
 import {
-    SET_ERRORS,
+    ADD_ERROR,
     CLEAR_ERRORS,
     SET_LOADING_UI,
     STOP_LOADING_UI,
@@ -7,23 +7,23 @@ import {
 
 const initialState = {
     loading: false,
-    errors: null,
+    errors: [],
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case SET_ERRORS:
+        case ADD_ERROR:
             return {
                 ...state,
                 loading: false,
-                errors: action.payload,
+                errors: [...state.errors, action.payload],
             }
 
         case CLEAR_ERRORS:
             return {
                 ...state,
                 loading: false,
-                errors: null,
+                errors: [],
             }
         case SET_LOADING_UI:
             return {

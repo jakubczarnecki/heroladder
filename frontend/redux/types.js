@@ -8,7 +8,7 @@ export const UPDATE_TOURNAMENT = "UPDATE_TOURNAMENT"
 // ui
 export const SET_LOADING_UI = "SET_LOADING_UI"
 export const STOP_LOADING_UI = "STOP_LOADING_UI"
-export const SET_ERRORS = "SET_ERRORS"
+export const ADD_ERROR = "ADD_ERROR"
 export const CLEAR_ERRORS = "CLEAR_ERRORS"
 
 // data

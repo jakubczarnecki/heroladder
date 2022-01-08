@@ -7,6 +7,7 @@ import LocationInput from "./LocationInput"
 import FileInput from "./FileInput"
 import ErrorBox from "./ErrorBox"
 import Searchbox from "./Searchbox"
+import CheckBox from "./Checkbox"
 
 export {
     TextInput,
@@ -18,4 +19,5 @@ export {
     FileInput,
     ErrorBox,
     Searchbox,
+    CheckBox,
 }

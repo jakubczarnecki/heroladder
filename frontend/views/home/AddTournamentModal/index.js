@@ -2,8 +2,15 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
 import { Paragraph, TitleSmaller } from "../../../components/Layout"
-import { DateFormInput, DropdownFormInput, FormInput, Section } from "./styled"
-import { LocationInput } from "../../../components/Form"
+import {
+    DateFormInput,
+    DropdownFormInput,
+    FormInput,
+    PremiumInfo,
+    PremiumInfoWrapper,
+    Section,
+} from "./styled"
+import { LocationInput, CheckBox } from "../../../components/Form"
 
 const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -82,6 +89,7 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                     <FormInput title="Custom discipline name" />
                 )}
             </Section>
+
             <Section>
                 <TitleSmaller>Teams details</TitleSmaller>
                 <DropdownFormInput
@@ -111,6 +119,26 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                     }}
                 />
             </Section>
+
+            <Section>
+                <TitleSmaller>Premium tournament</TitleSmaller>
+                <PremiumInfoWrapper>
+                    <PremiumInfo>
+                        You can pay 1$ to set your tournament as premium (It
+                        will be highlighted on map)
+                    </PremiumInfo>
+                    <CheckBox
+                        value={formData.premium}
+                        onChange={(premium) =>
+                            setFormData({
+                                ...formData,
+                                premium,
+                            })
+                        }
+                    />
+                </PremiumInfoWrapper>
+            </Section>
+
             <Section>
                 <TitleSmaller>Location</TitleSmaller>
                 <LocationInput

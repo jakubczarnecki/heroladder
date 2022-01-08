@@ -28,7 +28,7 @@
   "resolved" "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.16.4.tgz"
   "version" "7.16.4"
 
-"@babel/core@*", "@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.1.6", "@babel/core@^7.12.0", "@babel/core@^7.12.9", "@babel/core@^7.13.0", "@babel/core@^7.4.0-0":
+"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.1.6", "@babel/core@^7.12.0", "@babel/core@^7.12.9", "@babel/core@^7.13.0", "@babel/core@^7.4.0-0":
   "integrity" "sha512-wUcenlLzuWMZ9Zt8S0KmFwGlH6QKRh3vsm/dhDA3CHkiTA45YuG1XkHRcNRl73EFPXDp/d5kVOU0/y7x2w6OaQ=="
   "resolved" "https://registry.yarnpkg.com/@babel/core/-/core-7.16.5.tgz"
   "version" "7.16.5"
@@ -5326,7 +5326,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.5.7", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-fDGekdaHh65eI3lMi5OnErU6a8Ighg2KjcjQxO7m8VHyWjcPyj5kiOgV1LQDOOOgVy3+5FgjXvdSSX7B8/5/4g=="
   "resolved" "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.0.tgz"
   "version" "15.8.0"
@@ -5531,7 +5531,7 @@
     "normalize-css-color" "^1.0.2"
     "prop-types" "^15.6.0"
 
-"react-native@*", "react-native@>= 0.51", "react-native@>=0.50.0", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.3":
+"react-native@*", "react-native@>= 0.51", "react-native@>=0.47.1", "react-native@>=0.50.0", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.3":
   "integrity" "sha512-2OEU74U0Ek1/WeBzPbg6XDsCfjF/9fhrNX/5TFgEiBKd5mNc9LOZ/OlMmkb7iues/ZZ/oc51SbEfLRQdcW0fVw=="
   "resolved" "https://registry.yarnpkg.com/react-native/-/react-native-0.64.3.tgz"
   "version" "0.64.3"
@@ -6456,6 +6456,13 @@
     "extend-shallow" "^3.0.2"
     "regex-not" "^1.0.2"
     "safe-regex" "^1.1.0"
+
+"toggle-switch-react-native@^3.3.0":
+  "integrity" "sha512-DE0UjTOvUpUXjrRjF5r06dqzp/XrbDvJ6hYAwTp6ZgNrxn5Z7bDqe9Rs7axaRbWr7MXe5FdSGkCmfmK6tL7esw=="
+  "resolved" "https://registry.npmjs.org/toggle-switch-react-native/-/toggle-switch-react-native-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "prop-types" "^15.5.7"
 
 "toidentifier@1.0.1":
   "integrity" "sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA=="

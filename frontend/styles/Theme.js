@@ -3,7 +3,7 @@ const theme = {
         primary: "#FE8A18",
         primaryDark: "#e37226",
         primaryDarker: "#D55715",
-        accentLighter: "#eed1d2",
+        accentLighter: "#fae3e4",
         accentLight: "#b94d53",
         accent: "#a83f44",
         green: "#499735",

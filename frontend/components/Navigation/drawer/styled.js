@@ -1,10 +1,11 @@
 import styled from "styled-components/native"
 import theme from "../../../styles/Theme"
-import { Pressable } from "../../Layout"
+import { Pressable, DetailText, LogoImg } from "../../Layout"
 import { FontAwesome5 } from "@expo/vector-icons"
 
 export const DrawerWrapper = styled.View`
     padding: 10px;
+    padding-top: 30px;
     height: 100%;
     background-color: ${theme.colors.grayLight};
     flex-direction: row;
@@ -33,4 +34,14 @@ export const TileIcon = styled(FontAwesome5).attrs({
     color: theme.colors.primary,
 })`
     padding: 10px;
+`
+
+export const MenuDetailText = styled(DetailText)`
+    position: absolute;
+    bottom: 15px;
+`
+
+export const MenuLogo = styled(LogoImg)`
+    position: absolute;
+    bottom: 40px;
 `

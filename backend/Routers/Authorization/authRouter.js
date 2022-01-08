@@ -10,9 +10,23 @@ const authRouter = Router();
 authRouter.post("/register", async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    user && res.status(404).json("User with this e-mail already exists.");
+    if (user) {
+      res.status(400).json({
+        type: "email",
+        message: "User with this e-mail already exists.",
+      });
+      return;
+    }
 
-    const hashedPassword = await utils.encryptPassword(req.body.password);
+    if (req.body.password1 !== req.body.password2) {
+      res.status(400).json({
+        type: "password",
+        message: "Passwords must be the same,",
+      });
+      return;
+    }
+
+    const hashedPassword = await utils.encryptPassword(req.body.password1);
 
     const newUser = new User({
       username: req.body.username,
@@ -31,10 +45,21 @@ authRouter.post("/register", async (req, res, next) => {
 authRouter.post("/login", async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(404).json("That wasn't correct. Try again?");
-
+    if (!user) {
+      res.status(400).json({
+        type: "login",
+        message: "That wasn't correct. Try again?",
+      });
+      return;
+    }
     const isPasswordValid = await utils.comparePassword(req.body.password, user.password);
-    !isPasswordValid && res.status(404).json("That wasn't correct. Try again?");
+    if (!isPasswordValid) {
+      res.status(400).json({
+        type: "login",
+        message: "That wasn't correct. Try again?",
+      });
+      return;
+    }
 
     const token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, {
       expiresIn: "60000s",

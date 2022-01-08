@@ -1,9 +1,18 @@
 import React from "react"
+import theme from "../../../styles/Theme"
 import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 import { LayoutWrapper, Tile } from "../../Layout"
-import { DrawerWrapper, TileContent, TileCaption, TileIcon } from "./styled"
+import {
+    DrawerWrapper,
+    TileContent,
+    TileCaption,
+    TileIcon,
+    MenuDetailText,
+    MenuLogo,
+} from "./styled"
 import navContent from "./content"
+import LogoWhite from "../../../assets/img/logo-01.png"
 
 const Drawer = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -21,6 +30,12 @@ const Drawer = ({ navigation }) => {
                         </TileContent>
                     </Tile>
                 ))}
+                <MenuLogo
+                    source={LogoWhite}
+                    width="85"
+                    style={{ tintColor: theme.colors.gray }}
+                />
+                <MenuDetailText>© All Rights Reserved 2022</MenuDetailText>
             </DrawerWrapper>
         </LayoutWrapper>
     )

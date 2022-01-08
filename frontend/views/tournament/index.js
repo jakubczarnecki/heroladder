@@ -1,15 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useWindowDimensions } from "react-native"
 import { FadeInView } from "../../components/Transitions"
 import { LayoutWrapperScroll } from "../../components/Layout"
-import { MapWrapper } from "./styled"
+import { FixedButton, MapWrapper } from "./styled"
 import { Marker } from "react-native-maps"
 import Ladder from "./Ladder"
 import Details from "./Details"
 import { TabNav } from "../../components/Navigation"
+import EditTournamentModal from "./EditTournamentModal"
 
 const tournamentView = ({ navigation }) => {
+    const [editModalOpen, setEditModalOpen] = useState(false)
     const { height } = useWindowDimensions()
 
     const navPages = [
@@ -49,6 +51,13 @@ const tournamentView = ({ navigation }) => {
             <LayoutWrapperScroll>
                 <TabNav pages={navPages} />
             </LayoutWrapperScroll>
+            <FixedButton icon="cog" />
+
+            <EditTournamentModal
+                isOpen={editModalOpen}
+                onCancel={() => setEditModalOpen(false)}
+                onSubmit={() => setEditModalOpen(false)}
+            />
         </FadeInView>
     )
 }

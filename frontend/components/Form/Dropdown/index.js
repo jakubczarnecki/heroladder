@@ -22,13 +22,13 @@ const Dropdown = ({ title, items, value, onChange }) => {
             <DetailText>{title}</DetailText>
             <SelectWrapper onPress={() => setOpen(!open)}>
                 <TitleWrapper>
-                    {value && (
+                    {value ? (
                         <TitleIcon
                             name={
                                 items.find((item) => item.value == value).icon
                             }
                         />
-                    )}
+                    ) : null}
                     <TitleSmaller>{value ? value : "Select"}</TitleSmaller>
                 </TitleWrapper>
                 <DropdownIcon name={open ? "chevron-up" : "chevron-down"} />

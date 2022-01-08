@@ -1,5 +1,5 @@
 import styled from "styled-components/native"
-import { TextInput } from "../../../components/Form"
+import { Button, TextInput } from "../../../components/Form"
 import { DetailText } from "../../../components/Layout"
 
 export const Section = styled.View`
@@ -22,4 +22,8 @@ export const FileInputWrapper = styled.View`
 
 export const FileName = styled(DetailText)`
     padding: 20px;
+`
+
+export const DeleteAccountButton = styled(Button)`
+    align-self: flex-start;
 `

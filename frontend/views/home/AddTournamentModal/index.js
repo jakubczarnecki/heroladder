@@ -6,9 +6,18 @@ import { DateFormInput, DropdownFormInput, FormInput, Section } from "./styled"
 import { LocationInput } from "../../../components/Form"
 
 const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
-    const [discipline, setDiscipline] = useState(null)
-    const [teamsCount, setTeamsCount] = useState(null)
-    const [location, setLocation] = useState(null)
+    const [formData, setFormData] = useState({
+        tournamentName: "",
+        description: "",
+        date: "",
+        discipline: "",
+        bracketSize: "",
+        teamSize: "",
+        location: null,
+        premium: false,
+    })
+
+    console.log(formData)
 
     return (
         <Modal
@@ -21,12 +30,35 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
         >
             <Section>
                 <TitleSmaller>Basic informations</TitleSmaller>
-                <FormInput title="Tournament title" />
-                <DateFormInput title="Tournament date" />
+                <FormInput
+                    title="Tournament title"
+                    onChangeText={(tournamentName) => {
+                        setFormData({
+                            ...formData,
+                            tournamentName,
+                        })
+                    }}
+                />
+                <DateFormInput
+                    title="Tournament date"
+                    value={new Date(formData.date)}
+                    onChange={(date) => {
+                        setFormData({
+                            ...formData,
+                            date,
+                        })
+                    }}
+                />
                 <FormInput
                     title="Description"
                     multiline={true}
                     numberOfLines={2}
+                    onChangeText={(description) => {
+                        setFormData({
+                            ...formData,
+                            description,
+                        })
+                    }}
                 />
                 <DropdownFormInput
                     title="Discipline"
@@ -38,10 +70,15 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                         { icon: "futbol", value: "football" },
                         { icon: "running", value: "custom" },
                     ]}
-                    value={discipline}
-                    onChange={setDiscipline}
+                    value={formData.discipline}
+                    onChange={(discipline) => {
+                        setFormData({
+                            ...formData,
+                            discipline,
+                        })
+                    }}
                 />
-                {discipline === "custom" && (
+                {formData.discipline === "custom" && (
                     <FormInput title="Custom discipline name" />
                 )}
             </Section>
@@ -55,14 +92,36 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                         { value: "8" },
                         { value: "16" },
                     ]}
-                    value={teamsCount}
-                    onChange={setTeamsCount}
+                    value={formData.bracketSize}
+                    onChange={(bracketSize) => {
+                        setFormData({
+                            ...formData,
+                            bracketSize,
+                        })
+                    }}
                 />
-                <FormInput title="Team size" keyboardType="numeric" />
+                <FormInput
+                    title="Team size"
+                    keyboardType="numeric"
+                    onChangeText={(teamSize) => {
+                        setFormData({
+                            ...formData,
+                            teamSize,
+                        })
+                    }}
+                />
             </Section>
             <Section>
                 <TitleSmaller>Location</TitleSmaller>
-                <LocationInput value={location} onChange={setLocation} />
+                <LocationInput
+                    value={formData.location}
+                    onChange={(location) => {
+                        setFormData({
+                            ...formData,
+                            location,
+                        })
+                    }}
+                />
             </Section>
         </Modal>
     )

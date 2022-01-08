@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { FileText, InputWrapper, FileWrapper } from "./styled"
 import Button from "../../../components/Form/Button"
-import { DetailText } from "../../Layout"
+import { DetailText } from "../../Layout/Typography"
 import * as ImagePicker from "expo-image-picker"
 
 const FileInput = ({ title, value, onChange }) => {
@@ -25,7 +25,7 @@ const FileInput = ({ title, value, onChange }) => {
         console.log(result)
 
         if (!result.cancelled) {
-            onChange(result.u)
+            onChange(result.uri)
         }
     }
 
@@ -40,7 +40,11 @@ const FileInput = ({ title, value, onChange }) => {
                     size="wide"
                     onPress={pickImage}
                 />
-                <FileText>{value ? "Not selected" : "Selected"}</FileText>
+                <FileText>
+                    {value === ""
+                        ? "Not selected"
+                        : value.substring(value.lastIndexOf("/") + 1)}
+                </FileText>
             </FileWrapper>
         </InputWrapper>
     )
@@ -48,7 +52,7 @@ const FileInput = ({ title, value, onChange }) => {
 
 FileInput.propTypes = {
     title: PropTypes.string,
-    value: PropTypes.object,
+    value: PropTypes.string,
     onChange: PropTypes.func,
 }
 

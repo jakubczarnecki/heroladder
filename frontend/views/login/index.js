@@ -29,7 +29,7 @@ const loginView = ({ navigation }) => {
     const error = useSelector((state) => state.ui.errors)
 
     // skip login page
-    // dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
+    dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
 
     const onSubmit = () => {
         dispatch(loginUser({ email, password }))

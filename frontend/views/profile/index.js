@@ -49,11 +49,32 @@ const profileView = ({ navigation }) => {
 
                 <ProfileContent>
                     <Section>
-                        <SectionHeader>Achievements</SectionHeader>
-                        <Paragraph>Work in progress</Paragraph>
+                        <SectionHeader>Tournaments History</SectionHeader>
+                        <TournamentHistory horizontal={true}>
+                            <TournamentSmallTile
+                                icon="volleyball-ball"
+                                title="Siatkówka"
+                                date="24.09.2021"
+                            />
+                            <TournamentSmallTile
+                                icon="volleyball-ball"
+                                title="Siatkówka"
+                                date="24.09.2021"
+                            />
+                            <TournamentSmallTile
+                                icon="volleyball-ball"
+                                title="Siatkówka"
+                                date="24.09.2021"
+                            />
+                            <TournamentSmallTile
+                                icon="volleyball-ball"
+                                title="Siatkówka"
+                                date="24.09.2021"
+                            />
+                        </TournamentHistory>
                     </Section>
                     <Section>
-                        <SectionHeader>Tournaments History</SectionHeader>
+                        <SectionHeader>Created tournaments</SectionHeader>
                         <TournamentHistory horizontal={true}>
                             <TournamentSmallTile
                                 icon="volleyball-ball"

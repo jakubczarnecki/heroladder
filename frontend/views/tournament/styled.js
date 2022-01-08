@@ -2,6 +2,7 @@ import MapView from "react-native-maps"
 import styled from "styled-components/native"
 import { GradientWrapper, Tile, Title } from "../../components/Layout"
 import theme from "../../styles/Theme"
+import { CircleButton } from "../../components/Form"
 
 export const TournamentWrapper = styled.View`
     align-items: center;
@@ -39,4 +40,10 @@ export const Row = styled.View`
 export const MapWrapper = styled(MapView)`
     width: 100%;
     height: ${(props) => props.height}px;
+`
+
+export const FixedButton = styled(CircleButton)`
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 `

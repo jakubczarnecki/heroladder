@@ -1,12 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import MapView from "react-native"
-import {
-    Paragraph,
-    ParagraphSmall,
-    TitleSmall,
-    TitleSmaller,
-} from "../../../components/Layout"
+import { TitleSmaller } from "../../../components/Layout"
 import { Avatar } from "../../../components/misc"
 import bg2 from "../../../assets/img/bg2.jpg"
 import {
@@ -25,7 +19,6 @@ import {
     MapWrapper,
     RegisterButton,
 } from "./styled"
-import { Button } from "../../../components/Form"
 import { Marker } from "react-native-maps"
 
 const TournamentFeedItem = ({ navigation }) => {
@@ -58,7 +51,7 @@ const TournamentFeedItem = ({ navigation }) => {
                         <ItemText>30.11.2021 16:00</ItemText>
                     </DescriptionItem>
                     <RegisterButton
-                        title="Register a team"
+                        title="Details"
                         type="contained"
                         size="thin"
                         onPress={() => navigation.navigate("Tournament")}
@@ -83,7 +76,6 @@ const TournamentFeedItem = ({ navigation }) => {
                         }}
                     />
                 </MapWrapper>
-                {/* <MapView height={140} width={140} /> */}
             </FeedContent>
         </FeedWrapper>
     )

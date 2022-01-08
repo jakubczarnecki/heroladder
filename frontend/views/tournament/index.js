@@ -51,7 +51,7 @@ const tournamentView = ({ navigation }) => {
             <LayoutWrapperScroll>
                 <TabNav pages={navPages} />
             </LayoutWrapperScroll>
-            <FixedButton icon="cog" />
+            <FixedButton icon="cog" onPress={() => setEditModalOpen(true)} />
 
             <EditTournamentModal
                 isOpen={editModalOpen}

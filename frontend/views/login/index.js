@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import { LogoImg } from "../../components/Layout"
@@ -30,7 +30,11 @@ const loginView = ({ navigation }) => {
     const errors = useSelector((state) => state.ui.errors)
 
     // skip login page
-    // dispatch(loginUser({ email: "piponsz@gmail.com", password: "qwerty123" }))
+    useEffect(() => {
+        dispatch(
+            loginUser({ email: "piponsz@gmail.com", password: "qwerty123" })
+        )
+    }, [])
 
     const onSubmit = () => {
         dispatch(loginUser({ email, password }))

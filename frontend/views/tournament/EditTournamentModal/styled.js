@@ -25,7 +25,7 @@ export const FormInput = styled(TextInput)`
 
 export const DateFormInput = styled(DateInput)`
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 `
 
 export const DropdownFormInput = styled(Dropdown)`

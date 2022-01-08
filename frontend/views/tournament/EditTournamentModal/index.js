@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { Avatar, Modal } from "../../../components/misc"
 import bg2 from "../../../assets/img/bg2.jpg"
 import {
+    DetailText,
     Paragraph,
     ParagraphBold,
     TitleSmaller,
@@ -23,9 +24,11 @@ const EditTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
     const [formData, setFormData] = useState({
         tournamentName: "",
         date: "",
-        location: {},
+        location: null,
         description: "",
     })
+
+    console.log(formData)
 
     return (
         <Modal
@@ -38,24 +41,42 @@ const EditTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
         >
             <Section>
                 <TitleSmaller>Tournament informations</TitleSmaller>
-                <FormInput title="Tournament name" />
-                <FormInput title="Tournament description" />
-                <DateFormInput
-                    title="Tournament date"
-                    value={formData.date}
-                    onChangeA={(e) => {
+                <FormInput
+                    title="Tournament name"
+                    value={formData.tournamentName}
+                    onChangeText={(tournamentName) =>
                         setFormData({
                             ...formData,
-                            date: e,
+                            tournamentName,
+                        })
+                    }
+                />
+                <FormInput
+                    title="Tournament description"
+                    multiline={true}
+                    numberOfLines={2}
+                    value={formData.description}
+                    onChangeText={(description) =>
+                        setFormData({ ...formData, description })
+                    }
+                />
+                <DateFormInput
+                    title="Tournament date"
+                    value={new Date(formData.date)}
+                    onChange={(date) => {
+                        setFormData({
+                            ...formData,
+                            date,
                         })
                     }}
                 />
+                <DetailText>Tournament location</DetailText>
                 <LocationInput
                     value={formData.location}
-                    onChange={(loc) =>
+                    onChange={(location) =>
                         setFormData({
                             ...formData,
-                            location: loc,
+                            location,
                         })
                     }
                 />

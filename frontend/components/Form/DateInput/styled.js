@@ -19,9 +19,9 @@ export const DateElement = styled(Pressable)`
     min-width: 80px;
     align-items: center;
     justify-content: center;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 13px;
     padding-left: 20px;
     padding-right: 20px;
     border-bottom-color: ${theme.colors.gray};

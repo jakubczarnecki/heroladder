@@ -1,15 +1,16 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Paragraph, Title } from "../../components/Layout"
-
+import theme from "frontend/styles/Theme.js"
 import {
     AboutTile,
     AboutWrapper,
     AboutIcon,
     AboutHeader,
     AboutDetailText,
+    AboutLogo,
 } from "./styled"
-
+import LogoWhite from "../../assets/img/logo-01.png"
 import { FadeInView } from "../../components/Transitions"
 
 const aboutView = ({ navigation }) => {
@@ -21,7 +22,6 @@ const aboutView = ({ navigation }) => {
                         <AboutIcon name="info-circle" />
                         <Title>About the application</Title>
                     </AboutHeader>
-
                     <Paragraph>
                         Gdyby album „Typhoons” mógł być miejscem pracy, byłby to
                         placem budowy. Perkusista Ben Thatcher atakuje tam swój
@@ -35,6 +35,11 @@ const aboutView = ({ navigation }) => {
                         ponosi odpowiedzialności za sypiące się tynki.
                     </Paragraph>
                 </AboutTile>
+                <AboutLogo
+                    source={LogoWhite}
+                    width="85"
+                    style={{ tintColor: theme.colors.gray }}
+                />
                 <AboutDetailText>© All Rights Reserved 2022</AboutDetailText>
             </AboutWrapper>
         </FadeInView>

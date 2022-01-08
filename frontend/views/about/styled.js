@@ -1,5 +1,5 @@
 import styled from "styled-components/native"
-import { Tile, DetailText } from "../../components/Layout"
+import { Tile, DetailText, LogoImg } from "../../components/Layout"
 import { FontAwesome5 } from "@expo/vector-icons"
 import theme from "frontend/styles/Theme.js"
 
@@ -31,5 +31,10 @@ export const AboutHeader = styled.View`
 
 export const AboutDetailText = styled(DetailText)`
     position: absolute;
-    bottom: 12px;
+    bottom: 15px;
+`
+
+export const AboutLogo = styled(LogoImg)`
+    position: absolute;
+    bottom: 40px;
 `

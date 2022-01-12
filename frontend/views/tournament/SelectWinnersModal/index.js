@@ -4,15 +4,20 @@ import { Modal } from "../../../components/misc"
 import { DropdownFormInput } from "./styled"
 import { TitleSmaller } from "../../../components/Layout"
 
-const SelectWinnersModal = ({ isOpen, onCancel, onSubmit, match }) => {
+const SelectWinnersModal = ({
+    isOpen,
+    onCancel,
+    onSubmit,
+    match,
+    formData,
+    setFormData,
+}) => {
     const [winner, setWinner] = useState(null)
     const items =
         match &&
         match.teams.map((team) => ({
-            value: team.teamname,
+            value: team.teamName,
         }))
-
-    console.log(winner)
 
     return (
         <Modal
@@ -22,7 +27,6 @@ const SelectWinnersModal = ({ isOpen, onCancel, onSubmit, match }) => {
             isOpen={isOpen}
             onCancel={onCancel}
             onSubmit={() => {
-                console.log("Send request")
                 setWinner(null)
                 onSubmit()
             }}
@@ -32,7 +36,13 @@ const SelectWinnersModal = ({ isOpen, onCancel, onSubmit, match }) => {
                 title="Select a winner"
                 items={items}
                 value={winner}
-                onChange={setWinner}
+                onChange={(item, index) => {
+                    setWinner(item)
+                    setFormData({
+                        ...formData,
+                        winner: index,
+                    })
+                }}
             />
         </Modal>
     )
@@ -43,6 +53,8 @@ SelectWinnersModal.propTypes = {
     onCancel: PropTypes.func,
     onSubmit: PropTypes.func,
     match: PropTypes.object,
+    formData: PropTypes.object,
+    setFormData: PropTypes.func,
 }
 
 export default SelectWinnersModal

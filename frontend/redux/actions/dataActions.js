@@ -8,6 +8,7 @@ import {
     SIGN_OFF_FROM_TOURNAMENT,
     SIGN_UP_TO_TOURNAMENT,
     CLEAR_ERRORS,
+    SET_WINNER,
 } from "../types"
 
 // TODO: change /all to /feed or /area
@@ -57,18 +58,36 @@ export const setTournament = (tournamentID) => (dispatch) => {
             const tournament = res.data
 
             const teams = []
+
             tournament.matches[0].forEach((match) => {
                 if (match.teams.length != 0) {
                     match.teams.forEach((team) => teams.push(team))
                 }
             })
             tournament.teams = teams
-            console.log(tournament)
 
             dispatch({ type: SET_TOURNAMENT, payload: tournament })
         })
         .catch((err) => {
             console.log("error", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
+export const selectWinner = (tournamentID, matchData) => (dispatch) => {
+    dispatch({ type: SET_LOADING_DATA })
+    dispatch({ type: CLEAR_ERRORS })
+
+    axios
+        .put(`/tournaments/${tournamentID}/claimWinner`, matchData)
+        .then(() => {
+            dispatch({
+                type: SET_WINNER,
+                payload: matchData,
+            })
+        })
+        .catch((err) => {
+            console.log("err", err.response.data)
             dispatch({ type: ADD_ERROR, payload: err.response.data })
         })
 }

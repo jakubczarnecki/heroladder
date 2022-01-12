@@ -17,8 +17,6 @@ const Searchbox = ({ list, onSelect, exclude, style }) => {
     const [value, setValue] = useState("")
     const input = useRef(null)
 
-    console.log(value)
-
     return (
         <SearchBoxWrapper style={style}>
             <Input onChangeText={(text) => setValue(text)} ref={input} />
@@ -43,7 +41,6 @@ const Searchbox = ({ list, onSelect, exclude, style }) => {
                                 key={index}
                                 onPress={() => {
                                     onSelect(user)
-                                    console.log("U", user)
                                 }}
                             >
                                 <UserWrapper>

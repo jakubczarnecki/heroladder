@@ -32,7 +32,6 @@ const RegisterYourTeamModal = ({ isOpen, onCancel, onSubmit }) => {
     const [team, setTeam] = useState([])
 
     const addUser = (user) => {
-        console.log(user)
         team.indexOf(user) === -1
             ? setTeam([...team, user])
             : console.log("already exist")

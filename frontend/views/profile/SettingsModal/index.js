@@ -47,7 +47,6 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
             isOpen={isOpen}
             onCancel={onCancel}
             onSubmit={() => {
-                console.log("Doopa")
                 setModalData({
                     title: "Confirm your changes",
                     action: () => onSubmit(),

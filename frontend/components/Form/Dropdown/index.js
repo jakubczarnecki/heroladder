@@ -39,7 +39,7 @@ const Dropdown = ({ title, items, value, onChange }) => {
                         <Item
                             key={index}
                             onPress={() => {
-                                onChange(item.value)
+                                onChange(item.value, index)
                                 setOpen(false)
                             }}
                             selected={item.value === value}

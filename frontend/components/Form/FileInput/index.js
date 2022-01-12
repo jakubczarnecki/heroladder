@@ -22,8 +22,6 @@ const FileInput = ({ title, value, onChange }) => {
             quality: 0.4,
         })
 
-        console.log(result)
-
         if (!result.cancelled) {
             onChange(result.uri)
         }

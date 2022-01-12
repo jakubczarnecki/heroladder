@@ -51,11 +51,9 @@ const registerView = ({ navigation }) => {
     )
 
     const onSubmit = () => {
-        console.log("register")
         const res = dispatch(registerUser(formData))
         if (!errors) {
             setModalOpen(true)
-            console.log("brak errorow")
         } else {
             console.log(errors)
         }

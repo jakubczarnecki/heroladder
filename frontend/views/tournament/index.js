@@ -24,6 +24,9 @@ const tournamentView = ({ route, navigation }) => {
         dispatch(setTournament(tournamentID))
     }, [tournamentID])
 
+    console.log(tournament)
+    console.log(tournamentID)
+
     const navPages = [
         {
             name: "Details",

@@ -25,8 +25,6 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
         premium: false,
     })
 
-    console.log(formData)
-
     return (
         <Modal
             type="confirm"

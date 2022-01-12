@@ -5,6 +5,7 @@ import {
     SIGN_UP_TO_TOURNAMENT,
     SIGN_OFF_FROM_TOURNAMENT,
     SET_LOADING_UI,
+    SET_WINNER,
 } from "../types"
 
 const initialState = {
@@ -39,6 +40,24 @@ export default (state = initialState, action) => {
                 tournament: action.payload,
                 loading: false,
             }
+        case SET_WINNER: {
+            const newMatches = [...state.tournament.matches]
+            newMatches[action.payload.stage].forEach((match) => {
+                if (match.number === action.payload.number) {
+                    match.winner = action.payload.winner
+                }
+            })
+
+            return {
+                ...state,
+                tournament: {
+                    ...state.tournament,
+                    matches: newMatches,
+                },
+                loading: false,
+            }
+        }
+
         default:
             return state
     }

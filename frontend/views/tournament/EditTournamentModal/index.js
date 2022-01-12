@@ -28,8 +28,6 @@ const EditTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
         description: "",
     })
 
-    console.log(formData)
-
     return (
         <Modal
             type="confirm"

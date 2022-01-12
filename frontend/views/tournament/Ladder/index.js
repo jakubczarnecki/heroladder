@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { selectWinner } from "../../../redux/actions/dataActions"
 import PropTypes from "prop-types"
 import Svg, { G, Line, Rect, Text } from "react-native-svg"
 import { LadderWrapper } from "./styled"
@@ -17,6 +19,13 @@ const ladderSizes = {
 const Ladder = ({ tournament }) => {
     const [winnerModalOpen, setWinnerModalOpen] = useState(false)
     const [matchToEdit, setMatchToEdit] = useState(null)
+    const [formData, setFormData] = useState({
+        stage: null,
+        number: null,
+        winner: null,
+    })
+
+    const dispatch = useDispatch()
 
     const GenerateLadder = () => {
         let nextBaseHeight = 1
@@ -47,9 +56,14 @@ const Ladder = ({ tournament }) => {
                                         key={`${columnIndex}${matchIndex}${teamIndex}`}
                                         onPress={() => {
                                             if (
-                                                !match.winnerId &&
+                                                !match.winner &&
                                                 match.teams.length == 2
                                             ) {
+                                                setFormData({
+                                                    ...formData,
+                                                    stage: columnIndex,
+                                                    number: match.number,
+                                                })
                                                 setMatchToEdit(match)
                                                 setWinnerModalOpen(true)
                                             }
@@ -94,8 +108,8 @@ const Ladder = ({ tournament }) => {
                                             height={ladderSizes.BOX_HEIGHT / 2}
                                             width={15}
                                             fill={
-                                                match.winnerId
-                                                    ? match.winnerId ===
+                                                match.winner
+                                                    ? match.winner ===
                                                           teamIndex &&
                                                       match.teams[teamIndex]
                                                           .teamname
@@ -202,8 +216,13 @@ const Ladder = ({ tournament }) => {
             <SelectWinnersModal
                 isOpen={winnerModalOpen}
                 onCancel={() => setWinnerModalOpen(false)}
-                onSubmit={() => setWinnerModalOpen(false)}
+                onSubmit={() => {
+                    setWinnerModalOpen(false)
+                    dispatch(selectWinner(formData))
+                }}
                 match={matchToEdit}
+                formData={formData}
+                setFormData={setFormData}
             />
         </LadderWrapper>
     )

@@ -21,8 +21,6 @@ import {
 const tournamentsView = ({ navigation }) => {
     const [dropdownValue, setDropdownValue] = useState(null)
 
-    console.log(dropdownValue)
-
     return (
         <FadeInView>
             <LayoutWrapperScroll>

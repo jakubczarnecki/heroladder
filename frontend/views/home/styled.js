@@ -10,6 +10,10 @@ export const HomeWrapper = styled.View`
     padding-bottom: 35px;
 `
 
+export const HomeRefreshControl = styled.RefreshControl.attrs({
+    colors: [theme.colors.primary],
+})``
+
 export const FixedButton = styled(CircleButton)`
     position: absolute;
     bottom: 10px;

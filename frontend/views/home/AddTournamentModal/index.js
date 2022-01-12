@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
-import { Paragraph, TitleSmaller } from "../../../components/Layout"
+import { TitleSmaller } from "../../../components/Layout"
 import {
     DateFormInput,
     DropdownFormInput,
@@ -11,6 +11,7 @@ import {
     Section,
 } from "./styled"
 import { LocationInput, CheckBox } from "../../../components/Form"
+import disciplines from "../../../util/Disciplines"
 
 const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -69,14 +70,7 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                 />
                 <DropdownFormInput
                     title="Discipline"
-                    items={[
-                        { icon: "volleyball-ball", value: "volleyball" },
-                        { icon: "baseball-ball", value: "tennis" },
-                        { icon: "table-tennis", value: "table tennis" },
-                        { icon: "basketball-ball", value: "basketball" },
-                        { icon: "futbol", value: "football" },
-                        { icon: "running", value: "custom" },
-                    ]}
+                    items={disciplines}
                     value={formData.discipline}
                     onChange={(discipline) => {
                         setFormData({

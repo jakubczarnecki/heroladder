@@ -14,18 +14,19 @@ export const loginUser = (userData) => (dispatch) => {
     axios
         .post("/auth/login", userData)
         .then((res) => {
-            setAuthorizationHeader(res.data.token)
-            const user = {
-                id: res.data._id,
-                username: res.data.username,
-                email: res.data.email,
-            }
+            setAuthorizationHeader(res.data.token).then(() => {
+                const user = {
+                    id: res.data._id,
+                    username: res.data.username,
+                    email: res.data.email,
+                }
 
-            dispatch({
-                type: SET_USER,
-                payload: user,
+                dispatch({
+                    type: SET_USER,
+                    payload: user,
+                })
+                dispatch({ type: CLEAR_ERRORS })
             })
-            dispatch({ type: CLEAR_ERRORS })
         })
         .catch((err) => {
             console.log("err", err.response.data)
@@ -55,6 +56,7 @@ export const logout = () => (dispatch) => {
 
 const setAuthorizationHeader = async (token) => {
     const authHeader = `Bearer ${token}`
-    await SecureStore.setItemAsync("authToken", authHeader)
-    axios.defaults.headers.common["authorization"] = authHeader
+    await SecureStore.setItemAsync("authToken", authHeader).then(
+        () => (axios.defaults.headers.common["authorization"] = authHeader)
+    )
 }

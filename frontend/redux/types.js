@@ -12,6 +12,7 @@ export const ADD_ERROR = "ADD_ERROR"
 export const CLEAR_ERRORS = "CLEAR_ERRORS"
 
 // data
+export const SET_LOADING_DATA = "SET_LOADING_DATA"
 export const SET_FEED = "SET_FEED"
 export const SET_AREA_TOURNAMENTS = "SET_AREA_TOURNAMENTS"
 export const SET_TOURNAMENT = "SET_TOURNAMENT"

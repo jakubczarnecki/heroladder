@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { TitleSmaller } from "../../../components/Layout"
 import { Avatar } from "../../../components/misc"
+import Disciplines from "../../../util/Disciplines"
 import bg2 from "../../../assets/img/bg2.jpg"
 import {
     ActionText,
@@ -20,35 +21,46 @@ import {
     RegisterButton,
 } from "./styled"
 import { Marker } from "react-native-maps"
+import moment from "moment"
 
-const TournamentFeedItem = ({ navigation }) => {
+const TournamentFeedItem = ({ navigation, tournament }) => {
+    const discipline = Disciplines.find(
+        (d) => d.value === tournament.discipline
+    )
+
     return (
         <FeedWrapper>
             <FeedHeader>
                 <Avatar size={50} img={bg2} />
                 <HeaderTextWrapper>
-                    <DateText>Saturday, 20.11.2021 16:00</DateText>
-                    <TitleSmaller>Michał Dzieciuchowicz</TitleSmaller>
+                    <DateText>
+                        {moment(tournament.createdAt).fromNow()}
+                    </DateText>
+                    <TitleSmaller>{tournament.creatorUsername}</TitleSmaller>
                     <ActionText>has created a new tournament</ActionText>
                 </HeaderTextWrapper>
             </FeedHeader>
             <FeedContent>
                 <Description>
                     <DescriptionHeader>
-                        <HeaderIcon name="volleyball-ball" />
-                        <TitleSmaller>Volleyball</TitleSmaller>
+                        <HeaderIcon
+                            name={discipline ? discipline.icon : "running"}
+                        />
+                        <TitleSmaller>{tournament.discipline}</TitleSmaller>
                     </DescriptionHeader>
                     <DescriptionItem>
                         <ItemIcon name="user-alt" />
-                        <ItemText>Team size: 6</ItemText>
+                        <ItemText>Team size: {tournament.teamSize}</ItemText>
                     </DescriptionItem>
                     <DescriptionItem>
                         <ItemIcon name="users" />
-                        <ItemText>Slots: 3/4</ItemText>
+                        <ItemText>Slots: */{tournament.bracketSize}</ItemText>
                     </DescriptionItem>
                     <DescriptionItem>
                         <ItemIcon name="calendar" />
-                        <ItemText>30.11.2021 16:00</ItemText>
+                        <ItemText>
+                            {moment(tournament.date).format("DD/MM/YY hh:mm")}
+                        </ItemText>
                     </DescriptionItem>
                     <RegisterButton
                         title="Details"
@@ -83,6 +95,7 @@ const TournamentFeedItem = ({ navigation }) => {
 
 TournamentFeedItem.propTypes = {
     navigation: PropTypes.object,
+    tournament: PropTypes.object,
 }
 
 export default TournamentFeedItem

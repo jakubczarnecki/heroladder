@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { useWindowDimensions } from "react-native"
 import { FadeInView } from "../../components/Transitions"
@@ -9,15 +9,25 @@ import Ladder from "./Ladder"
 import Details from "./Details"
 import { TabNav } from "../../components/Navigation"
 import EditTournamentModal from "./EditTournamentModal"
+import { useDispatch, useSelector } from "react-redux"
+import { setTournament } from "../../redux/actions/dataActions"
 
-const tournamentView = ({ navigation }) => {
+const tournamentView = ({ route, navigation }) => {
     const [editModalOpen, setEditModalOpen] = useState(false)
     const { height } = useWindowDimensions()
+
+    const dispatch = useDispatch()
+    const tournament = useSelector((state) => state.data.tournament)
+    const { tournamentID } = route.params
+
+    useEffect(() => {
+        dispatch(setTournament(tournamentID))
+    }, [tournamentID])
 
     const navPages = [
         {
             name: "Details",
-            content: <Details />,
+            content: <Details tournament={tournament} />,
         },
         {
             name: "Location",
@@ -42,7 +52,7 @@ const tournamentView = ({ navigation }) => {
         },
         {
             name: "Ladder",
-            content: <Ladder />,
+            content: <Ladder tournament={tournament} />,
         },
     ]
 
@@ -64,6 +74,7 @@ const tournamentView = ({ navigation }) => {
 
 tournamentView.propTypes = {
     navigation: PropTypes.object,
+    route: PropTypes.object,
 }
 
 export default tournamentView

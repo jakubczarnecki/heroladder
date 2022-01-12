@@ -66,7 +66,11 @@ const TournamentFeedItem = ({ navigation, tournament }) => {
                         title="Details"
                         type="contained"
                         size="thin"
-                        onPress={() => navigation.navigate("Tournament")}
+                        onPress={() =>
+                            navigation.navigate("Tournament", {
+                                tournamentID: tournament._id,
+                            })
+                        }
                     />
                 </Description>
                 <MapWrapper

@@ -12,7 +12,6 @@ import {
 
 // TODO: change /all to /feed or /area
 export const setFeed = () => (dispatch) => {
-    console.log("Set feed")
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
     axios
@@ -42,6 +41,31 @@ export const setFeed = () => (dispatch) => {
 
                 dispatch({ type: SET_FEED, payload: payload })
             })
+        })
+        .catch((err) => {
+            console.log("error", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
+export const setTournament = (tournamentID) => (dispatch) => {
+    dispatch({ type: SET_LOADING_DATA })
+    dispatch({ type: CLEAR_ERRORS })
+    axios
+        .get(`/tournaments/${tournamentID}`)
+        .then((res) => {
+            const tournament = res.data
+
+            const teams = []
+            tournament.matches[0].forEach((match) => {
+                if (match.teams.length != 0) {
+                    match.teams.forEach((team) => teams.push(team))
+                }
+            })
+            tournament.teams = teams
+            console.log(tournament)
+
+            dispatch({ type: SET_TOURNAMENT, payload: tournament })
         })
         .catch((err) => {
             console.log("error", err.response.data)

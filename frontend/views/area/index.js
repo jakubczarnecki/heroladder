@@ -11,7 +11,6 @@ import {
 } from "./styled"
 import { PROVIDER_GOOGLE } from "react-native-maps"
 import MapMarker from "./MapMarker"
-import { Paragraph } from "../../components/Layout"
 
 const areaView = ({ navigation }) => {
     const { height, width } = useWindowDimensions()

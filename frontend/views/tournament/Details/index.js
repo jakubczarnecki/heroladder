@@ -1,10 +1,10 @@
 import React, { useState } from "react"
+import PropTypes from "prop-types"
 import {
     Section,
     SectionHeader,
     SectionTitle,
     SectionContent,
-    MapWrapper,
     Row,
 } from "../styled"
 
@@ -25,22 +25,22 @@ import {
     Paragraph,
 } from "../../../components/Layout"
 
-import { Avatar } from "../../../components/misc"
+import moment from "moment"
 import bg2 from "../../../assets/img/bg2.jpg"
 import RegisterYourTeamModal from "../RegisterYourTeamModal"
 
-const Details = () => {
+const Details = ({ tournament }) => {
     const [modalOpen, setModalOpen] = useState(false)
 
     return (
         <DetailsWrapper>
             <Section>
                 <SectionHeader>
-                    <SectionTitle>Tournament title</SectionTitle>
+                    <SectionTitle>{tournament.tournamentName}</SectionTitle>
                 </SectionHeader>
                 <SectionContent>
                     <TournamentDescription>
-                        Lorem ipsum dolor sit ame
+                        {tournament.description}
                     </TournamentDescription>
 
                     <Row>
@@ -52,11 +52,16 @@ const Details = () => {
                             <ParagraphBold>Team size:</ParagraphBold>
                         </ContentColumn>
                         <ContentColumn>
-                            <Paragraph>Piponsz</Paragraph>
-                            <Paragraph>24.12.2021</Paragraph>
-                            <Paragraph>Volleyball</Paragraph>
-                            <Paragraph>3/4</Paragraph>
-                            <Paragraph>4</Paragraph>
+                            <Paragraph>*</Paragraph>
+                            <Paragraph>
+                                {moment(tournament.date).format("DD/MM/YYYY")}
+                            </Paragraph>
+                            <Paragraph>{tournament.discipline}</Paragraph>
+                            <Paragraph>
+                                {tournament.teams && tournament.teams.length}/
+                                {tournament.bracketSize}
+                            </Paragraph>
+                            <Paragraph>{tournament.teamSize}</Paragraph>
                         </ContentColumn>
                     </Row>
                 </SectionContent>
@@ -65,49 +70,31 @@ const Details = () => {
             <Section>
                 <SectionHeader>
                     <SectionTitle>Teams</SectionTitle>
-                    <SectionTitle>3/4</SectionTitle>
+                    <SectionTitle>
+                        {tournament.teams && tournament.teams.length}/
+                        {tournament.bracketSize}
+                    </SectionTitle>
                 </SectionHeader>
                 <SectionContent>
                     <Stretch>
-                        <Team>
-                            <TitleSmaller>Team A</TitleSmaller>
-                            <TeamSquad>
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                            </TeamSquad>
-                        </Team>
-                        <Team>
-                            <TitleSmaller>Team B</TitleSmaller>
-                            <TeamSquad>
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                            </TeamSquad>
-                        </Team>
-                        <Team>
-                            <TitleSmaller>Team C</TitleSmaller>
-                            <TeamSquad>
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                                <UserAvatar img={bg2} size={45} />
-                            </TeamSquad>
-                        </Team>
+                        {tournament.teams &&
+                            tournament.teams.map((team, teamIndex) => (
+                                <Team key={teamIndex}>
+                                    <TitleSmaller>{team.teamName}</TitleSmaller>
+                                    <TeamSquad>
+                                        {team.members.map(
+                                            (member, memberIndex) => (
+                                                <UserAvatar
+                                                    img={bg2}
+                                                    size={45}
+                                                    key={`member${memberIndex}`}
+                                                />
+                                            )
+                                        )}
+                                    </TeamSquad>
+                                </Team>
+                            ))}
+
                         <RegisterButton
                             title="Register your team"
                             type="contained"
@@ -123,6 +110,10 @@ const Details = () => {
             />
         </DetailsWrapper>
     )
+}
+
+Details.propTypes = {
+    tournament: PropTypes.object,
 }
 
 export default Details

@@ -4,7 +4,7 @@ import { Fontisto } from "@expo/vector-icons"
 
 import { Animated, Easing } from "react-native"
 
-const Loader = ({ size, color }) => {
+const Loader = ({ size, color, style }) => {
     const animation = useRef(new Animated.Value(0)).current
 
     Animated.loop(
@@ -22,7 +22,7 @@ const Loader = ({ size, color }) => {
     })
 
     return (
-        <Animated.View style={{ transform: [{ rotate: spin }] }}>
+        <Animated.View style={[style, { transform: [{ rotate: spin }] }]}>
             <Fontisto name="spinner" size={size} color={color} />
         </Animated.View>
     )
@@ -31,6 +31,7 @@ const Loader = ({ size, color }) => {
 Loader.propTypes = {
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
+    style: PropTypes.array,
 }
 
 export default Loader

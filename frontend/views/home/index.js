@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { LayoutWrapperScroll } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
-import { FixedButton, HomeWrapper } from "./styled"
+import { FixedButton, HomeLoader, HomeWrapper } from "./styled"
 import HelloBox from "./HelloBox"
 import TournamentFeedItem from "./TournamentFeedItem"
 import AddTournamentModal from "./AddTournamentModal"
@@ -28,7 +28,7 @@ const homeView = ({ navigation }) => {
                 <HomeWrapper>
                     <HelloBox />
                     {loadingData ? (
-                        <Loader color="red" size={30} />
+                        <HomeLoader />
                     ) : (
                         tournaments &&
                         tournaments.map((tournament, index) => (

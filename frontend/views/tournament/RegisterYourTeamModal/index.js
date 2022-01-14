@@ -21,13 +21,6 @@ import {
 } from "./styled"
 import { Searchbox } from "../../../components/Form"
 
-const tmpUsers = [
-    { username: "Piponsz" },
-    { username: "Oskar" },
-    { username: "Miciu" },
-    { username: "Fici" },
-]
-
 const RegisterYourTeamModal = ({ isOpen, onCancel, onSubmit }) => {
     const [team, setTeam] = useState([])
 
@@ -56,11 +49,7 @@ const RegisterYourTeamModal = ({ isOpen, onCancel, onSubmit }) => {
                     <TitleSmaller>{team.length + 1}/8</TitleSmaller>
                 </SectionHeader>
 
-                <SearchUserInput
-                    list={tmpUsers}
-                    onSelect={addUser}
-                    exclude={team}
-                />
+                <SearchUserInput onSelect={addUser} exclude={team} />
 
                 <TeamItemWrapper>
                     <TeammateWrapper>

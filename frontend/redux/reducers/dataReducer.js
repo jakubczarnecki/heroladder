@@ -6,6 +6,8 @@ import {
     SIGN_OFF_FROM_TOURNAMENT,
     SET_LOADING_UI,
     SET_WINNER,
+    ADD_TOURNAMENT,
+    SET_USERS_FOUND,
 } from "../types"
 
 const initialState = {
@@ -13,6 +15,7 @@ const initialState = {
     areaTournaments: [],
     tournament: {},
     loading: false,
+    usersFound: [],
 }
 
 export default (state = initialState, action) => {
@@ -57,6 +60,20 @@ export default (state = initialState, action) => {
                 loading: false,
             }
         }
+
+        case ADD_TOURNAMENT:
+            return {
+                ...state,
+                tournaments: [action.payload, ...state.tournaments],
+                loading: false,
+            }
+
+        case SET_USERS_FOUND:
+            return {
+                ...state,
+                usersFound: action.payload,
+                loading: false,
+            }
 
         default:
             return state

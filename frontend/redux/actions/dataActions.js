@@ -9,6 +9,8 @@ import {
     SIGN_UP_TO_TOURNAMENT,
     CLEAR_ERRORS,
     SET_WINNER,
+    ADD_TOURNAMENT,
+    SET_USERS_FOUND,
 } from "../types"
 
 // TODO: change /all to /feed or /area
@@ -90,4 +92,45 @@ export const selectWinner = (tournamentID, matchData) => (dispatch) => {
             console.log("err", err.response.data)
             dispatch({ type: ADD_ERROR, payload: err.response.data })
         })
+}
+
+export const addTournament = (newTournament) => (dispatch) => {
+    dispatch({ type: SET_LOADING_DATA })
+    dispatch({ type: CLEAR_ERRORS })
+
+    let tournamentData
+
+    axios
+        .post("/tournaments/create", newTournament)
+        .then((res) => {
+            tournamentData = res.data
+            return axios.put(`/tournaments/${res.data._id}/init`)
+        })
+        .then(() => {
+            // TO FINISH
+            dispatch({ type: ADD_TOURNAMENT, payload: tournamentData })
+        })
+        .catch((err) => {
+            console.log("err", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
+export const searchUsers = (username) => (dispatch) => {
+    dispatch({ type: CLEAR_ERRORS })
+    console.log("username:", { username })
+    axios
+        .get(`/users/byUsername/${username}`)
+        .then((res) => {
+            dispatch({ type: SET_USERS_FOUND, payload: res.data })
+        })
+        .catch((err) => {
+            console.log("err", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
+export const clearSearchUsers = () => (dispatch) => {
+    dispatch({ type: CLEAR_ERRORS })
+    dispatch({ type: SET_USERS_FOUND, payload: [] })
 }

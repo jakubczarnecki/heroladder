@@ -24,9 +24,9 @@ userRouter.get("/all", async (req, res, next) => {
 });
 
 //get user by username
-userRouter.get("/byUsername", async (req, res, next) => {
+userRouter.get("/byUsername/:username", async (req, res, next) => {
   try {
-    const string = req.body.username;
+    const string = req.params.username;
 
     if (string == "") {
       res.status(200).send(null);
@@ -36,7 +36,7 @@ userRouter.get("/byUsername", async (req, res, next) => {
     const users = await User.find({ username: { $regex: string, $options: "i" } });
 
     if (users.length == 0) {
-      res.status(400).send({ message: "Sorry, we couldnt find any matches for this username :(", type: "login" });
+      res.status(400).send({ message: "Sorry, we couldnt find any matches for this username :(", type: "search" });
       return;
     }
 

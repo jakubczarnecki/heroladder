@@ -4,6 +4,7 @@ import { FontAwesome5 } from "@expo/vector-icons"
 import theme from "../../../styles/Theme"
 import Pressable from "../../Layout/Pressable"
 import Avatar from "../../misc/Avatar"
+import Loader from "../../misc/Loader"
 
 export const SearchBoxWrapper = styled.View`
     position: relative;
@@ -64,4 +65,21 @@ export const AddIcon = styled(FontAwesome5).attrs(() => ({
     color: theme.colors.dark,
 }))`
     margin-right: 17px;
+`
+
+export const SearchLoaderWrapper = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom-width: 1px;
+`
+
+export const SearchLoader = styled(Loader).attrs({
+    color: theme.colors.grayDark,
+    size: 25,
+})`
+    padding: 10px;
+    align-self: center;
 `

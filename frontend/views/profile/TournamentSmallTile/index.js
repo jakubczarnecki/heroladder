@@ -4,19 +4,26 @@ import { FontAwesome5 } from "@expo/vector-icons"
 import {
     DetailText,
     ParagraphBold,
+    Pressable,
     Subtitle,
     Tile,
     Title,
     TitleSmall,
 } from "../../../components/Layout"
-import { TournamentIcon, TournamentWrapper } from "./styled"
+import {
+    TournamentIcon,
+    TournamentPressable,
+    TournamentWrapper,
+} from "./styled"
 
-const TournamentSmallTile = ({ icon, title, date, tournamentID }) => {
+const TournamentSmallTile = ({ icon, title, date, tournamentID, onPress }) => {
     return (
-        <TournamentWrapper boxPadding={10}>
-            <TournamentIcon name={icon} />
-            <ParagraphBold>{title}</ParagraphBold>
-            <DetailText>{date}</DetailText>
+        <TournamentWrapper>
+            <TournamentPressable onPress={onPress}>
+                <TournamentIcon name={icon} />
+                <ParagraphBold>{title}</ParagraphBold>
+                <DetailText>{date}</DetailText>
+            </TournamentPressable>
         </TournamentWrapper>
     )
 }

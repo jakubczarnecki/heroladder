@@ -9,6 +9,7 @@ import defaultBackground from "../../assets/img/defaultProfileBackground.jpg"
 import { LinearGradient } from "expo-linear-gradient"
 import { FontAwesome5 } from "@expo/vector-icons"
 import { CircleButton } from "../../components/Form"
+import { Loader } from "../../components/misc"
 
 export const ProfileWrapperScroll = styled(LayoutWrapperScroll)`
     background-color: ${theme.colors.grayLight};
@@ -74,4 +75,11 @@ export const Section = styled.View`
 export const TournamentHistory = styled.ScrollView`
     padding-top: 5px;
     padding-bottom: 5px;
+`
+
+export const ProfileLoader = styled(Loader).attrs({
+    size: 35,
+    color: theme.colors.grayDark,
+})`
+    margin-top: 30px;
 `

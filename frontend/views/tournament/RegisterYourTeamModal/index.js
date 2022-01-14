@@ -19,7 +19,6 @@ import {
     TeammateWrapper,
     UserAvatar,
 } from "./styled"
-import { Searchbox } from "../../../components/Form"
 
 const RegisterYourTeamModal = ({ isOpen, onCancel, onSubmit }) => {
     const [team, setTeam] = useState([])

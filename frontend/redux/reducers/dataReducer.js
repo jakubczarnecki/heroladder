@@ -8,14 +8,16 @@ import {
     SET_WINNER,
     ADD_TOURNAMENT,
     SET_USERS_FOUND,
+    SET_USER_PROFILE,
 } from "../types"
 
 const initialState = {
     tournaments: [],
     areaTournaments: [],
     tournament: {},
-    loading: false,
     usersFound: [],
+    user: {},
+    loading: false,
 }
 
 export default (state = initialState, action) => {
@@ -72,6 +74,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 usersFound: action.payload,
+                loading: false,
+            }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                user: action.payload,
                 loading: false,
             }
 

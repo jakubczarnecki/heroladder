@@ -11,8 +11,8 @@ export default [
     {
         title: "Your profile",
         icon: "user-alt",
-        onPress: (navigation) => {
-            navigation.navigate("Profile")
+        onPress: (navigation, _, userID) => {
+            navigation.navigate("Profile", { userID })
         },
     },
     {

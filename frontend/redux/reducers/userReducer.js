@@ -4,8 +4,6 @@ const initialState = {
     id: "",
     username: "",
     email: "",
-    tournamentsHistory: [],
-    createdTournaments: [],
 }
 
 export default (state = initialState, action) => {

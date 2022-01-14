@@ -1,6 +1,6 @@
 import React from "react"
 import theme from "../../../styles/Theme"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import { LayoutWrapper, Tile } from "../../Layout"
 import {
@@ -18,6 +18,7 @@ import LogoWhite from "../../../assets/img/logo-01.png"
 
 const Drawer = ({ navigation }) => {
     const dispatch = useDispatch()
+    const currentUserID = useSelector((state) => state.user.id)
 
     return (
         <LayoutWrapper>
@@ -27,7 +28,11 @@ const Drawer = ({ navigation }) => {
                         <Tile boxMargin="15" key={index}>
                             <TileContent
                                 onPress={() =>
-                                    tile.onPress(navigation, dispatch)
+                                    tile.onPress(
+                                        navigation,
+                                        dispatch,
+                                        currentUserID
+                                    )
                                 }
                             >
                                 <TileIcon name={tile.icon} />

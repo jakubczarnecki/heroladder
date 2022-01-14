@@ -45,11 +45,6 @@ export const registerUser = (userData) => (dispatch) => {
         })
 }
 
-// export const getUserData = () => (dispatch) => {
-//     dispatch({ type: SET_LOADING_UI })
-//     console.log("getUserData")
-// }
-
 export const logout = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED })
 }

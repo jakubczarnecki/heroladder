@@ -11,6 +11,7 @@ import {
     SET_WINNER,
     ADD_TOURNAMENT,
     SET_USERS_FOUND,
+    SET_USER_PROFILE,
 } from "../types"
 
 // TODO: change /all to /feed or /area
@@ -118,11 +119,44 @@ export const addTournament = (newTournament) => (dispatch) => {
 
 export const searchUsers = (username) => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS })
-    console.log("username:", { username })
     axios
         .get(`/users/byUsername/${username}`)
         .then((res) => {
             dispatch({ type: SET_USERS_FOUND, payload: res.data })
+        })
+        .catch((err) => {
+            console.log("err", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
+export const getUserData = (userID) => (dispatch) => {
+    dispatch({ type: SET_LOADING_DATA })
+    let userData = {}
+    axios
+        .get(`/users/${userID}`)
+        .then((res) => {
+            console.log("res")
+            return res.data
+        })
+        .then((user) => {
+            userData = user
+            return axios.get(`/users/${userID}/avatar`)
+        })
+        .then((avatar) => {
+            userData = { ...userData, avatar: avatar.data }
+            return axios.get(`/users/${userID}/background`)
+        })
+        .then((background) => {
+            userData = { ...userData, background: background.data }
+            return axios.get(`/users/${userID}/organizedTournaments`)
+        })
+        .then((organized) => {
+            console.log("Organized: ", organized.data)
+            userData = { ...userData, organizedTournaments: organized.data }
+            // + tournament history
+
+            dispatch({ type: SET_USER_PROFILE, payload: userData })
         })
         .catch((err) => {
             console.log("err", err.response.data)

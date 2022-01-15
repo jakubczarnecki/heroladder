@@ -1,5 +1,27 @@
 import mongoose from "mongoose";
 
+const Avatar = new mongoose.Schema(
+  {
+    name: String,
+    data: Buffer,
+    contentType: String,
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Background = new mongoose.Schema(
+  {
+    name: String,
+    data: Buffer,
+    contentType: String,
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const UserSchema = new mongoose.Schema(
   {
     username: {
@@ -23,13 +45,9 @@ const UserSchema = new mongoose.Schema(
       min: 6,
     },
 
-    avatarId: {
-      type: String,
-    },
+    avatar: Avatar,
 
-    backgroundId: {
-      type: String,
-    },
+    background: Background,
   },
   {
     timestamps: true,

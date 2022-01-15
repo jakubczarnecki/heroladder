@@ -92,6 +92,33 @@ userRouter.get("/:id/tournamentsHistory", async (req, res, next) => {
   }
 });
 
+//generate feed
+userRouter.post("/feed", async (req, res, next) => {
+  const feed = [];
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  try {
+    const premiumTournaments = await Tournament.find({
+      "location.latitude": { $gt: latitude - 1, $lt: latitude + 1 },
+      "location.longitude": { $gt: longitude - 1, $lt: longitude + 1 },
+      "winners": null,
+      "premium": true,
+    });
+
+    const nonPremiumTournaments = await Tournament.find({
+      "location.latitude": { $gt: latitude - 1, $lt: latitude + 1 },
+      "location.longitude": { $gt: longitude - 1, $lt: longitude + 1 },
+      "winners": null,
+      "premium": false,
+    });
+
+    feed.push(...premiumTournaments, ...nonPremiumTournaments);
+    res.status(200).json(feed);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //confirm operation by sending password
 const confirmOperation = async (req, res, next) => {
   try {

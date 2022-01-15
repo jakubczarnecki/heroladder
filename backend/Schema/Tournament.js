@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
-const Member = new mongoose.Schema(
+const Location = new mongoose.Schema(
   {
-    type: mongoose.SchemaTypes.ObjectId,
+    latitude: Number,
+    longitude: Number,
   },
   { _id: false }
 );
@@ -61,13 +62,7 @@ const TournamentSchema = new mongoose.Schema(
       type: Number,
       require: true,
     },
-    location: {
-      type: String,
-      require: true,
-      min: 3,
-      max: 40,
-      default: "",
-    },
+    location: Location,
     description: {
       type: String,
       max: 500,

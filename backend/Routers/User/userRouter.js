@@ -99,8 +99,8 @@ userRouter.post("/feed", async (req, res, next) => {
   const longitude = req.body.longitude;
   try {
     const premiumTournaments = await Tournament.find({
-      "location.latitude": { $gt: latitude - 1, $lt: latitude + 1 },
-      "location.longitude": { $gt: longitude - 1, $lt: longitude + 1 },
+      "location.latitude": { $gt: latitude - 0.1, $lt: latitude + 0.1 },
+      "location.longitude": { $gt: longitude - 0.1, $lt: longitude + 0.1 },
       "winners": null,
       "premium": true,
     });
@@ -114,6 +114,25 @@ userRouter.post("/feed", async (req, res, next) => {
 
     feed.push(...premiumTournaments, ...nonPremiumTournaments);
     res.status(200).json(feed);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//generate area
+userRouter.post("/area", async (req, res, next) => {
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  const radius = req.body.radius;
+
+  try {
+    const tournaments = await Tournament.find({
+      "location.latitude": { $gt: latitude - radius, $lt: latitude + radius },
+      "location.longitude": { $gt: longitude - radius, $lt: longitude + radius },
+      "winners": null,
+    });
+
+    res.status(200).json(tournaments);
   } catch (err) {
     next(err);
   }
@@ -144,7 +163,16 @@ userRouter.put("/", confirmOperation, async (req, res, next) => {
 
     const updatedUser = {};
     req.body.username && (updatedUser.username = req.body.username);
-    req.body.password && (updatedUser.password = req.body.password);
+
+    req.body.password1 && (updatedUser.password = req.body.password1);
+
+    if (req.body.password1 !== req.body.password2) {
+      res.status(400).json({
+        type: "password",
+        message: "Passwords must be the same.",
+      });
+      return;
+    }
 
     await User.findOneAndUpdate(
       { _id: res._id.id },

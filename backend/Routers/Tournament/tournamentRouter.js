@@ -153,6 +153,7 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
     tournament.matches[0].every((match) => {
       if (match.teams.length < 2) {
         match.teams.push(newTeam);
+        tournament.bracketTaken += 1;
         return false;
       }
       return true;
@@ -161,7 +162,7 @@ tournamentRouter.put("/:id/join", async (req, res, next) => {
     await Tournament.findOneAndUpdate(
       { _id: req.params.id },
       {
-        $set: { matches: tournament.matches },
+        $set: { matches: tournament.matches, bracketTaken: tournament.bracketTaken },
       },
       { useFindAndModify: false }
     );

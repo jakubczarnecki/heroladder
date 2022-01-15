@@ -54,6 +54,10 @@ const TournamentSchema = new mongoose.Schema(
       type: Date,
       require: true,
     },
+    bracketTaken: {
+      type: Number,
+      default: 0,
+    },
     bracketSize: {
       type: Number,
       require: true,

@@ -66,25 +66,77 @@ userRouter.get("/:id/organizedTournaments", async (req, res, next) => {
   }
 });
 
-// //get participated tournaments by user
-// userRouter.get("/:id/participatedTournaments", async (req, res, next) => {
-//   try {
-//     const tournaments = await Tournament.find({ organizerId: req.params.id });
-//     res.status(200).json(tournaments);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+//get participated tournaments by user
+userRouter.get("/:id/participatedTournaments", async (req, res, next) => {
+  try {
+    const tournaments = await Tournament.find({
+      "matches": { $elemMatch: { $elemMatch: { teams: { $elemMatch: { members: req.params.id } } } } },
+      winners: null,
+    });
+    res.status(200).json(tournaments);
+  } catch (err) {
+    next(err);
+  }
+});
 
-// //get tournamentsHistory by userId
-// userRouter.get("/:id/tournamentsHistory", async (req, res, next) => {
-//   try {
-//     const tournaments = await Tournament.find({ organizerId: req.params.id });
-//     res.status(200).json(tournaments);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+//get tournamentsHistory by userId
+userRouter.get("/:id/tournamentsHistory", async (req, res, next) => {
+  try {
+    const tournaments = await Tournament.find({
+      "matches": { $elemMatch: { $elemMatch: { teams: { $elemMatch: { members: req.params.id } } } } },
+      winners: { $ne: null },
+    });
+    res.status(200).json(tournaments);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//generate feed
+userRouter.post("/feed", async (req, res, next) => {
+  const feed = [];
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  try {
+    const premiumTournaments = await Tournament.find({
+      "location.latitude": { $gt: latitude - 0.1, $lt: latitude + 0.1 },
+      "location.longitude": { $gt: longitude - 0.1, $lt: longitude + 0.1 },
+      "winners": null,
+      "premium": true,
+    });
+
+    const nonPremiumTournaments = await Tournament.find({
+      "location.latitude": { $gt: latitude - 1, $lt: latitude + 1 },
+      "location.longitude": { $gt: longitude - 1, $lt: longitude + 1 },
+      "winners": null,
+      "premium": false,
+    });
+
+    feed.push(...premiumTournaments, ...nonPremiumTournaments);
+    res.status(200).json(feed);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//generate area
+userRouter.post("/area", async (req, res, next) => {
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  const radius = req.body.radius;
+
+  try {
+    const tournaments = await Tournament.find({
+      "location.latitude": { $gt: latitude - radius, $lt: latitude + radius },
+      "location.longitude": { $gt: longitude - radius, $lt: longitude + radius },
+      "winners": null,
+    });
+
+    res.status(200).json(tournaments);
+  } catch (err) {
+    next(err);
+  }
+});
 
 //confirm operation by sending password
 const confirmOperation = async (req, res, next) => {
@@ -112,7 +164,16 @@ userRouter.put("/", confirmOperation, async (req, res, next) => {
 
     const updatedUser = {};
     req.body.username && (updatedUser.username = req.body.username);
-    req.body.password && (updatedUser.password = req.body.password);
+
+    req.body.password1 && (updatedUser.password = req.body.password1);
+
+    if (req.body.password1 !== req.body.password2) {
+      res.status(400).json({
+        type: "password",
+        message: "Passwords must be the same.",
+      });
+      return;
+    }
 
     await User.findOneAndUpdate(
       { _id: res._id.id },
@@ -142,29 +203,24 @@ userRouter.delete("/", confirmOperation, async (req, res, next) => {
 userRouter.get("/:id/avatar", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    const avatarId = user.avatarId;
-    const avatar = await Avatar.findById(avatarId);
 
-    res.status(200).json(avatar);
+    res.status(200).json(user.avatar);
   } catch (err) {
     next(err);
   }
 });
 
-//update your avatar
+//update your background
 userRouter.put("/avatar", upload.single("avatar"), async (req, res, next) => {
   try {
     const user = await User.findById(res._id.id);
     const data = utils.pictureFrom(req.file);
 
-    if (user.avatarId == null) {
-      const newAvatar = new Avatar(data);
-      const avatar = await newAvatar.save();
-
+    if (user.backgroundId == null) {
       await User.findOneAndUpdate(
         { _id: res._id.id },
         {
-          $set: { avatarId: avatar.id },
+          $set: { avatar: data },
         },
         { useFindAndModify: false }
       );
@@ -173,10 +229,10 @@ userRouter.put("/avatar", upload.single("avatar"), async (req, res, next) => {
       return;
     }
 
-    await Avatar.findOneAndUpdate(
-      { _id: user.avatarId },
+    await User.findOneAndUpdate(
+      { _id: res._id.id },
       {
-        $set: data,
+        $set: { avatar: data },
       },
       { useFindAndModify: false }
     );
@@ -191,10 +247,8 @@ userRouter.put("/avatar", upload.single("avatar"), async (req, res, next) => {
 userRouter.get("/:id/background", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    const backgroundId = user.backgroundId;
-    const background = await Background.findById(backgroundId);
 
-    res.status(200).json(background);
+    res.status(200).json(user.background);
   } catch (err) {
     next(err);
   }
@@ -207,13 +261,10 @@ userRouter.put("/background", upload.single("background"), async (req, res, next
     const data = utils.pictureFrom(req.file);
 
     if (user.backgroundId == null) {
-      const newBackground = new Background(data);
-      const background = await newBackground.save();
-
       await User.findOneAndUpdate(
         { _id: res._id.id },
         {
-          $set: { backgroundId: background.id },
+          $set: { background: data },
         },
         { useFindAndModify: false }
       );
@@ -222,10 +273,10 @@ userRouter.put("/background", upload.single("background"), async (req, res, next
       return;
     }
 
-    await Avatar.findOneAndUpdate(
-      { _id: user.backgroundId },
+    await User.findOneAndUpdate(
+      { _id: res._id.id },
       {
-        $set: data,
+        $set: { background: data },
       },
       { useFindAndModify: false }
     );

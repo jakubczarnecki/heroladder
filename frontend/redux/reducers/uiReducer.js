@@ -1,12 +1,14 @@
 import {
     ADD_ERROR,
     CLEAR_ERRORS,
+    SET_ACC_DELETED,
     SET_LOADING_UI,
     STOP_LOADING_UI,
 } from "../types"
 
 const initialState = {
     loading: false,
+    successfullyDeletedAcc: false,
     errors: [],
 }
 
@@ -34,6 +36,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+            }
+        case SET_ACC_DELETED:
+            return {
+                ...state,
+                successfullyDeletedAcc: true,
             }
         default:
             return state

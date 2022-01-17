@@ -3,16 +3,14 @@ import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
 import { TitleSmaller } from "../../../components/Layout"
 import { DeleteAccountButton, FormInput, Section } from "./styled"
-import { Button, FileInput } from "../../../components/Form"
+import { FileInput } from "../../../components/Form"
+import DeleteAccountModal from "../DeleteAccountModal"
 
 const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
     const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState(false)
-    const [userPassword, setUserPassword] = useState("")
-    const [modalData, setModalData] = useState({
-        title: "",
-        action: null,
-    })
+    const [modalDeleteAccIsOpen, setModalDeleteAccIsOpen] = useState(false)
 
+    const [userPassword, setUserPassword] = useState("")
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -24,9 +22,9 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
     const ConfirmModal = () => (
         <Modal
             type="confirm"
-            title={modalData.title}
+            title={"Confirm your changes"}
             isOpen={modalConfirmIsOpen}
-            onSubmit={modalData.action}
+            onSubmit={onSubmit}
             submitText="Submit"
             onCancel={() => setModalConfirmIsOpen(false)}
         >
@@ -47,10 +45,6 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
             isOpen={isOpen}
             onCancel={onCancel}
             onSubmit={() => {
-                setModalData({
-                    title: "Confirm your changes",
-                    action: () => onSubmit(),
-                })
                 setModalConfirmIsOpen(true)
             }}
         >
@@ -119,17 +113,15 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
                     title="Delete account"
                     type="contained"
                     onPress={() => {
-                        setModalData({
-                            title: "Delete your account",
-                            action: () => {
-                                console.log("delete account")
-                            },
-                        })
-                        setModalConfirmIsOpen(true)
+                        setModalDeleteAccIsOpen(true)
                     }}
                 />
             </Section>
             <ConfirmModal />
+            <DeleteAccountModal
+                modalOpen={modalDeleteAccIsOpen}
+                setModalOpen={setModalDeleteAccIsOpen}
+            />
         </Modal>
     )
 }

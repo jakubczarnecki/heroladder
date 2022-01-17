@@ -6,6 +6,7 @@ import {
     SET_LOADING_UI,
     SET_USER,
     SET_UNAUTHENTICATED,
+    SET_ACC_DELETED,
 } from "../types"
 
 export const loginUser = (userData) => (dispatch) => {
@@ -47,6 +48,19 @@ export const registerUser = (userData) => (dispatch) => {
 
 export const logout = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED })
+}
+
+export const deleteAccount = (confirmPassword) => (dispatch) => {
+    axios
+        .delete("/users", { data: { confirmPassword } })
+        .then(() => {
+            dispatch({ type: CLEAR_ERRORS })
+            dispatch({ type: SET_ACC_DELETED })
+        })
+        .catch((err) => {
+            console.log("err", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
 }
 
 const setAuthorizationHeader = async (token) => {

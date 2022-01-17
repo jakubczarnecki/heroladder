@@ -1,6 +1,6 @@
 import styled from "styled-components/native"
 import { Button, TextInput } from "../../../components/Form"
-import { DetailText } from "../../../components/Layout"
+import { DetailText, Paragraph } from "../../../components/Layout"
 
 export const Section = styled.View`
     padding-top: 10px;

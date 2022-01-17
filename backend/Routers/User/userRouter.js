@@ -94,11 +94,12 @@ const confirmOperation = async (req, res, next) => {
     const isPasswordValid = await utils.comparePassword(req.body.confirmPassword, user.password);
     if (!isPasswordValid) {
       res.status(400).json({
-        type: "login",
+        type: "password",
         message: "That wasn't correct. Try again?",
       });
       return;
     }
+    next();
   } catch (err) {
     next(err);
   }

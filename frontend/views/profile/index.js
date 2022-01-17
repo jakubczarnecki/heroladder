@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getUserData } from "../../redux/actions/dataActions"
 import Disciplines from "../../util/Disciplines"
 import moment from "moment"
+import DeleteAccountModal from "./DeleteAccountModal"
 
 const profileView = ({ route, navigation }) => {
     const [modalOpen, setModalOpen] = useState(false)

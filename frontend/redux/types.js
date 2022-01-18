@@ -8,7 +8,8 @@ export const SET_LOADING_UI = "SET_LOADING_UI"
 export const STOP_LOADING_UI = "STOP_LOADING_UI"
 export const ADD_ERROR = "ADD_ERROR"
 export const CLEAR_ERRORS = "CLEAR_ERRORS"
-export const SET_ACC_DELETED = "SET_ACC_DELETED"
+export const SET_ACTION_SUCCESSFUL = "SET_ACTION_SUCCESSFUL"
+export const CLEAR_ACTION = "CLEAR_ACTION"
 
 // data
 export const SET_LOADING_DATA = "SET_LOADING_DATA"

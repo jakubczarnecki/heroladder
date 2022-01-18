@@ -16,7 +16,7 @@ const DeleteAccountModal = ({ modalOpen, setModalOpen }) => {
     const [userPassword, setUserPassword] = useState("")
 
     const dispatch = useDispatch()
-    const accDeleted = useSelector((state) => state.ui.successfullyDeletedAcc)
+    const accDeleted = useSelector((state) => state.ui.actionSuccess)
     const errors = useSelector((state) => state.ui.errors)
 
     useEffect(() => {

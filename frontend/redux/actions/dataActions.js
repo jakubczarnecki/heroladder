@@ -12,6 +12,7 @@ import {
     ADD_TOURNAMENT,
     SET_USERS_FOUND,
     SET_USER_PROFILE,
+    SET_ACTION_SUCCESSFUL,
 } from "../types"
 
 // TODO: change /all to /feed or /area
@@ -95,21 +96,23 @@ export const selectWinner = (tournamentID, matchData) => (dispatch) => {
         })
 }
 
-export const addTournament = (newTournament) => (dispatch) => {
+//creatorUsername, creatorProfileImg
+export const addTournament = (newTournament, user) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
-
-    let tournamentData
 
     axios
         .post("/tournaments/create", newTournament)
         .then((res) => {
-            tournamentData = res.data
-            return axios.put(`/tournaments/${res.data._id}/init`)
-        })
-        .then(() => {
-            // TO FINISH
+            const tournamentData = {
+                ...res.data,
+                creatorUsername: user.username,
+                creatorProfileImg: user.avatar,
+            }
+
             dispatch({ type: ADD_TOURNAMENT, payload: tournamentData })
+            dispatch({ type: SET_ACTION_SUCCESSFUL })
+            return axios.put(`/tournaments/${res.data._id}/init`)
         })
         .catch((err) => {
             console.log("err", err.response.data)

@@ -6,7 +6,7 @@ import {
     SET_LOADING_UI,
     SET_USER,
     SET_UNAUTHENTICATED,
-    SET_ACC_DELETED,
+    SET_ACTION_SUCCESSFUL,
 } from "../types"
 
 export const loginUser = (userData) => (dispatch) => {
@@ -51,11 +51,12 @@ export const logout = () => (dispatch) => {
 }
 
 export const deleteAccount = (confirmPassword) => (dispatch) => {
+    dispatch({ type: CLEAR_ERRORS })
     axios
         .delete("/users", { data: { confirmPassword } })
         .then(() => {
             dispatch({ type: CLEAR_ERRORS })
-            dispatch({ type: SET_ACC_DELETED })
+            dispatch({ type: SET_ACTION_SUCCESSFUL })
         })
         .catch((err) => {
             console.log("err", err.response.data)

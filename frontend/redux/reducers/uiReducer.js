@@ -1,14 +1,15 @@
 import {
     ADD_ERROR,
     CLEAR_ERRORS,
-    SET_ACC_DELETED,
+    SET_ACTION_SUCCESSFUL,
     SET_LOADING_UI,
     STOP_LOADING_UI,
+    CLEAR_ACTION,
 } from "../types"
 
 const initialState = {
     loading: false,
-    successfullyDeletedAcc: false,
+    actionSuccess: false,
     errors: [],
 }
 
@@ -25,6 +26,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                actionSuccess: false,
                 errors: [],
             }
         case SET_LOADING_UI:
@@ -37,10 +39,15 @@ export default (state = initialState, action) => {
                 ...state,
                 loading: false,
             }
-        case SET_ACC_DELETED:
+        case SET_ACTION_SUCCESSFUL:
             return {
                 ...state,
-                successfullyDeletedAcc: true,
+                actionSuccess: true,
+            }
+        case CLEAR_ACTION:
+            return {
+                ...state,
+                actionSuccess: false,
             }
         default:
             return state

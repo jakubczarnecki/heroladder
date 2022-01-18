@@ -4,6 +4,7 @@ const initialState = {
     id: "",
     username: "",
     email: "",
+    avatar: "",
 }
 
 export default (state = initialState, action) => {

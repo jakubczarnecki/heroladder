@@ -204,6 +204,11 @@ userRouter.get("/:id/avatar", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
 
+    if (user.avatar == null) {
+      res.status(200).json({});
+      return;
+    }
+
     res.status(200).type(user.avatar.contentType).send(user.avatar.data);
   } catch (err) {
     next(err);
@@ -247,6 +252,11 @@ userRouter.put("/avatar", upload.single("avatar"), async (req, res, next) => {
 userRouter.get("/:id/background", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
+
+    if (user.background == null) {
+      res.status(200).json({});
+      return;
+    }
 
     res.status(200).type(user.background.contentType).send(user.background.data);
   } catch (err) {

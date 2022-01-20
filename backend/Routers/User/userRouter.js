@@ -215,7 +215,7 @@ userRouter.get("/:id/avatar", async (req, res, next) => {
   }
 });
 
-//update your background
+//update your avatar
 userRouter.put("/avatar", upload.single("avatar"), async (req, res, next) => {
   try {
     const user = await User.findById(res._id.id);

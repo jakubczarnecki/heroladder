@@ -4,6 +4,7 @@ import { useWindowDimensions } from "react-native"
 import { FadeInView } from "../../components/Transitions"
 import { LayoutWrapperScroll } from "../../components/Layout"
 import { FixedButton, MapWrapper } from "./styled"
+import { Loader } from "../../components/misc"
 import { Marker } from "react-native-maps"
 import Ladder from "./Ladder"
 import Details from "./Details"
@@ -18,14 +19,12 @@ const tournamentView = ({ route, navigation }) => {
 
     const dispatch = useDispatch()
     const tournament = useSelector((state) => state.data.tournament)
+    const loggedUserID = useSelector((state) => state.user.id)
     const { tournamentID } = route.params
 
     useEffect(() => {
         dispatch(setTournament(tournamentID))
     }, [tournamentID])
-
-    console.log(tournament)
-    console.log(tournamentID)
 
     const navPages = [
         {
@@ -34,23 +33,25 @@ const tournamentView = ({ route, navigation }) => {
         },
         {
             name: "Location",
-            content: (
+            content: tournament.location ? (
                 <MapWrapper
-                    height={height}
+                    height={height - 160}
                     initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
+                        latitude: tournament.location.latitude,
+                        longitude: tournament.location.longitude,
+                        latitudeDelta: 0.013,
+                        longitudeDelta: 0.013,
                     }}
                 >
                     <Marker
                         coordinate={{
-                            latitude: 37.78825,
-                            longitude: -122.4324,
+                            latitude: tournament.location.latitude,
+                            longitude: tournament.location.longitude,
                         }}
                     />
                 </MapWrapper>
+            ) : (
+                <Loader size={20} color="red" />
             ),
         },
         {
@@ -64,7 +65,12 @@ const tournamentView = ({ route, navigation }) => {
             <LayoutWrapperScroll>
                 <TabNav pages={navPages} />
             </LayoutWrapperScroll>
-            <FixedButton icon="cog" onPress={() => setEditModalOpen(true)} />
+            {loggedUserID === tournament.organizerId && (
+                <FixedButton
+                    icon="cog"
+                    onPress={() => setEditModalOpen(true)}
+                />
+            )}
 
             <EditTournamentModal
                 isOpen={editModalOpen}

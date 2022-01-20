@@ -1,15 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { FontAwesome5 } from "@expo/vector-icons"
-import {
-    DetailText,
-    ParagraphBold,
-    Pressable,
-    Subtitle,
-    Tile,
-    Title,
-    TitleSmall,
-} from "../../../components/Layout"
+import { DetailText, ParagraphBold } from "../../../components/Layout"
 import {
     TournamentIcon,
     TournamentPressable,
@@ -33,6 +24,7 @@ TournamentSmallTile.propTypes = {
     title: PropTypes.string,
     tournamentID: PropTypes.string,
     date: PropTypes.string,
+    onPress: PropTypes.func,
 }
 
 export default TournamentSmallTile

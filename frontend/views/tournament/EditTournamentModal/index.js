@@ -1,23 +1,8 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { Avatar, Modal } from "../../../components/misc"
-import bg2 from "../../../assets/img/bg2.jpg"
-import {
-    DetailText,
-    Paragraph,
-    ParagraphBold,
-    TitleSmaller,
-} from "../../../components/Layout"
-import {
-    DeleteButton,
-    FormInput,
-    DateFormInput,
-    Section,
-    SectionHeader,
-    TeamItemWrapper,
-    TeammateWrapper,
-    UserAvatar,
-} from "./styled"
+import { Modal } from "../../../components/misc"
+import { DetailText, TitleSmaller } from "../../../components/Layout"
+import { FormInput, DateFormInput, Section } from "./styled"
 import { LocationInput } from "../../../components/Form"
 
 const EditTournamentModal = ({ isOpen, onCancel, onSubmit }) => {

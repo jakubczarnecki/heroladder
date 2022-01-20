@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import { LocationWrapper } from "./styled"
+import { LoaderWrapper, LocationWrapper, MapLoader } from "./styled"
 import * as Location from "expo-location"
 import { Marker } from "react-native-maps"
 
@@ -26,25 +26,26 @@ const LocationInput = ({ value, onChange }) => {
         _getLocationAsync()
     }, [])
 
-    return (
-        location && (
-            <LocationWrapper
-                initialRegion={{
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                    latitudeDelta: 0.015,
-                    longitudeDelta: 0.015,
-                }}
-                onPress={(e) => {
-                    onChange(e.nativeEvent.coordinate)
-                    console.log(e.nativeEvent.coordinate)
-                    setLocation(e.nativeEvent.coordinate)
-                }}
-                height={250}
-            >
-                {value && <Marker coordinate={value} />}
-            </LocationWrapper>
-        )
+    return location ? (
+        <LocationWrapper
+            initialRegion={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+                latitudeDelta: 0.015,
+                longitudeDelta: 0.015,
+            }}
+            onPress={(e) => {
+                onChange(e.nativeEvent.coordinate)
+                setLocation(e.nativeEvent.coordinate)
+            }}
+            height={250}
+        >
+            {value && <Marker coordinate={value} />}
+        </LocationWrapper>
+    ) : (
+        <LoaderWrapper>
+            <MapLoader />
+        </LoaderWrapper>
     )
 }
 

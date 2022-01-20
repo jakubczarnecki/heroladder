@@ -75,7 +75,7 @@ const Searchbox = ({ onSelect, exclude, style }) => {
                     }}
                 >
                     <UserWrapper>
-                        <UserAvatar img={bg2} />
+                        <UserAvatar />
                         <ParagraphBold>{user.username}</ParagraphBold>
                     </UserWrapper>
                     <AddIcon name="plus" />

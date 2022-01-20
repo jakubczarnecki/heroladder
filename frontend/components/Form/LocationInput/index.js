@@ -29,13 +29,17 @@ const LocationInput = ({ value, onChange }) => {
     return (
         location && (
             <LocationWrapper
-                region={{
+                initialRegion={{
                     latitude: location.latitude,
                     longitude: location.longitude,
-                    latitudeDelta: 0.03,
-                    longitudeDelta: 0.03,
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.015,
                 }}
-                onPress={(e) => onChange(e.nativeEvent.coordinate)}
+                onPress={(e) => {
+                    onChange(e.nativeEvent.coordinate)
+                    console.log(e.nativeEvent.coordinate)
+                    setLocation(e.nativeEvent.coordinate)
+                }}
                 height={250}
             >
                 {value && <Marker coordinate={value} />}

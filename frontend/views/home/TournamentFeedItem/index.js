@@ -54,7 +54,10 @@ const TournamentFeedItem = ({ navigation, tournament }) => {
                     </DescriptionItem>
                     <DescriptionItem>
                         <ItemIcon name="users" />
-                        <ItemText>Slots: */{tournament.bracketSize}</ItemText>
+                        <ItemText>
+                            Slots: {tournament.bracketTaken}/
+                            {tournament.bracketSize}
+                        </ItemText>
                     </DescriptionItem>
                     <DescriptionItem>
                         <ItemIcon name="calendar" />
@@ -75,10 +78,10 @@ const TournamentFeedItem = ({ navigation, tournament }) => {
                 </Description>
                 <MapWrapper
                     initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
+                        latitude: tournament.location.latitude,
+                        longitude: tournament.location.longitude,
+                        latitudeDelta: 0.015,
+                        longitudeDelta: 0.015,
                     }}
                     pitchEnabled={false}
                     rotateEnabled={false}
@@ -87,8 +90,8 @@ const TournamentFeedItem = ({ navigation, tournament }) => {
                 >
                     <Marker
                         coordinate={{
-                            latitude: 37.78825,
-                            longitude: -122.4324,
+                            latitude: tournament.location.latitude,
+                            longitude: tournament.location.longitude,
                         }}
                     />
                 </MapWrapper>

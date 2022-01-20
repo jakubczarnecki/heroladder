@@ -1,16 +1,10 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { Avatar, Modal } from "../../../components/misc"
+import { Modal } from "../../../components/misc"
 import bg2 from "../../../assets/img/bg2.jpg"
+import { ParagraphBold, TitleSmaller } from "../../../components/Layout"
 import {
-    Paragraph,
-    ParagraphBold,
-    TitleSmaller,
-} from "../../../components/Layout"
-import {
-    DateFormInput,
     DeleteButton,
-    DropdownFormInput,
     FormInput,
     SearchUserInput,
     Section,
@@ -52,14 +46,14 @@ const RegisterYourTeamModal = ({ isOpen, onCancel, onSubmit }) => {
 
                 <TeamItemWrapper>
                     <TeammateWrapper>
-                        <UserAvatar img={bg2} size={40} />
+                        <UserAvatar size={40} />
                         <ParagraphBold>You</ParagraphBold>
                     </TeammateWrapper>
                 </TeamItemWrapper>
                 {team.map((user, index) => (
                     <TeamItemWrapper key={index}>
                         <TeammateWrapper>
-                            <UserAvatar img={bg2} size={40} />
+                            <UserAvatar size={40} />
                             <ParagraphBold>{user.username}</ParagraphBold>
                         </TeammateWrapper>
                         <DeleteButton

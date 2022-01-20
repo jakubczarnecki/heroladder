@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { TitleSmaller } from "../../../components/Layout"
 import { Avatar } from "../../../components/misc"
-import Disciplines from "../../../util/Disciplines"
+import { Disciplines } from "../../../util/Disciplines"
 import bg2 from "../../../assets/img/bg2.jpg"
 import {
     ActionText,
@@ -31,7 +31,7 @@ const TournamentFeedItem = ({ navigation, tournament }) => {
     return (
         <FeedWrapper>
             <FeedHeader>
-                <Avatar size={50} img={bg2} />
+                <Avatar size={50} />
                 <HeaderTextWrapper>
                     <DateText>
                         {moment(tournament.createdAt).fromNow()}

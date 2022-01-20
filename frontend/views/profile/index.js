@@ -16,15 +16,15 @@ import {
 } from "./styled"
 import { FadeInView } from "../../components/Transitions"
 import bg2 from "../../assets/img/bg2.jpg"
+
 import { Avatar } from "../../components/misc"
 import { Title } from "../../components/Layout"
 import TournamentSmallTile from "./TournamentSmallTile"
 import SettingsModal from "./SettingsModal"
 import { useDispatch, useSelector } from "react-redux"
 import { getUserData } from "../../redux/actions/dataActions"
-import Disciplines from "../../util/Disciplines"
+import { discipline, getDisciplineIcon } from "../../util/Disciplines"
 import moment from "moment"
-import DeleteAccountModal from "./DeleteAccountModal"
 
 const profileView = ({ route, navigation }) => {
     const [modalOpen, setModalOpen] = useState(false)
@@ -37,6 +37,8 @@ const profileView = ({ route, navigation }) => {
     useEffect(() => {
         dispatch(getUserData(route.params.userID))
     }, [])
+
+    console.log(userData)
 
     userData && console.log(userData.organizedTournaments)
 
@@ -56,11 +58,13 @@ const profileView = ({ route, navigation }) => {
                 <ProfileHeader>
                     <BackgroundWrapper>
                         <GradientOverlay />
-                        <SettingsIcon onPress={() => setModalOpen(true)} />
+                        {loggedUserID === userData._id && (
+                            <SettingsIcon onPress={() => setModalOpen(true)} />
+                        )}
                     </BackgroundWrapper>
                     <AvatarWrapper>
                         <Avatar
-                            img={bg2}
+                            img={userData.avatar}
                             press={() => {
                                 console.log(2)
                             }}
@@ -103,29 +107,31 @@ const profileView = ({ route, navigation }) => {
                     <Section>
                         <SectionHeader>Created tournaments</SectionHeader>
                         {userData.organizedTournaments ? (
-                            userData.organizedTournaments.map(
-                                (tournament, index) => (
-                                    <TournamentSmallTile
-                                        key={index}
-                                        icon={
-                                            Disciplines.find(
-                                                (d) =>
-                                                    d.value ===
-                                                    tournament.discipline
-                                            ).icon
-                                        }
-                                        title={tournament.discipline}
-                                        date={moment(tournament.date).format(
-                                            "DD/MM/YYYY"
-                                        )}
-                                        onPress={() =>
-                                            navigation.navigate("Tournament", {
-                                                tournamentID: tournament._id,
-                                            })
-                                        }
-                                    />
-                                )
-                            )
+                            <TournamentHistory horizontal={true}>
+                                {userData.organizedTournaments.map(
+                                    (tournament, index) => (
+                                        <TournamentSmallTile
+                                            key={index}
+                                            icon={getDisciplineIcon(
+                                                tournament.discipline
+                                            )}
+                                            title={tournament.discipline}
+                                            date={moment(
+                                                tournament.date
+                                            ).format("DD/MM/YYYY")}
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    "Tournament",
+                                                    {
+                                                        tournamentID:
+                                                            tournament._id,
+                                                    }
+                                                )
+                                            }
+                                        />
+                                    )
+                                )}
+                            </TournamentHistory>
                         ) : (
                             <Title>Has not created any tournaments yet</Title>
                         )}

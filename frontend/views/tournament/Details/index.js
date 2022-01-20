@@ -77,7 +77,7 @@ const Details = ({ tournament }) => {
                 </SectionHeader>
                 <SectionContent>
                     <Stretch>
-                        {tournament.teams &&
+                        {tournament.teams ? (
                             tournament.teams.map((team, teamIndex) => (
                                 <Team key={teamIndex}>
                                     <TitleSmaller>{team.teamName}</TitleSmaller>
@@ -85,7 +85,6 @@ const Details = ({ tournament }) => {
                                         {team.members.map(
                                             (member, memberIndex) => (
                                                 <UserAvatar
-                                                    img={bg2}
                                                     size={45}
                                                     key={`member${memberIndex}`}
                                                 />
@@ -93,7 +92,12 @@ const Details = ({ tournament }) => {
                                         )}
                                     </TeamSquad>
                                 </Team>
-                            ))}
+                            ))
+                        ) : (
+                            <ParagraphBold>
+                                Noone has registered yet
+                            </ParagraphBold>
+                        )}
 
                         <RegisterButton
                             title="Register your team"

@@ -204,7 +204,7 @@ userRouter.get("/:id/avatar", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
 
-    res.status(200).json(user.avatar);
+    res.status(200).type(user.avatar.contentType).send(user.avatar.data);
   } catch (err) {
     next(err);
   }
@@ -216,7 +216,7 @@ userRouter.put("/avatar", upload.single("avatar"), async (req, res, next) => {
     const user = await User.findById(res._id.id);
     const data = utils.pictureFrom(req.file);
 
-    if (user.backgroundId == null) {
+    if (user.avatar == null) {
       await User.findOneAndUpdate(
         { _id: res._id.id },
         {
@@ -248,7 +248,7 @@ userRouter.get("/:id/background", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
 
-    res.status(200).json(user.background);
+    res.status(200).type(user.background.contentType).send(user.background.data);
   } catch (err) {
     next(err);
   }
@@ -260,7 +260,7 @@ userRouter.put("/background", upload.single("background"), async (req, res, next
     const user = await User.findById(res._id.id);
     const data = utils.pictureFrom(req.file);
 
-    if (user.backgroundId == null) {
+    if (user.background == null) {
       await User.findOneAndUpdate(
         { _id: res._id.id },
         {

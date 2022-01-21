@@ -3,22 +3,21 @@ import { useSelector } from "react-redux"
 import { HelloWrapper, TextWrapper, AvatarWrapper } from "./styled"
 import { Title, Paragraph } from "../../../components/Layout"
 import { Avatar } from "../../../components/misc"
-import bg2 from "../../../assets/img/bg2.jpg"
 
 const HelloBox = () => {
-    const username = useSelector((state) => state.user.username)
+    const user = useSelector((state) => state.user)
 
     return (
         <HelloWrapper>
             <TextWrapper>
-                <Title>Hello {username}!</Title>
+                <Title>Hello {user.username}!</Title>
                 <Paragraph>
                     Słuchaczy o mocnych nerwach zapraszmy na porcję ostrego,
                     metalowego łojenia, przed państwem zespół ,
                 </Paragraph>
             </TextWrapper>
             <AvatarWrapper>
-                <Avatar size={70} />
+                <Avatar size={70} img={`pictures/${user.id}/avatar`} />
             </AvatarWrapper>
         </HelloWrapper>
     )

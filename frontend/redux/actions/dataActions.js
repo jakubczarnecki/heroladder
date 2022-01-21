@@ -40,7 +40,7 @@ export const setFeed = () => (dispatch) => {
                     payload.push({
                         ...tournament,
                         creatorUsername: creator.data.username,
-                        creatorProfileImg: creator.data.profileImg,
+                        creatorProfileImg: creator.data.avatar,
                     })
                 })
 
@@ -145,9 +145,9 @@ export const getUserData = (userID) => (dispatch) => {
         .then((user) => {
             userData = {
                 ...user,
-                avatar: user.avatar ? `/pictures/${userID}/avatar` : null,
+                avatar: user.avatar ? `pictures/${userID}/avatar` : null,
                 background: user.background
-                    ? `/pictures/${userID}/background`
+                    ? `pictures/${userID}/background`
                     : null,
             }
             return axios.get(`/users/${userID}/organizedTournaments`)

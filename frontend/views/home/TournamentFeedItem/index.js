@@ -28,10 +28,14 @@ const TournamentFeedItem = ({ navigation, tournament }) => {
         (d) => d.value === tournament.discipline
     )
 
+    const organizerAvatar = tournament.creatorProfileImg
+        ? `pictures/${tournament.organizerId}/avatar`
+        : null
+
     return (
         <FeedWrapper>
             <FeedHeader>
-                <Avatar size={50} />
+                <Avatar size={50} img={organizerAvatar} />
                 <HeaderTextWrapper>
                     <DateText>
                         {moment(tournament.createdAt).fromNow()}

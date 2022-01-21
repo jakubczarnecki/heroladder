@@ -40,9 +40,13 @@ export const loginUser = (userData) => (dispatch) => {
 
 export const registerUser = (userData) => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
+    dispatch({ type: CLEAR_ERRORS })
     axios
         .post("/auth/register", userData)
-        .then((res) => res)
+        .then((res) => {
+            dispatch({ type: SET_ACTION_SUCCESSFUL })
+            return res
+        })
         .catch((err) => {
             console.log("err", err.response.data)
             dispatch({ type: ADD_ERROR, payload: err.response.data })

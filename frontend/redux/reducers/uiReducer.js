@@ -19,7 +19,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                errors: [...state.errors, action.payload],
+                errors: [
+                    ...state.errors,
+                    ...(Array.isArray(action.payload)
+                        ? action.payload
+                        : [action.payload]),
+                ],
             }
 
         case CLEAR_ERRORS:

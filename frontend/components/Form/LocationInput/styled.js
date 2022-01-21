@@ -1,6 +1,6 @@
 import styled from "styled-components/native"
 import MapView from "react-native-maps"
-import { Loader } from "../../misc"
+import Loader from "../../misc/Loader"
 import theme from "../../../styles/Theme"
 
 export const LocationWrapper = styled(MapView)`

@@ -54,7 +54,9 @@ const Details = ({ tournament }) => {
                             <ParagraphBold>Team size:</ParagraphBold>
                         </ContentColumn>
                         <ContentColumn>
-                            <Paragraph>*</Paragraph>
+                            <Paragraph>
+                                {tournament.organizerUsername}
+                            </Paragraph>
                             <Paragraph>
                                 {moment(tournament.date).format("DD/MM/YYYY")}
                             </Paragraph>

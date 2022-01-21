@@ -21,7 +21,7 @@ export const loginUser = (userData) => (dispatch) => {
                     username: res.data.username,
                     email: res.data.email,
                     avatar: res.data.avatar
-                        ? `pictures/${user.id}/avatar`
+                        ? `pictures/${res.data._id}/avatar`
                         : null,
                 }
 

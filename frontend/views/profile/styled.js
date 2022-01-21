@@ -1,5 +1,6 @@
 import styled from "styled-components/native"
 import theme from "../../styles/Theme"
+import axios from "axios"
 import {
     LayoutWrapperScroll,
     Subtitle,
@@ -20,8 +21,8 @@ export const ProfileHeader = styled.View`
 `
 
 export const BackgroundWrapper = styled.ImageBackground.attrs((props) => ({
-    source: props.profileBackground
-        ? props.profileBackground
+    source: props.img
+        ? { uri: axios.defaults.baseURL + props.img }
         : defaultBackground,
     resizeMode: "cover",
 }))`

@@ -4,12 +4,12 @@ import axios from "axios"
 import { AvatarImg, AvatarWrapper, RoundedPressable } from "./styled"
 import defaultUser from "../../../assets/img/defaultUser.png"
 
-const Avatar = ({ img, press, size, style }) => {
+const Avatar = ({ img, onPress, size, style }) => {
     const image = img ? { uri: axios.defaults.baseURL + img } : defaultUser
 
     return (
         <AvatarWrapper style={style}>
-            <RoundedPressable onPress={press}>
+            <RoundedPressable onPress={onPress}>
                 <AvatarImg img={image} size={size} />
             </RoundedPressable>
         </AvatarWrapper>
@@ -17,7 +17,8 @@ const Avatar = ({ img, press, size, style }) => {
 }
 
 Avatar.propTypes = {
-    press: PropTypes.func,
+    img: PropTypes.string,
+    onPress: PropTypes.func,
     size: PropTypes.number,
     style: PropTypes.array,
 }

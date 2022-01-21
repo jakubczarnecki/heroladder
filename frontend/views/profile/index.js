@@ -36,9 +36,7 @@ const profileView = ({ route, navigation }) => {
 
     useEffect(() => {
         dispatch(getUserData(route.params.userID))
-    }, [])
-
-    console.log(userData)
+    }, [route.params.userID])
 
     userData && console.log(userData.organizedTournaments)
 
@@ -56,20 +54,14 @@ const profileView = ({ route, navigation }) => {
         <FadeInView>
             <ProfileWrapperScroll>
                 <ProfileHeader>
-                    <BackgroundWrapper>
+                    <BackgroundWrapper img={userData.background}>
                         <GradientOverlay />
                         {loggedUserID === userData._id && (
                             <SettingsIcon onPress={() => setModalOpen(true)} />
                         )}
                     </BackgroundWrapper>
                     <AvatarWrapper>
-                        <Avatar
-                            img={userData.avatar}
-                            press={() => {
-                                console.log(2)
-                            }}
-                            size={180}
-                        />
+                        <Avatar img={userData.avatar} size={180} />
                         <Title>{userData.username}</Title>
                         <UserSubtitle>
                             Lorem ipsum dolor sit amet consectetur adipisicing

@@ -28,19 +28,23 @@ const TournamentFeedItem = ({ navigation, tournament }) => {
         (d) => d.value === tournament.discipline
     )
 
-    const organizerAvatar = tournament.creatorProfileImg
-        ? `pictures/${tournament.organizerId}/avatar`
-        : null
-
     return (
         <FeedWrapper>
             <FeedHeader>
-                <Avatar size={50} img={organizerAvatar} />
+                <Avatar
+                    size={50}
+                    img={tournament.organizerAvatar}
+                    onPress={() =>
+                        navigation.navigate("Profile", {
+                            userID: tournament.organizerId,
+                        })
+                    }
+                />
                 <HeaderTextWrapper>
                     <DateText>
                         {moment(tournament.createdAt).fromNow()}
                     </DateText>
-                    <TitleSmaller>{tournament.creatorUsername}</TitleSmaller>
+                    <TitleSmaller>{tournament.organizerUsername}</TitleSmaller>
                     <ActionText>has created a new tournament</ActionText>
                 </HeaderTextWrapper>
             </FeedHeader>

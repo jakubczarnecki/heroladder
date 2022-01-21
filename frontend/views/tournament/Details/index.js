@@ -32,6 +32,8 @@ import RegisterYourTeamModal from "../RegisterYourTeamModal"
 const Details = ({ tournament }) => {
     const [modalOpen, setModalOpen] = useState(false)
 
+    console.log("TOURNAMENT", tournament)
+
     return (
         <DetailsWrapper>
             <Section>

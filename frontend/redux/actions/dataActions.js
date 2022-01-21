@@ -39,8 +39,10 @@ export const setFeed = () => (dispatch) => {
                     )
                     payload.push({
                         ...tournament,
-                        creatorUsername: creator.data.username,
-                        creatorProfileImg: creator.data.avatar,
+                        organizerUsername: creator.data.username,
+                        organizerAvatar: creator.data.avatar
+                            ? `pictures/${creator.data._id}/avatar`
+                            : null,
                     })
                 })
 
@@ -56,10 +58,12 @@ export const setFeed = () => (dispatch) => {
 export const setTournament = (tournamentID) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
+
+    let tournament
     axios
         .get(`/tournaments/${tournamentID}`)
         .then((res) => {
-            const tournament = res.data
+            tournament = res.data
 
             const teams = []
 
@@ -69,7 +73,13 @@ export const setTournament = (tournamentID) => (dispatch) => {
                 }
             })
             tournament.teams = teams
-
+            return axios.get(`/users/${tournament.organizerId}`)
+        })
+        .then((res) => {
+            tournament.organizerUsername = res.data.username
+            tournament.organizerAvatar = res.data.avatar
+                ? `pictures/${res.data._id}/avatar`
+                : null
             dispatch({ type: SET_TOURNAMENT, payload: tournament })
         })
         .catch((err) => {

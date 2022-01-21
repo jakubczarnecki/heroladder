@@ -17,7 +17,7 @@ const HelloBox = () => {
                 </Paragraph>
             </TextWrapper>
             <AvatarWrapper>
-                <Avatar size={70} img={`pictures/${user.id}/avatar`} />
+                <Avatar size={70} img={user.avatar} />
             </AvatarWrapper>
         </HelloWrapper>
     )

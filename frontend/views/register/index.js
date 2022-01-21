@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser, registerUser } from "../../redux/actions/userActions"
 import PropTypes from "prop-types"
@@ -24,13 +24,12 @@ const registerView = ({ navigation }) => {
     const [formData, setFormData] = useState({
         username: "",
         email: "",
-        password: "",
-        confirmPassword: "",
+        password1: "",
+        password2: "",
     })
 
     const dispatch = useDispatch()
-    const loading = useSelector((state) => state.ui.loading)
-    const errors = useSelector((state) => state.ui.errors)
+    const uiData = useSelector((state) => state.ui)
 
     const SuccessfullyRegisteredModal = () => (
         <Modal
@@ -39,7 +38,12 @@ const registerView = ({ navigation }) => {
             submitText="Go to app!"
             onSubmit={() => {
                 setModalOpen(false)
-                dispatch(loginUser(formData))
+                dispatch(
+                    loginUser({
+                        email: formData.email,
+                        password: formData.password1,
+                    })
+                )
             }}
             isOpen={modalOpen}
         >
@@ -51,13 +55,14 @@ const registerView = ({ navigation }) => {
     )
 
     const onSubmit = () => {
-        const res = dispatch(registerUser(formData))
-        if (!errors) {
-            setModalOpen(true)
-        } else {
-            console.log(errors)
-        }
+        dispatch(registerUser(formData))
     }
+
+    useEffect(() => {
+        if (uiData.actionSuccess) {
+            setModalOpen(true)
+        }
+    }, [uiData.actionSuccess])
 
     return (
         <FadeInView>
@@ -72,6 +77,9 @@ const registerView = ({ navigation }) => {
                             <FormInput
                                 placeholder="Username"
                                 title="Username"
+                                value={formData.username}
+                                errors={uiData.errors}
+                                errorType="username"
                                 onChangeText={(text) =>
                                     setFormData({ ...formData, username: text })
                                 }
@@ -79,6 +87,9 @@ const registerView = ({ navigation }) => {
                             <FormInput
                                 placeholder="E-mail"
                                 title="E-mail"
+                                value={formData.email}
+                                errors={uiData.errors}
+                                errorType="email"
                                 onChangeText={(text) =>
                                     setFormData({ ...formData, email: text })
                                 }
@@ -87,18 +98,27 @@ const registerView = ({ navigation }) => {
                                 password={true}
                                 placeholder="Password"
                                 title="Password"
+                                value={formData.password1}
+                                errors={uiData.errors}
+                                errorType="password1"
                                 onChangeText={(text) =>
-                                    setFormData({ ...formData, password: text })
+                                    setFormData({
+                                        ...formData,
+                                        password1: text,
+                                    })
                                 }
                             />
                             <FormInput
                                 password={true}
                                 placeholder="Confirm password"
                                 title="Confirm password"
+                                value={formData.password2}
+                                errors={uiData.errors}
+                                errorType="password2"
                                 onChangeText={(text) =>
                                     setFormData({
                                         ...formData,
-                                        confirmPassword: text,
+                                        password2: text,
                                     })
                                 }
                             />
@@ -118,7 +138,7 @@ const registerView = ({ navigation }) => {
                                 />
                             </ButtonWrapper>
                         </StyledTile>
-                        {loading && (
+                        {uiData.loading && (
                             <LoadingWrapper>
                                 <Loader size={40} color="white" />
                             </LoadingWrapper>

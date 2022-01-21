@@ -31,9 +31,9 @@ const loginView = ({ navigation }) => {
 
     // skip login page
     useEffect(() => {
-        // dispatch(
-        //     loginUser({ email: "piponsz@gmail.com", password: "qwerty123" })
-        // )
+        dispatch(
+            loginUser({ email: "piponsz@gmail.com", password: "qwerty123" })
+        )
     }, [])
 
     const onSubmit = () => {

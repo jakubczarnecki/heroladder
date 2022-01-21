@@ -1,5 +1,6 @@
 import { Router } from "express";
 import jwt from "jsonwebtoken";
+import { body, validationResult } from "express-validator";
 
 import utils from "../../utils.js";
 import User from "../../Schema/User.js";
@@ -7,23 +8,41 @@ import User from "../../Schema/User.js";
 const authRouter = Router();
 
 //register
-authRouter.post("/register", async (req, res, next) => {
+authRouter.post("/register", utils.validateUsername(), utils.validateEmail(), utils.validatePassword(), async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
-    if (user) {
-      res.status(400).json({
+    const errors = [];
+
+    const userWithSameUsername = await User.findOne({ username: req.body.username });
+    if (userWithSameUsername) {
+      errors.push({
+        type: "username",
+        message: "User with this username already exists.",
+      });
+    }
+
+    const userWithSameEmail = await User.findOne({ email: req.body.email });
+    if (userWithSameEmail) {
+      errors.push({
         type: "email",
         message: "User with this e-mail already exists.",
       });
-      return;
     }
 
     if (req.body.password1 !== req.body.password2) {
-      res.status(400).json({
-        type: "password",
-        message: "Passwords must be the same,",
+      errors.push({
+        type: "password2",
+        message: "Passwords must be the same.",
       });
-      return;
+    }
+
+    errors.push(
+      ...validationResult(req)
+        .array()
+        .map((result) => result.msg)
+    );
+
+    if (errors.length > 0) {
+      return res.status(400).json(errors);
     }
 
     const hashedPassword = await utils.encryptPassword(req.body.password1);

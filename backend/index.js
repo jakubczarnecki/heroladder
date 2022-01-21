@@ -11,6 +11,7 @@ const app = express();
 import authRouter from "./Routers/Authorization/authRouter.js";
 import userRouter from "./Routers/User//userRouter.js";
 import tournamentRouter from "./Routers/Tournament/tournamentRouter.js";
+import pictureRouter from "./Routers/Picture/pictureRouter.js";
 import authenticate from "./Routers/Authorization/middlewares.js";
 
 const PORT = "8800";
@@ -27,6 +28,7 @@ app.use(cors());
 app.use("/api/auth", authRouter);
 app.use("/api/users", authenticate, userRouter);
 app.use("/api/tournaments", authenticate, tournamentRouter);
+app.use("/api/pictures", pictureRouter);
 
 //connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {

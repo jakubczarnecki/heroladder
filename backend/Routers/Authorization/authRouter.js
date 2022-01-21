@@ -1,14 +1,15 @@
 import { Router } from "express";
 import jwt from "jsonwebtoken";
-import { body, validationResult } from "express-validator";
+import { validationResult } from "express-validator";
 
+import { validateUsername, validateEmail, validatePassword } from "../Validation.js";
 import utils from "../../utils.js";
 import User from "../../Schema/User.js";
 
 const authRouter = Router();
 
 //register
-authRouter.post("/register", utils.validateUsername(), utils.validateEmail(), utils.validatePassword(), async (req, res, next) => {
+authRouter.post("/register", validateUsername(), validateEmail(), validatePassword(), async (req, res, next) => {
   try {
     const errors = [];
 

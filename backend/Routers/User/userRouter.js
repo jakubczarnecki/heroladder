@@ -1,7 +1,9 @@
 import { Router } from "express";
 import utils from "../../utils.js";
 import multer from "multer";
+import { validationResult } from "express-validator";
 
+import { validateUsername, validateEmail, validatePassword } from "../Validation.js";
 import User from "../../Schema/User.js";
 import Tournament from "../../Schema/Tournament.js";
 import checkIfUserExists from "../User/middlewares.js";
@@ -156,22 +158,49 @@ const confirmOperation = async (req, res, next) => {
 };
 
 //update yourself
-userRouter.put("/", confirmOperation, async (req, res, next) => {
+userRouter.put("/", confirmOperation, validateUsername(), validatePassword(), async (req, res, next) => {
   try {
     req.body.password && (req.body.password = await utils.encryptPassword(req.body.password));
+
+    const errors = [];
+
+    const userWithSameUsername = await User.findOne({ username: req.body.username });
+    if (userWithSameUsername) {
+      errors.push({
+        type: "username",
+        message: "User with this username already exists.",
+      });
+    }
+
+    const userWithSameEmail = await User.findOne({ email: req.body.email });
+    if (userWithSameEmail) {
+      errors.push({
+        type: "email",
+        message: "User with this e-mail already exists.",
+      });
+    }
+
+    if (req.body.password1 !== req.body.password2) {
+      errors.push({
+        type: "password2",
+        message: "Passwords must be the same.",
+      });
+    }
+
+    errors.push(
+      ...validationResult(req)
+        .array()
+        .map((result) => result.msg)
+    );
+
+    if (errors.length > 0) {
+      return res.status(400).json(errors);
+    }
 
     const updatedUser = {};
     req.body.username && (updatedUser.username = req.body.username);
 
     req.body.password1 && (updatedUser.password = req.body.password1);
-
-    if (req.body.password1 !== req.body.password2) {
-      res.status(400).json({
-        type: "password",
-        message: "Passwords must be the same.",
-      });
-      return;
-    }
 
     await User.findOneAndUpdate(
       { _id: res._id.id },

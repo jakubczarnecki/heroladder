@@ -1,5 +1,7 @@
 import { Router } from "express";
+import { validationResult } from "express-validator";
 
+import { validateTournamentName, validateDiscpiline } from "../Validation.js";
 import authorizeOrginizer from "./middlewares.js";
 import checkIfUserExists from "../User/middlewares.js";
 import Tournament from "../../Schema/Tournament.js";
@@ -25,8 +27,20 @@ const checkIfTournamentExists = async (req, res, next, id) => {
 tournamentRouter.param("id", checkIfTournamentExists);
 
 //create tournament
-tournamentRouter.post("/create", async (req, res, next) => {
+tournamentRouter.post("/create", validateTournamentName(), validateDiscpiline(), async (req, res, next) => {
   try {
+    const errors = [];
+
+    errors.push(
+      ...validationResult(req)
+        .array()
+        .map((result) => result.msg)
+    );
+
+    if (errors.length > 0) {
+      return res.status(400).json(errors);
+    }
+
     const newTournament = new Tournament({
       tournamentName: req.body.tournamentName,
       discipline: req.body.discipline,
@@ -224,8 +238,20 @@ tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, ne
 });
 
 //update tournament by id
-tournamentRouter.put("/:id", authorizeOrginizer, async (req, res, next) => {
+tournamentRouter.put("/:id", authorizeOrginizer, validateTournamentName(), validateDiscpiline(), async (req, res, next) => {
   try {
+    const errors = [];
+
+    errors.push(
+      ...validationResult(req)
+        .array()
+        .map((result) => result.msg)
+    );
+
+    if (errors.length > 0) {
+      return res.status(400).json(errors);
+    }
+
     const updatedTournament = {};
     req.body.tournamentName && (updatedTournament.tournamentName = req.body.tournamentName);
     req.body.date && (updatedTournament.date = req.body.date);

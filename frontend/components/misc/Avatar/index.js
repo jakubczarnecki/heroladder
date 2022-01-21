@@ -1,10 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
+import axios from "axios"
 import { AvatarImg, AvatarWrapper, RoundedPressable } from "./styled"
 import defaultUser from "../../../assets/img/defaultUser.png"
 
 const Avatar = ({ img, press, size, style }) => {
-    const image = img ? img.data.data : defaultUser
+    const image = img ? { uri: axios.defaults.baseURL + img } : defaultUser
 
     return (
         <AvatarWrapper style={style}>

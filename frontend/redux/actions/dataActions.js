@@ -143,15 +143,13 @@ export const getUserData = (userID) => (dispatch) => {
             return res.data
         })
         .then((user) => {
-            userData = user
-            return axios.get(`/users/${userID}/avatar`)
-        })
-        .then((avatar) => {
-            userData = { ...userData, avatar: avatar.data }
-            return axios.get(`/users/${userID}/background`)
-        })
-        .then((background) => {
-            userData = { ...userData, background: background.data }
+            userData = {
+                ...user,
+                avatar: user.avatar ? `/pictures/${userID}/avatar` : null,
+                background: user.background
+                    ? `/pictures/${userID}/background`
+                    : null,
+            }
             return axios.get(`/users/${userID}/organizedTournaments`)
         })
         .then((organized) => {

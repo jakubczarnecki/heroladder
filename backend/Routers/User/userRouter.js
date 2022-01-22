@@ -160,7 +160,8 @@ const confirmOperation = async (req, res, next) => {
 //update yourself
 userRouter.put("/", confirmOperation, validateUsername(), validatePassword(), async (req, res, next) => {
   try {
-    req.body.password && (req.body.password = await utils.encryptPassword(req.body.password));
+    let encryptedPassword = null;
+    req.body.password1 && (encryptedPassword = await utils.encryptPassword(req.body.password1));
 
     const errors = [];
 
@@ -172,13 +173,13 @@ userRouter.put("/", confirmOperation, validateUsername(), validatePassword(), as
       });
     }
 
-    const userWithSameEmail = await User.findOne({ email: req.body.email });
-    if (userWithSameEmail) {
-      errors.push({
-        type: "email",
-        message: "User with this e-mail already exists.",
-      });
-    }
+    // const userWithSameEmail = await User.findOne({ email: req.body.email });
+    // if (userWithSameEmail) {
+    //   errors.push({
+    //     type: "email",
+    //     message: "User with this e-mail already exists.",
+    //   });
+    // }
 
     if (req.body.password1 !== req.body.password2) {
       errors.push({
@@ -200,7 +201,7 @@ userRouter.put("/", confirmOperation, validateUsername(), validatePassword(), as
     const updatedUser = {};
     req.body.username && (updatedUser.username = req.body.username);
 
-    req.body.password1 && (updatedUser.password = req.body.password1);
+    req.body.password1 && (updatedUser.password = encryptedPassword);
 
     await User.findOneAndUpdate(
       { _id: res._id.id },

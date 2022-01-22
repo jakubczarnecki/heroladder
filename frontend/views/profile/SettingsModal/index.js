@@ -1,42 +1,36 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
-import { TitleSmaller } from "../../../components/Layout"
+import { Paragraph, TitleSmaller } from "../../../components/Layout"
 import { DeleteAccountButton, FormInput, Section } from "./styled"
 import { FileInput } from "../../../components/Form"
 import DeleteAccountModal from "../DeleteAccountModal"
+import { useDispatch, useSelector } from "react-redux"
+import { STATUS_PROFILE_UPDATED } from "../../../redux/types"
+import { updateProfile } from "../../../redux/actions/userActions"
 
 const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
     const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState(false)
+    const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false)
     const [modalDeleteAccIsOpen, setModalDeleteAccIsOpen] = useState(false)
 
     const [userPassword, setUserPassword] = useState("")
     const [formData, setFormData] = useState({
         username: "",
-        password: "",
-        confirmPassword: "",
-        profileImg: "",
-        backgroundImg: "",
+        password1: "",
+        password2: "",
+        avatar: "",
+        background: "",
     })
 
-    const ConfirmModal = () => (
-        <Modal
-            type="confirm"
-            title={"Confirm your changes"}
-            isOpen={modalConfirmIsOpen}
-            onSubmit={onSubmit}
-            submitText="Submit"
-            onCancel={() => setModalConfirmIsOpen(false)}
-        >
-            <Section>
-                <TitleSmaller>Confirm password</TitleSmaller>
-                <FormInput
-                    title="Your password"
-                    onChangeText={(text) => setUserPassword(text)}
-                />
-            </Section>
-        </Modal>
-    )
+    const dispatch = useDispatch()
+    const uiData = useSelector((state) => state.ui)
+
+    useEffect(() => {
+        if (uiData.actionStatus == STATUS_PROFILE_UPDATED) {
+            setModalSuccessIsOpen(true)
+        }
+    }, [uiData.actionStatus])
 
     return (
         <Modal
@@ -68,7 +62,7 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
                     onChangeText={(text) =>
                         setFormData({
                             ...formData,
-                            password: text,
+                            password1: text,
                         })
                     }
                 />
@@ -78,7 +72,7 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
                     onChangeText={(text) =>
                         setFormData({
                             ...formData,
-                            confirmPassword: text,
+                            password2: text,
                         })
                     }
                 />
@@ -86,11 +80,11 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
             <Section>
                 <TitleSmaller>Change profile image</TitleSmaller>
                 <FileInput
-                    value={formData.profileImg}
+                    value={formData.avatar}
                     onChange={(data) =>
                         setFormData({
                             ...formData,
-                            profileImg: data,
+                            avatar: data,
                         })
                     }
                 />
@@ -98,11 +92,11 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
             <Section>
                 <TitleSmaller>Change profile background</TitleSmaller>
                 <FileInput
-                    value={formData.backgroundImg}
+                    value={formData.background}
                     onChange={(data) =>
                         setFormData({
                             ...formData,
-                            backgroundImg: data,
+                            background: data,
                         })
                     }
                 />
@@ -117,11 +111,44 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
                     }}
                 />
             </Section>
-            <ConfirmModal />
             <DeleteAccountModal
                 modalOpen={modalDeleteAccIsOpen}
                 setModalOpen={setModalDeleteAccIsOpen}
             />
+
+            <Modal
+                type="confirm"
+                title="Confirm your changes"
+                isOpen={modalConfirmIsOpen}
+                onSubmit={() => dispatch(updateProfile(formData, userPassword))}
+                submitText="Submit"
+                onCancel={() => setModalConfirmIsOpen(false)}
+            >
+                <Section>
+                    <TitleSmaller>Confirm password</TitleSmaller>
+                    <FormInput
+                        title="Your password"
+                        password={true}
+                        value={userPassword}
+                        onChangeText={(text) => setUserPassword(text)}
+                    />
+                </Section>
+            </Modal>
+
+            <Modal
+                type="info"
+                title="Account updated"
+                isOpen={modalSuccessIsOpen}
+                onSubmit={() => {
+                    setModalSuccessIsOpen(false)
+                    onSubmit()
+                }}
+                submitText="Confirm"
+            >
+                <Paragraph>
+                    Your account has been successfully updated.
+                </Paragraph>
+            </Modal>
         </Modal>
     )
 }

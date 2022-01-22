@@ -9,6 +9,8 @@ import {
     SET_ACTION_STATUS,
     STATUS_ACCOUNT_CREATED,
     STATUS_ACCOUNT_DELETED,
+    UPDATE_USER,
+    STATUS_PROFILE_UPDATED,
 } from "../types"
 
 export const loginUser = (userData) => (dispatch) => {
@@ -66,10 +68,36 @@ export const updateProfile = (userData, confirmPassword) => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
     dispatch({ type: CLEAR_ERRORS })
 
-    // const actions = []
-    // if (userData.username || userData.password) {
+    const actions = []
+    if (userData.username || userData.password1 || userData.password2) {
+        actions.push({ url: "/users/", data: { ...userData, confirmPassword } })
+    }
 
-    // }
+    userData.avatar &&
+        actions.push({
+            url: "pictures/avatar",
+            data: { avatar: userData.avatar, confirmPassword },
+        })
+
+    userData.background &&
+        actions.push({
+            url: "pictures/background",
+            data: { background: userData.background, confirmPassword },
+        })
+
+    Promise.all(actions.map((action) => axios.put(action.url, action.data)))
+        .then((res) => {
+            console.log("RESPONSE", res)
+            dispatch({
+                type: SET_ACTION_STATUS,
+                payload: STATUS_PROFILE_UPDATED,
+            })
+        })
+        .catch((err) => {
+            console.log("err", err.response.data)
+
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
 }
 
 export const deleteAccount = (confirmPassword) => (dispatch) => {

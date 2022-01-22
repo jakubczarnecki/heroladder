@@ -1,6 +1,7 @@
 // auth & user
 export const SET_USER = "SET_USER"
 export const SET_UNAUTHENTICATED = "SET_UNAUTHENTICATED"
+export const UPDATE_USER = "UPDATE_USER"
 export const SET_LOADING_USER = "SET_LOADING_USER"
 
 // ui

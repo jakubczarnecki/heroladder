@@ -30,12 +30,9 @@ pictureRouter.get("/:id/avatar", async (req, res, next) => {
 //update your background
 pictureRouter.put("/avatar", upload.single("avatar"), authenticate, async (req, res, next) => {
   try {
-    console.log(res._id.id);
     const user = await User.findById(res._id.id);
-    console.log(res._id.id);
     const data = utils.pictureFrom(req.file);
 
-    console.log("a");
     if (user.avatar == null) {
       await User.findOneAndUpdate(
         { _id: res._id.id },

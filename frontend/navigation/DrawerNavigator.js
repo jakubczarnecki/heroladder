@@ -2,7 +2,8 @@ import React from "react"
 import { useSelector } from "react-redux"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { Navbar } from "../components/Navigation"
-import { Drawer as DrawerComponent } from "../components/Navigation"
+// import { Drawer as DrawerComponent } from "../components/Navigation"
+import { DrawerB as DrawerComponent } from "../components/Navigation"
 
 import {
     homeView,

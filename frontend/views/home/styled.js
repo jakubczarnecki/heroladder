@@ -1,6 +1,6 @@
 import styled from "styled-components/native"
 import { CircleButton } from "../../components/Form"
-import { Tile } from "../../components/Layout"
+import { Paragraph, Tile } from "../../components/Layout"
 import { Loader } from "../../components/misc"
 import theme from "../../styles/Theme"
 
@@ -25,4 +25,8 @@ export const HomeLoader = styled(Loader).attrs({
     color: theme.colors.grayDark,
 })`
     margin-top: 30px;
+`
+
+export const NoTournamentsParagraph = styled(Paragraph)`
+    margin-top: 20px;
 `

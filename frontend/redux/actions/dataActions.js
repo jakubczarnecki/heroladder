@@ -15,12 +15,11 @@ import {
     SET_ACTION_SUCCESSFUL,
 } from "../types"
 
-// TODO: change /all to /feed or /area
-export const setFeed = () => (dispatch) => {
+export const setFeed = (location) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
     axios
-        .get("/tournaments/all")
+        .post("/users/feed", location)
         .then((res) => {
             const tournaments = res.data
             let payload = []

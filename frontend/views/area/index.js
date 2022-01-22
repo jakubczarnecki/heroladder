@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import * as Location from "expo-location"
+import useCurrentLocation from "../../hooks/useCurrentLocation"
 import { FadeInView } from "../../components/Transitions"
 import { useWindowDimensions } from "react-native"
 import {
@@ -14,28 +15,10 @@ import MapMarker from "./MapMarker"
 
 const areaView = ({ navigation }) => {
     const { height, width } = useWindowDimensions()
-    const [location, setLocation] = useState(null)
-    const [errorMsg, setErrorMsg] = useState(null)
+    const [location, errorMsg] = useCurrentLocation()
 
     const [markerScale, setMarkerScale] = useState(1)
-
-    const _getLocationAsync = async () => {
-        let { status } = await Location.requestForegroundPermissionsAsync()
-        if (status !== "granted") {
-            setErrorMsg("Permission to access location was denied.")
-            return
-        }
-
-        let loc = await Location.getCurrentPositionAsync()
-        setLocation({
-            latitude: loc.coords.latitude,
-            longitude: loc.coords.longitude,
-        })
-    }
-
-    useEffect(() => {
-        _getLocationAsync()
-    }, [])
+    console.log(location, errorMsg)
 
     return (
         <FadeInView>
@@ -46,7 +29,7 @@ const areaView = ({ navigation }) => {
                         title="Ask for permissions"
                         type="contained"
                         color="accentLight"
-                        onPress={() => _getLocationAsync()}
+                        onPress={() => console.log("a")}
                     />
                 </>
             )}
@@ -63,6 +46,8 @@ const areaView = ({ navigation }) => {
                             longitudeDelta: 0.03,
                         }}
                         onRegionChangeComplete={({
+                            latitude,
+                            longitude,
                             longitudeDelta,
                             latitudeDelta,
                         }) => {

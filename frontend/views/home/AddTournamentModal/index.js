@@ -12,7 +12,7 @@ import {
     Section,
 } from "./styled"
 import { LocationInput, CheckBox } from "../../../components/Form"
-import disciplines from "../../../util/Disciplines"
+import { Disciplines } from "../../../util/Disciplines"
 import { addTournament } from "../../../redux/actions/dataActions"
 import SuccessfullyCreatedModal from "../SuccessfullyCreatedModal"
 
@@ -89,7 +89,7 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                     />
                     <DropdownFormInput
                         title="Discipline"
-                        items={disciplines}
+                        items={Disciplines}
                         value={disciplineValue}
                         onChange={(discipline) => {
                             setDisciplineValue(discipline)

@@ -57,6 +57,16 @@ export const logout = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED })
 }
 
+export const updateProfile = (userData, confirmPassword) => (dispatch) => {
+    dispatch({ type: SET_LOADING_UI })
+    dispatch({ type: CLEAR_ERRORS })
+
+    // const actions = []
+    // if (userData.username || userData.password) {
+
+    // }
+}
+
 export const deleteAccount = (confirmPassword) => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS })
     axios

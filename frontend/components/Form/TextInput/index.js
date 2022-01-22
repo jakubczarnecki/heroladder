@@ -17,9 +17,6 @@ const TextInput = ({ style, errors, errorType, title, password, ...rest }) => {
             ? errors.find((error) => error.type === errorType)
             : null
     const errorMsg = error && error.message
-    console.log(title, errors)
-    console.log(title, error)
-    console.log(errorMsg)
 
     return (
         <InputWrapper style={style}>

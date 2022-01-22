@@ -1,6 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 import checkIfUserExists from "../User/middlewares.js";
+import authenticate from "../Authorization/middlewares.js";
+import utils from "../../utils.js";
 
 import User from "../../Schema/User.js";
 
@@ -26,11 +28,14 @@ pictureRouter.get("/:id/avatar", async (req, res, next) => {
 });
 
 //update your background
-pictureRouter.put("/avatar", upload.single("avatar"), async (req, res, next) => {
+pictureRouter.put("/avatar", upload.single("avatar"), authenticate, async (req, res, next) => {
   try {
+    console.log(res._id.id);
     const user = await User.findById(res._id.id);
+    console.log(res._id.id);
     const data = utils.pictureFrom(req.file);
 
+    console.log("a");
     if (user.avatar == null) {
       await User.findOneAndUpdate(
         { _id: res._id.id },
@@ -75,7 +80,7 @@ pictureRouter.get("/:id/background", async (req, res, next) => {
 });
 
 //update your background
-pictureRouter.put("/background", upload.single("background"), async (req, res, next) => {
+pictureRouter.put("/background", upload.single("background"), authenticate, async (req, res, next) => {
   try {
     const user = await User.findById(res._id.id);
     const data = utils.pictureFrom(req.file);

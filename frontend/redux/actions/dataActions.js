@@ -202,7 +202,10 @@ export const getUserData = (userID) => (dispatch) => {
         .then((organized) => {
             userData = { ...userData, organizedTournaments: organized.data }
             // + tournament history
-
+            return axios.get(`/users/${userID}/tournamentsHistory`)
+        })
+        .then((history) => {
+            userData = { ...userData, tournamentsHistory: history.data }
             dispatch({ type: SET_USER_PROFILE, payload: userData })
         })
         .catch((err) => {

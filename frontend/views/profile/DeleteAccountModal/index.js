@@ -10,20 +10,21 @@ import {
     ParagraphBold,
 } from "../../../components/Layout"
 import { logout, deleteAccount } from "../../../redux/actions/userActions"
+import { STATUS_ACCOUNT_DELETED } from "../../../redux/types"
 
 const DeleteAccountModal = ({ modalOpen, setModalOpen }) => {
     const [goodbyeModalIsOpen, setGoodbyeModalIsOpen] = useState(false)
     const [userPassword, setUserPassword] = useState("")
 
     const dispatch = useDispatch()
-    const accDeleted = useSelector((state) => state.ui.actionSuccess)
+    const actionStatus = useSelector((state) => state.ui.actionStatus)
     const errors = useSelector((state) => state.ui.errors)
 
     useEffect(() => {
-        if (accDeleted) {
+        if (actionStatus == STATUS_ACCOUNT_DELETED) {
             setGoodbyeModalIsOpen(true)
         }
-    }, [accDeleted])
+    }, [actionStatus])
 
     return (
         <>

@@ -6,7 +6,9 @@ import {
     SET_LOADING_UI,
     SET_USER,
     SET_UNAUTHENTICATED,
-    SET_ACTION_SUCCESSFUL,
+    SET_ACTION_STATUS,
+    STATUS_ACCOUNT_CREATED,
+    STATUS_ACCOUNT_DELETED,
 } from "../types"
 
 export const loginUser = (userData) => (dispatch) => {
@@ -44,7 +46,10 @@ export const registerUser = (userData) => (dispatch) => {
     axios
         .post("/auth/register", userData)
         .then((res) => {
-            dispatch({ type: SET_ACTION_SUCCESSFUL })
+            dispatch({
+                type: SET_ACTION_STATUS,
+                payload: STATUS_ACCOUNT_CREATED,
+            })
             return res
         })
         .catch((err) => {
@@ -73,7 +78,10 @@ export const deleteAccount = (confirmPassword) => (dispatch) => {
         .delete("/users", { data: { confirmPassword } })
         .then(() => {
             dispatch({ type: CLEAR_ERRORS })
-            dispatch({ type: SET_ACTION_SUCCESSFUL })
+            dispatch({
+                type: SET_ACTION_STATUS,
+                payload: STATUS_ACCOUNT_DELETED,
+            })
         })
         .catch((err) => {
             console.log("err", err.response.data)

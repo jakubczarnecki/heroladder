@@ -38,8 +38,6 @@ const homeView = ({ navigation }) => {
     const tournaments = useSelector((state) => state.data.tournaments)
     const loadingData = useSelector((state) => state.data.loading)
 
-    console.log("LOCATION", location)
-
     useEffect(() => {
         if (location) {
             dispatch(setFeed(location))

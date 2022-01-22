@@ -1,6 +1,7 @@
 import styled from "styled-components/native"
 import MapView, { Marker } from "react-native-maps"
 import { Button, ErrorBox } from "../../components/Form"
+import { Paragraph, ParagraphBold } from "../../components/Layout"
 
 export const MapPage = styled(MapView).attrs(({ width, height }) => ({
     width,
@@ -26,4 +27,10 @@ export const LocationErrorBox = styled(ErrorBox)`
 export const LocationErrorButton = styled(Button)`
     align-self: flex-end;
     margin-right: 5%;
+`
+
+export const DataLoader = styled(Paragraph)`
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
 `

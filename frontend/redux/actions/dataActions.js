@@ -54,6 +54,21 @@ export const setFeed = (location) => (dispatch) => {
         })
 }
 
+export const setAreaTournaments = (location) => (dispatch) => {
+    dispatch({ type: SET_LOADING_DATA })
+    dispatch({ type: CLEAR_ERRORS })
+    axios
+        .post("/users/area", location)
+        .then((res) => {
+            console.log("res", res.data)
+            dispatch({ type: SET_AREA_TOURNAMENTS, payload: res.data })
+        })
+        .catch((err) => {
+            console.log("error", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
 export const setTournament = (tournamentID) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })

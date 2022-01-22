@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
         case SET_AREA_TOURNAMENTS:
             return {
                 ...state,
-                tournament: action.payload,
+                areaTournaments: action.payload,
                 loading: false,
             }
         case SET_WINNER: {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import * as Location from "expo-location"
 import useCurrentLocation from "../../hooks/useCurrentLocation"
 import { FadeInView } from "../../components/Transitions"
 import { useWindowDimensions } from "react-native"
 import {
+    DataLoader,
     LocationErrorBox,
     LocationErrorButton,
     MapPage,
@@ -12,13 +12,50 @@ import {
 } from "./styled"
 import { PROVIDER_GOOGLE } from "react-native-maps"
 import MapMarker from "./MapMarker"
+import { useDispatch, useSelector } from "react-redux"
+import { setAreaTournaments } from "../../redux/actions/dataActions"
+import { getDisciplineIcon } from "../../util/Disciplines"
 
 const areaView = ({ navigation }) => {
     const { height, width } = useWindowDimensions()
-    const [location, errorMsg] = useCurrentLocation()
-
+    const [currentLocation, errorMsg, loacationLoading] = useCurrentLocation()
+    const [viewLocation, setViewLocation] = useState(null)
     const [markerScale, setMarkerScale] = useState(1)
-    console.log(location, errorMsg)
+
+    const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
+    const areaTournaments = useSelector((state) => state.data.areaTournaments)
+
+    useEffect(() => {
+        let timeout
+        setLoading(true)
+        if (viewLocation) {
+            timeout = setTimeout(() => {
+                if (viewLocation.radius < 0.3) {
+                    dispatch(setAreaTournaments(viewLocation))
+
+                    areaTournaments && console.log(areaTournaments.length)
+                    console.log(viewLocation)
+                }
+                setLoading(false)
+            }, 2000)
+        } else {
+            setLoading(false)
+        }
+
+        return () => clearTimeout(timeout)
+    }, [viewLocation])
+
+    useEffect(() => {
+        if (!loacationLoading) {
+            dispatch(
+                setAreaTournaments({
+                    ...currentLocation,
+                    radius: 1,
+                })
+            )
+        }
+    }, [loacationLoading])
 
     return (
         <FadeInView>
@@ -34,16 +71,16 @@ const areaView = ({ navigation }) => {
                 </>
             )}
             <MapWrapper>
-                {!errorMsg && location && (
+                {!errorMsg && currentLocation && (
                     <MapPage
-                        height={height}
+                        height={height - 90}
                         width={width}
                         provider={PROVIDER_GOOGLE}
                         initialRegion={{
-                            latitude: location.latitude,
-                            longitude: location.longitude,
-                            latitudeDelta: 0.03,
-                            longitudeDelta: 0.03,
+                            latitude: currentLocation.latitude,
+                            longitude: currentLocation.longitude,
+                            latitudeDelta: 0.009,
+                            longitudeDelta: 0.009,
                         }}
                         onRegionChangeComplete={({
                             latitude,
@@ -56,23 +93,37 @@ const areaView = ({ navigation }) => {
                                     1 / (6 * (longitudeDelta + latitudeDelta))
                                 ) * 0.62
                             setMarkerScale(scale)
+                            console.log(longitudeDelta, latitudeDelta)
+                            setViewLocation({
+                                latitude,
+                                longitude,
+                                radius: latitudeDelta * 10,
+                            })
                         }}
                     >
-                        <MapMarker
-                            icon="volleyball-ball"
-                            title="Title"
-                            date="23.01.2022"
-                            teamSize={4}
-                            teamCount={2}
-                            teamsAvailible={1}
-                            markerScale={markerScale}
-                            coordinate={{
-                                latitude: location.latitude,
-                                longitude: location.longitude,
-                            }}
-                        />
+                        {areaTournaments &&
+                            areaTournaments.map((tournament, index) => (
+                                <MapMarker
+                                    key={index}
+                                    icon={getDisciplineIcon(
+                                        tournament.discipline
+                                    )}
+                                    title={tournament.tournamentName}
+                                    date={tournament.date}
+                                    teamSize={tournament.teamSize}
+                                    teamCount={tournament.bracketSize}
+                                    teamsAvailible={tournament.bracketTaken}
+                                    markerScale={markerScale}
+                                    coordinate={{
+                                        latitude: tournament.location.latitude,
+                                        longitude:
+                                            tournament.location.longitude,
+                                    }}
+                                />
+                            ))}
                     </MapPage>
                 )}
+                {loading && <DataLoader>Loading tournaments...</DataLoader>}
             </MapWrapper>
         </FadeInView>
     )

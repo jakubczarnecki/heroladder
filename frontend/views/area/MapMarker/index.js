@@ -1,5 +1,6 @@
 import React, { useMemo } from "react"
 import PropTypes from "prop-types"
+import moment from "moment"
 import { Paragraph, ParagraphBold } from "../../../components/Layout"
 import {
     ButtonsWrapper,
@@ -17,6 +18,7 @@ import {
 
 const MapMarker = ({
     icon,
+    title,
     date,
     teamSize,
     teamCount,
@@ -37,12 +39,14 @@ const MapMarker = ({
             <MarkerWrapper>
                 <ContentWrapper>
                     <ContentHeader>
-                        <ParagraphBold>ABC</ParagraphBold>
+                        <ParagraphBold>{title}</ParagraphBold>
                     </ContentHeader>
 
                     <ContentDetails>
                         <Row>
-                            <Paragraph>{date}</Paragraph>
+                            <Paragraph>
+                                {moment(date).format("DD/MM/YY hh:mm")}
+                            </Paragraph>
                         </Row>
                         <Row>
                             <Column>

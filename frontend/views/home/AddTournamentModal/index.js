@@ -15,6 +15,7 @@ import { LocationInput, CheckBox } from "../../../components/Form"
 import { Disciplines } from "../../../util/Disciplines"
 import { addTournament } from "../../../redux/actions/dataActions"
 import SuccessfullyCreatedModal from "../SuccessfullyCreatedModal"
+import { CLEAR_ACTION, STATUS_TOURNAMENT_ADDED } from "../../../redux/types"
 
 const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
     const [disciplineValue, setDisciplineValue] = useState("")
@@ -31,17 +32,18 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
     })
 
     const dispatch = useDispatch()
-    const successfullyAdded = useSelector((state) => state.ui.actionSuccess)
+    const actionStatus = useSelector((state) => state.ui.actionStatus)
     const user = useSelector((state) => ({
         username: state.user.username,
         avatar: state.user.avatar,
     }))
 
     useEffect(() => {
-        if (successfullyAdded) {
+        if (actionStatus == STATUS_TOURNAMENT_ADDED) {
+            dispatch({ type: CLEAR_ACTION })
             setSuccessModalIsOpen(true)
         }
-    }, [successfullyAdded])
+    }, [actionStatus])
 
     return (
         <>

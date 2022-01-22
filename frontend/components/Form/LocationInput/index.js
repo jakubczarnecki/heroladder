@@ -5,7 +5,7 @@ import * as Location from "expo-location"
 import { Marker } from "react-native-maps"
 
 const LocationInput = ({ value, onChange }) => {
-    const [location, setLocation] = useState(null)
+    const [location, setLocation] = useState(value)
     // const [errorMsg, setErrorMsg] = useState(null)
 
     useEffect(() => {

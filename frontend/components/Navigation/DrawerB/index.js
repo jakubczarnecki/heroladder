@@ -44,7 +44,7 @@ const DrawerB = ({ navigation }) => {
                         <OptionWrapper key={index}>
                             <OptionContent
                                 onPress={() =>
-                                    tile.onPress(navigation, dispatch)
+                                    tile.onPress(navigation, dispatch, user.id)
                                 }
                             >
                                 <IconWrapper>

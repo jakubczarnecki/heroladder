@@ -76,6 +76,7 @@ const tournamentView = ({ route, navigation }) => {
                 isOpen={editModalOpen}
                 onCancel={() => setEditModalOpen(false)}
                 onSubmit={() => setEditModalOpen(false)}
+                tournament={tournament}
             />
         </FadeInView>
     )

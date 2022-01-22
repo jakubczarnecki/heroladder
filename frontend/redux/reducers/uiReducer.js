@@ -1,7 +1,7 @@
 import {
     ADD_ERROR,
     CLEAR_ERRORS,
-    SET_ACTION_SUCCESSFUL,
+    SET_ACTION_STATUS,
     SET_LOADING_UI,
     STOP_LOADING_UI,
     CLEAR_ACTION,
@@ -9,7 +9,7 @@ import {
 
 const initialState = {
     loading: false,
-    actionSuccess: false,
+    actionStatus: null,
     errors: [],
 }
 
@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                actionStatus: null,
                 errors: [
                     ...state.errors,
                     ...(Array.isArray(action.payload)
@@ -31,7 +32,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                actionSuccess: false,
+                actionStatus: null,
                 errors: [],
             }
         case SET_LOADING_UI:
@@ -44,15 +45,15 @@ export default (state = initialState, action) => {
                 ...state,
                 loading: false,
             }
-        case SET_ACTION_SUCCESSFUL:
+        case SET_ACTION_STATUS:
             return {
                 ...state,
-                actionSuccess: true,
+                actionStatus: action.payload,
             }
         case CLEAR_ACTION:
             return {
                 ...state,
-                actionSuccess: false,
+                actionStatus: null,
             }
         default:
             return state

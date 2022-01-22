@@ -12,7 +12,10 @@ import {
     ADD_TOURNAMENT,
     SET_USERS_FOUND,
     SET_USER_PROFILE,
-    SET_ACTION_SUCCESSFUL,
+    SET_ACTION_STATUS,
+    UPDATE_TOURNAMENT,
+    STATUS_TOURNAMENT_UPDATED,
+    STATUS_TOURNAMENT_ADDED,
 } from "../types"
 
 export const setFeed = (location) => (dispatch) => {
@@ -60,7 +63,6 @@ export const setAreaTournaments = (location) => (dispatch) => {
     axios
         .post("/users/area", location)
         .then((res) => {
-            console.log("res", res.data)
             dispatch({ type: SET_AREA_TOURNAMENTS, payload: res.data })
         })
         .catch((err) => {
@@ -102,6 +104,25 @@ export const setTournament = (tournamentID) => (dispatch) => {
         })
 }
 
+export const updateTournament = (tournamentData, id) => (dispatch) => {
+    dispatch({ type: SET_LOADING_DATA })
+    dispatch({ type: CLEAR_ERRORS })
+    console.log("tournament data in request", tournamentData)
+    axios
+        .put(`/tournaments/${id}`, tournamentData)
+        .then((res) => {
+            dispatch({
+                type: SET_ACTION_STATUS,
+                payload: STATUS_TOURNAMENT_UPDATED,
+            })
+            dispatch({ type: UPDATE_TOURNAMENT, payload: tournamentData })
+        })
+        .catch((err) => {
+            console.log("error", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
 export const selectWinner = (tournamentID, matchData) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
@@ -135,7 +156,10 @@ export const addTournament = (newTournament, user) => (dispatch) => {
             }
 
             dispatch({ type: ADD_TOURNAMENT, payload: tournamentData })
-            dispatch({ type: SET_ACTION_SUCCESSFUL })
+            dispatch({
+                type: SET_ACTION_STATUS,
+                payload: STATUS_TOURNAMENT_ADDED,
+            })
             return axios.put(`/tournaments/${res.data._id}/init`)
         })
         .catch((err) => {
@@ -163,7 +187,6 @@ export const getUserData = (userID) => (dispatch) => {
     axios
         .get(`/users/${userID}`)
         .then((res) => {
-            console.log("res")
             return res.data
         })
         .then((user) => {
@@ -177,7 +200,6 @@ export const getUserData = (userID) => (dispatch) => {
             return axios.get(`/users/${userID}/organizedTournaments`)
         })
         .then((organized) => {
-            console.log("Organized: ", organized.data)
             userData = { ...userData, organizedTournaments: organized.data }
             // + tournament history
 

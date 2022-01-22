@@ -26,13 +26,10 @@ import {
 } from "../../../components/Layout"
 
 import moment from "moment"
-import bg2 from "../../../assets/img/bg2.jpg"
 import RegisterYourTeamModal from "../RegisterYourTeamModal"
 
 const Details = ({ tournament }) => {
     const [modalOpen, setModalOpen] = useState(false)
-
-    console.log("TOURNAMENT", tournament)
 
     return (
         <DetailsWrapper>

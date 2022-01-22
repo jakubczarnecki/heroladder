@@ -9,6 +9,7 @@ import {
     ADD_TOURNAMENT,
     SET_USERS_FOUND,
     SET_USER_PROFILE,
+    UPDATE_TOURNAMENT,
 } from "../types"
 
 const initialState = {
@@ -69,6 +70,17 @@ export default (state = initialState, action) => {
                 tournaments: [action.payload, ...state.tournaments],
                 loading: false,
             }
+
+        case UPDATE_TOURNAMENT: {
+            return {
+                ...state,
+                tournament: {
+                    ...state.tournament,
+                    ...action.payload,
+                },
+                loading: false,
+            }
+        }
 
         case SET_USERS_FOUND:
             return {

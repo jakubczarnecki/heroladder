@@ -33,9 +33,6 @@ const areaView = ({ navigation }) => {
             timeout = setTimeout(() => {
                 if (viewLocation.radius < 0.3) {
                     dispatch(setAreaTournaments(viewLocation))
-
-                    areaTournaments && console.log(areaTournaments.length)
-                    console.log(viewLocation)
                 }
                 setLoading(false)
             }, 2000)
@@ -93,7 +90,6 @@ const areaView = ({ navigation }) => {
                                     1 / (6 * (longitudeDelta + latitudeDelta))
                                 ) * 0.62
                             setMarkerScale(scale)
-                            console.log(longitudeDelta, latitudeDelta)
                             setViewLocation({
                                 latitude,
                                 longitude,

@@ -38,7 +38,7 @@ const profileView = ({ route, navigation }) => {
         dispatch(getUserData(route.params.userID))
     }, [route.params.userID])
 
-    userData && console.log(userData.organizedTournaments)
+    console.log(userData)
 
     if (loading) {
         return (

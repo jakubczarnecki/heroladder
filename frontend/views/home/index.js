@@ -79,6 +79,7 @@ const homeView = ({ navigation }) => {
                 isOpen={modalOpen}
                 onCancel={() => setModalOpen(false)}
                 onSubmit={() => setModalOpen(false)}
+                location={location}
             />
         </FadeInView>
     )

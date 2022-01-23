@@ -25,8 +25,6 @@ const Ladder = ({ tournament }) => {
         winner: null,
     })
 
-    const dispatch = useDispatch()
-
     const GenerateLadder = () => {
         let nextBaseHeight = 1
         let baseHeight = 0
@@ -218,9 +216,9 @@ const Ladder = ({ tournament }) => {
                 onCancel={() => setWinnerModalOpen(false)}
                 onSubmit={() => {
                     setWinnerModalOpen(false)
-                    dispatch(selectWinner(formData))
                 }}
                 match={matchToEdit}
+                tournamentID={tournament._id}
                 formData={formData}
                 setFormData={setFormData}
             />

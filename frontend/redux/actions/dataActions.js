@@ -132,8 +132,14 @@ export const updateTournament = (tournamentData, id) => (dispatch) => {
 export const registerYourTeam = (teamData, tournamentID) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
+
+    const team = teamData.members.map((member) => member._id)
+
     axios
-        .put(`/tournaments/${tournamentID}/join`, teamData)
+        .put(`/tournaments/${tournamentID}/join`, {
+            teamName: teamData.teamName,
+            members: team,
+        })
         .then((res) => {
             console.log("Team added:", res)
             dispatch({ type: SET_ACTION_STATUS, payload: STATUS_TEAM_ADDED })
@@ -149,13 +155,16 @@ export const selectWinner = (tournamentID, matchData) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
 
+    console.log("Match data", matchData)
+
     axios
         .put(`/tournaments/${tournamentID}/claimWinner`, matchData)
         .then(() => {
-            dispatch({
-                type: SET_WINNER,
-                payload: matchData,
-            })
+            // dispatch({
+            //     type: SET_WINNER,
+            //     payload: matchData,
+            // })
+            dispatch(setTournament(tournamentID))
         })
         .catch((err) => {
             console.log("err", err.response.data)
@@ -164,25 +173,28 @@ export const selectWinner = (tournamentID, matchData) => (dispatch) => {
 }
 
 //creatorUsername, creatorProfileImg
-export const addTournament = (newTournament, user) => (dispatch) => {
+export const addTournament = (newTournament, location) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
 
     axios
         .post("/tournaments/create", newTournament)
         .then((res) => {
-            const tournamentData = {
-                ...res.data,
-                creatorUsername: user.username,
-                creatorProfileImg: user.avatar,
-            }
+            // const tournamentData = {
+            //     ...res.data,
+            //     creatorUsername: user.username,
+            //     creatorProfileImg: user.avatar,
+            // }
 
-            dispatch({ type: ADD_TOURNAMENT, payload: tournamentData })
+            // dispatch({ type: ADD_TOURNAMENT, payload: tournamentData })
             dispatch({
                 type: SET_ACTION_STATUS,
                 payload: STATUS_TOURNAMENT_ADDED,
             })
             return axios.put(`/tournaments/${res.data._id}/init`)
+        })
+        .then((res) => {
+            dispatch(setFeed(location))
         })
         .catch((err) => {
             console.log("err", err.response.data)

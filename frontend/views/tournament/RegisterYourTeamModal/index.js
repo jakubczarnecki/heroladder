@@ -110,7 +110,10 @@ const RegisterYourTeamModal = ({
                 ))}
 
                 {uiData.errors && uiData.errors.length > 0 && (
-                    <ErrorFormBox errors={uiData.errors} types={["join"]} />
+                    <ErrorFormBox
+                        errors={uiData.errors}
+                        types={["join", "members"]}
+                    />
                 )}
             </Section>
 

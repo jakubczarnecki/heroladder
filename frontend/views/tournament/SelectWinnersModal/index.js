@@ -3,12 +3,16 @@ import PropTypes from "prop-types"
 import { Modal } from "../../../components/misc"
 import { DropdownFormInput } from "./styled"
 import { TitleSmaller } from "../../../components/Layout"
+import { useDispatch } from "react-redux"
+import { selectWinner } from "../../../redux/actions/dataActions"
 
 const SelectWinnersModal = ({
     isOpen,
     onCancel,
     onSubmit,
     match,
+    currentStage,
+    tournamentID,
     formData,
     setFormData,
 }) => {
@@ -19,6 +23,8 @@ const SelectWinnersModal = ({
             value: team.teamName,
         }))
 
+    const dispatch = useDispatch()
+
     return (
         <Modal
             type="confirm"
@@ -28,6 +34,7 @@ const SelectWinnersModal = ({
             onCancel={onCancel}
             onSubmit={() => {
                 setWinner(null)
+                dispatch(selectWinner(tournamentID, formData))
                 onSubmit()
             }}
         >
@@ -40,7 +47,7 @@ const SelectWinnersModal = ({
                     setWinner(item)
                     setFormData({
                         ...formData,
-                        winner: index,
+                        winner: index + 1,
                     })
                 }}
             />
@@ -53,6 +60,8 @@ SelectWinnersModal.propTypes = {
     onCancel: PropTypes.func,
     onSubmit: PropTypes.func,
     match: PropTypes.object,
+    currentStage: PropTypes.number,
+    tournamentID: PropTypes.string,
     formData: PropTypes.object,
     setFormData: PropTypes.func,
 }

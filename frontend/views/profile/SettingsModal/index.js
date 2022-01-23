@@ -6,8 +6,9 @@ import { DeleteAccountButton, FormInput, Section } from "./styled"
 import { FileInput } from "../../../components/Form"
 import DeleteAccountModal from "../DeleteAccountModal"
 import { useDispatch, useSelector } from "react-redux"
-import { STATUS_PROFILE_UPDATED } from "../../../redux/types"
+import { CLEAR_ACTION, STATUS_PROFILE_UPDATED } from "../../../redux/types"
 import { updateProfile } from "../../../redux/actions/userActions"
+import { getUserData } from "../../../redux/actions/dataActions"
 
 const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
     const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState(false)
@@ -25,10 +26,13 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
 
     const dispatch = useDispatch()
     const uiData = useSelector((state) => state.ui)
+    const userID = useSelector((state) => state.user.id)
 
     useEffect(() => {
         if (uiData.actionStatus == STATUS_PROFILE_UPDATED) {
             setModalSuccessIsOpen(true)
+            dispatch(getUserData(userID))
+            dispatch({ type: CLEAR_ACTION })
         }
     }, [uiData.actionStatus])
 
@@ -81,15 +85,9 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
                 <TitleSmaller>Change profile image</TitleSmaller>
                 <FileInput
                     onChange={(localUri, filename, type) => {
-                        let formData = new FormData()
-                        formData.append("avatar", {
-                            uri: localUri,
-                            name: filename,
-                            type,
-                        })
                         setFormData({
                             ...formData,
-                            avatar: formData,
+                            avatar: localUri,
                         })
                     }}
                 />
@@ -98,15 +96,9 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
                 <TitleSmaller>Change profile background</TitleSmaller>
                 <FileInput
                     onChange={(localUri, filename, type) => {
-                        let formData = new FormData()
-                        formData.append("background", {
-                            uri: localUri,
-                            name: filename,
-                            type,
-                        })
                         setFormData({
                             ...formData,
-                            background: formData,
+                            background: localUri,
                         })
                     }}
                 />
@@ -138,6 +130,8 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
                     <TitleSmaller>Confirm password</TitleSmaller>
                     <FormInput
                         title="Your password"
+                        errors={uiData.errors}
+                        errorType="password"
                         password={true}
                         value={userPassword}
                         onChangeText={(text) => setUserPassword(text)}

@@ -12,6 +12,7 @@ import {
     UPDATE_USER,
     STATUS_PROFILE_UPDATED,
 } from "../types"
+import { getUserData } from "./dataActions"
 
 export const loginUser = (userData) => (dispatch) => {
     dispatch({ type: SET_LOADING_UI })
@@ -67,53 +68,82 @@ export const logout = () => (dispatch) => {
 export const updateProfile = (userData, confirmPassword) => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS })
 
-    // let success = false
-    // if (userData.username || userData.password1 || userData.password2) {
-    //     axios
-    //         .put("/users/", {
-    //             username: userData.username,
-    //             password1: userData.password1,
-    //             password2: userData.password2,
-    //             confirmPassword,
-    //         })
-    //         .then((res) => {
-    //             console.log("User basic data res", res)
-    //         })
-    //         .catch((err) => {
-    //             console.log("err", err.response.data)
-    //             dispatch({ type: ADD_ERROR, payload: err.response.data })
-    //         })
-    // }
-
-    userData.avatar &&
+    if (userData.username || userData.password1 || userData.password2) {
         axios
-            .put("/pictures/avatar", {
-                data: userData.avatar,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+            .put("/users/", {
+                username: userData.username,
+                password1: userData.password1,
+                password2: userData.password2,
+                confirmPassword,
             })
             .then((res) => {
-                console.log("Avatar res", res)
+                console.log("User basic data res", res)
+                dispatch({
+                    type: SET_ACTION_STATUS,
+                    payload: STATUS_PROFILE_UPDATED,
+                })
             })
             .catch((err) => {
-                console.log("avatar err", err.response)
+                console.log("err", err.response.data)
+                dispatch({ type: ADD_ERROR, payload: err.response.data })
+            })
+    }
+
+    userData.avatar &&
+        fetch(userData.avatar)
+            .then((avatar) => {
+                return avatar.blob()
+            })
+            .then((blob) => {
+                var formdata = new FormData()
+                formdata.append("avatar", {
+                    uri: userData.avatar,
+                    type: blob.type,
+                })
+
+                return axios.put("/pictures/avatar", formdata, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+            })
+            .then((res) => {
+                console.log("Avatar res", JSON.stringify(res, null, 2))
+                dispatch({
+                    type: SET_ACTION_STATUS,
+                    payload: STATUS_PROFILE_UPDATED,
+                })
+            })
+            .catch((err) => {
                 dispatch({ type: ADD_ERROR, payload: err.response.data })
             })
 
     userData.background &&
-        axios
-            .put("/pictures/background", {
-                data: userData.background,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+        fetch(userData.background)
+            .then((background) => {
+                return background.blob()
+            })
+            .then((blob) => {
+                var formdata = new FormData()
+                formdata.append("background", {
+                    uri: userData.background,
+                    type: blob.type,
+                })
+
+                return axios.put("/pictures/background", formdata, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
             })
             .then((res) => {
-                console.log("Background res", res)
+                console.log("background res", JSON.stringify(res, null, 2))
+                dispatch({
+                    type: SET_ACTION_STATUS,
+                    payload: STATUS_PROFILE_UPDATED,
+                })
             })
             .catch((err) => {
-                console.log("background err", err.response)
                 dispatch({ type: ADD_ERROR, payload: err.response.data })
             })
 }

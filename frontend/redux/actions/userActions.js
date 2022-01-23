@@ -65,39 +65,57 @@ export const logout = () => (dispatch) => {
 }
 
 export const updateProfile = (userData, confirmPassword) => (dispatch) => {
-    dispatch({ type: SET_LOADING_UI })
     dispatch({ type: CLEAR_ERRORS })
 
-    const actions = []
-    if (userData.username || userData.password1 || userData.password2) {
-        actions.push({ url: "/users/", data: { ...userData, confirmPassword } })
-    }
+    // let success = false
+    // if (userData.username || userData.password1 || userData.password2) {
+    //     axios
+    //         .put("/users/", {
+    //             username: userData.username,
+    //             password1: userData.password1,
+    //             password2: userData.password2,
+    //             confirmPassword,
+    //         })
+    //         .then((res) => {
+    //             console.log("User basic data res", res)
+    //         })
+    //         .catch((err) => {
+    //             console.log("err", err.response.data)
+    //             dispatch({ type: ADD_ERROR, payload: err.response.data })
+    //         })
+    // }
 
     userData.avatar &&
-        actions.push({
-            url: "pictures/avatar",
-            data: { avatar: userData.avatar, confirmPassword },
-        })
+        axios
+            .put("/pictures/avatar", {
+                data: userData.avatar,
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => {
+                console.log("Avatar res", res)
+            })
+            .catch((err) => {
+                console.log("avatar err", err)
+                dispatch({ type: ADD_ERROR, payload: err.response.data })
+            })
 
     userData.background &&
-        actions.push({
-            url: "pictures/background",
-            data: { background: userData.background, confirmPassword },
-        })
-
-    Promise.all(actions.map((action) => axios.put(action.url, action.data)))
-        .then((res) => {
-            console.log("RESPONSE", res)
-            dispatch({
-                type: SET_ACTION_STATUS,
-                payload: STATUS_PROFILE_UPDATED,
+        axios
+            .put("/pictures/background", {
+                data: userData.background,
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             })
-        })
-        .catch((err) => {
-            console.log("err", err.response.data)
-
-            dispatch({ type: ADD_ERROR, payload: err.response.data })
-        })
+            .then((res) => {
+                console.log("Background res", res)
+            })
+            .catch((err) => {
+                console.log("background err", err.response)
+                dispatch({ type: ADD_ERROR, payload: err.response.data })
+            })
 }
 
 export const deleteAccount = (confirmPassword) => (dispatch) => {

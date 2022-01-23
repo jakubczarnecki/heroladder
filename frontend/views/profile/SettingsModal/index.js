@@ -19,8 +19,8 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
         username: "",
         password1: "",
         password2: "",
-        avatar: "",
-        background: "",
+        avatar: null,
+        background: null,
     })
 
     const dispatch = useDispatch()
@@ -80,25 +80,35 @@ const SettingsModal = ({ isOpen, onCancel, onSubmit }) => {
             <Section>
                 <TitleSmaller>Change profile image</TitleSmaller>
                 <FileInput
-                    value={formData.avatar}
-                    onChange={(data) =>
+                    onChange={(localUri, filename, type) => {
+                        let formData = new FormData()
+                        formData.append("avatar", {
+                            uri: localUri,
+                            name: filename,
+                            type,
+                        })
                         setFormData({
                             ...formData,
-                            avatar: data,
+                            avatar: formData,
                         })
-                    }
+                    }}
                 />
             </Section>
             <Section>
                 <TitleSmaller>Change profile background</TitleSmaller>
                 <FileInput
-                    value={formData.background}
-                    onChange={(data) =>
+                    onChange={(localUri, filename, type) => {
+                        let formData = new FormData()
+                        formData.append("background", {
+                            uri: localUri,
+                            name: filename,
+                            type,
+                        })
                         setFormData({
                             ...formData,
-                            background: data,
+                            background: formData,
                         })
-                    }
+                    }}
                 />
             </Section>
             <Section>

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "SET NODE_ENV=dev&& nodemon index.js",
     "test": "SET NODE_ENV=test&& nyc --all true mocha --timeout 10000  --recursive"

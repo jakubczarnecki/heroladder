@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { selectWinner } from "../../../redux/actions/dataActions"
 import PropTypes from "prop-types"
 import Svg, { G, Line, Rect, Text } from "react-native-svg"
@@ -24,6 +24,8 @@ const Ladder = ({ tournament }) => {
         number: null,
         winner: null,
     })
+
+    const loggedUserID = useSelector((state) => state.user.id)
 
     const GenerateLadder = () => {
         let nextBaseHeight = 1
@@ -55,7 +57,9 @@ const Ladder = ({ tournament }) => {
                                         onPress={() => {
                                             if (
                                                 !match.winner &&
-                                                match.teams.length == 2
+                                                match.teams.length == 2 &&
+                                                tournament.organizerId ==
+                                                    loggedUserID
                                             ) {
                                                 setFormData({
                                                     ...formData,
@@ -108,9 +112,7 @@ const Ladder = ({ tournament }) => {
                                             fill={
                                                 match.winner
                                                     ? match.winner ===
-                                                          teamIndex &&
-                                                      match.teams[teamIndex]
-                                                          .teamname
+                                                      teamIndex + 1
                                                         ? theme.colors.green
                                                         : theme.colors.accent
                                                     : theme.colors.gray

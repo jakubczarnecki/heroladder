@@ -47,7 +47,7 @@ const SelectWinnersModal = ({
                     setWinner(item)
                     setFormData({
                         ...formData,
-                        winner: index + 1,
+                        winner: index,
                     })
                 }}
             />

@@ -71,7 +71,7 @@ const RegisterYourTeamModal = ({
             <Section>
                 <TitleSmaller>Team informations</TitleSmaller>
                 <FormInput
-                    title="Tournament title"
+                    title="Team name"
                     value={teamName}
                     onChangeText={(text) => setTeamName(text)}
                 />

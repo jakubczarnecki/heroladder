@@ -11,6 +11,7 @@ import {
     STATUS_ACCOUNT_DELETED,
     UPDATE_USER,
     STATUS_PROFILE_UPDATED,
+    UPDATE_USERNAME,
 } from "../types"
 import { getUserData } from "./dataActions"
 
@@ -82,6 +83,12 @@ export const updateProfile = (userData, confirmPassword) => (dispatch) => {
                     type: SET_ACTION_STATUS,
                     payload: STATUS_PROFILE_UPDATED,
                 })
+                if (userData.username) {
+                    dispatch({
+                        type: UPDATE_USERNAME,
+                        payload: userData.username,
+                    })
+                }
             })
             .catch((err) => {
                 console.log("err", err.response.data)
@@ -101,11 +108,12 @@ export const updateProfile = (userData, confirmPassword) => (dispatch) => {
                     type: blob.type,
                 })
 
-                return axios.put("/pictures/avatar", formdata, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
+                // return axios.put("/pictures/avatar", formdata, {
+                //     headers: {
+                //         "Content-Type": "multipart/form-data",
+                //     },
+                // })
+                return true
             })
             .then((res) => {
                 console.log("Avatar res", JSON.stringify(res, null, 2))
@@ -130,11 +138,12 @@ export const updateProfile = (userData, confirmPassword) => (dispatch) => {
                     type: blob.type,
                 })
 
-                return axios.put("/pictures/background", formdata, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
+                // return axios.put("/pictures/background", formdata, {
+                //     headers: {
+                //         "Content-Type": "multipart/form-data",
+                //     },
+                // })
+                return true
             })
             .then((res) => {
                 console.log("background res", JSON.stringify(res, null, 2))

@@ -21,8 +21,11 @@ dotenv.config();
 //middleware
 app.use(json());
 app.use(helmet());
-app.use(morgan("tiny"));
 app.use(cors());
+
+if (config.util.getEnv("NODE_ENV") !== "test") {
+  app.use(morgan("tiny"));
+}
 
 //routing middleware
 app.use("/api/auth", authRouter);

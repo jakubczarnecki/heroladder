@@ -3,7 +3,7 @@ import utils from "../../utils.js";
 import multer from "multer";
 import { validationResult } from "express-validator";
 
-import { validateUsername, validateEmail, validatePassword } from "../Validation.js";
+import { validateUsername, validatePassword } from "../Validation.js";
 import User from "../../Schema/User.js";
 import Tournament from "../../Schema/Tournament.js";
 import checkIfUserExists from "../User/middlewares.js";
@@ -36,7 +36,7 @@ userRouter.get("/byUsername/:username", async (req, res, next) => {
     const users = await User.find({ username: { $regex: string, $options: "i" } });
 
     if (users.length == 0) {
-      res.status(400).send({ message: "Sorry, we couldnt find any matches for this username :(", type: "search" });
+      res.status(200).send({ message: "Sorry, we couldnt find any matches for this username :(", type: "search" });
       return;
     }
 
@@ -158,10 +158,9 @@ const confirmOperation = async (req, res, next) => {
 };
 
 //update yourself
-userRouter.put("/", confirmOperation, validateUsername(), async (req, res, next) => {
+userRouter.put("/", confirmOperation, validateUsername(), validatePassword(), async (req, res, next) => {
   try {
-    let encryptedPassword = null;
-    req.body.password1 && (encryptedPassword = await utils.encryptPassword(req.body.password1));
+    req.body.password && (req.body.password = await utils.encryptPassword(req.body.password));
 
     const errors = [];
 
@@ -173,13 +172,13 @@ userRouter.put("/", confirmOperation, validateUsername(), async (req, res, next)
       });
     }
 
-    // const userWithSameEmail = await User.findOne({ email: req.body.email });
-    // if (userWithSameEmail) {
-    //   errors.push({
-    //     type: "email",
-    //     message: "User with this e-mail already exists.",
-    //   });
-    // }
+    const userWithSameEmail = await User.findOne({ email: req.body.email });
+    if (userWithSameEmail) {
+      errors.push({
+        type: "email",
+        message: "User with this e-mail already exists.",
+      });
+    }
 
     if (req.body.password1 !== req.body.password2) {
       errors.push({
@@ -201,7 +200,7 @@ userRouter.put("/", confirmOperation, validateUsername(), async (req, res, next)
     const updatedUser = {};
     req.body.username && (updatedUser.username = req.body.username);
 
-    req.body.password1 && (updatedUser.password = encryptedPassword);
+    req.body.password1 && (updatedUser.password = req.body.password1);
 
     await User.findOneAndUpdate(
       { _id: res._id.id },

@@ -9,7 +9,8 @@ import app from "../../../index.js";
 chai.use(chaiHttp);
 
 describe("Users", () => {
-  let token = "";
+  let token;
+  let id;
   beforeEach((done) => {
     chai.request(app).post("/api/auth/register").send({
       "username": "testUserName",
@@ -26,34 +27,100 @@ describe("Users", () => {
       })
       .end((err, res) => {
         token = res.body.token;
+        id = res.body._id;
+        done();
       });
-    User.deleteMany({}, (err) => {
-      done();
-    });
   });
 
   describe("/GET all", () => {
-    it("Return all users list", (done) => {
+    it("Returns all users list", (done) => {
       chai
         .request(app)
         .get("/api/users/all")
         .set({ "Authorization": `Bearer ${token}` })
         .end((err, res) => {
-          res.should.have.status(401);
+          res.should.have.status(200);
           res.body.should.be.a("array");
           done();
         });
     });
-    // it("Return all users list", (done) => {
-    //   chai
-    //     .request(app)
-    //     .get("/api/users/all")
-    //     .set({ "Authorization": `Bearer ${token}` })
-    //     .end((err, res) => {
-    //       res.should.have.status(200);
-    //       res.body.should.be.a("array");
-    //       done();
-    //     });
-    // });
+  });
+  describe("/GET :id", () => {
+    it("Returns user by id", (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/${id}`)
+        .set({ "Authorization": `Bearer ${token}` })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          done();
+        });
+    });
+  });
+  describe("/GET :username", () => {
+    it("Returns array of users by username part", (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/byUsername/test`)
+        .set({ "Authorization": `Bearer ${token}` })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("array");
+          done();
+        });
+    });
+
+    it("Returns message when no users matching login", (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/byUsername/nonExistingUser`)
+        .set({ "Authorization": `Bearer ${token}` })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.should.have.property("message");
+          done();
+        });
+    });
+  });
+  describe("/GET :id/organizedTournaments", () => {
+    it("Returns tournaments organized by user", (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/${id}/organizedTournaments`)
+        .set({ "Authorization": `Bearer ${token}` })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("array");
+          done();
+        });
+    });
+  });
+  describe("/GET /:id/participatedTournaments", () => {
+    it("Returns tournaments participated by user", (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/${id}/participatedTournaments`)
+        .set({ "Authorization": `Bearer ${token}` })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("array");
+          done();
+        });
+    });
+  });
+  describe("/GET /:id/tournamentsHistory", () => {
+    it("Returns tournament history by user", (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/${id}/participatedTournaments`)
+        .set({ "Authorization": `Bearer ${token}` })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("array");
+          done();
+        });
+    });
   });
 });

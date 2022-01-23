@@ -97,7 +97,7 @@ export const updateProfile = (userData, confirmPassword) => (dispatch) => {
                 console.log("Avatar res", res)
             })
             .catch((err) => {
-                console.log("avatar err", err)
+                console.log("avatar err", err.response)
                 dispatch({ type: ADD_ERROR, payload: err.response.data })
             })
 

@@ -5,6 +5,7 @@ import {
     Dropdown,
     Button,
     Searchbox,
+    ErrorBox,
 } from "../../../components/Form"
 import { Avatar } from "../../../components/misc"
 
@@ -54,4 +55,8 @@ export const DeleteButton = styled(Button)``
 export const SearchUserInput = styled(Searchbox)`
     margin-top: 10px;
     margin-bottom: 10px;
+`
+
+export const ErrorFormBox = styled(ErrorBox)`
+    margin-top: 20px;
 `

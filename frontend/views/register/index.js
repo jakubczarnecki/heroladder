@@ -18,7 +18,7 @@ import {
     LoadingView,
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
-import { STATUS_ACCOUNT_CREATED } from "../../redux/types"
+import { CLEAR_ACTION, STATUS_ACCOUNT_CREATED } from "../../redux/types"
 
 const registerView = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false)
@@ -38,6 +38,7 @@ const registerView = ({ navigation }) => {
 
     useEffect(() => {
         if (uiData.actionStatus == STATUS_ACCOUNT_CREATED) {
+            dispatch({ type: CLEAR_ACTION })
             setModalOpen(true)
         }
     }, [uiData.actionStatus])

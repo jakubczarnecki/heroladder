@@ -158,7 +158,7 @@ const confirmOperation = async (req, res, next) => {
 };
 
 //update yourself
-userRouter.put("/", confirmOperation, validateUsername(), validatePassword(), async (req, res, next) => {
+userRouter.put("/", confirmOperation, validateUsername(), async (req, res, next) => {
   try {
     let encryptedPassword = null;
     req.body.password1 && (encryptedPassword = await utils.encryptPassword(req.body.password1));

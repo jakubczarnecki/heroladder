@@ -18,6 +18,7 @@ import {
     LoadingView,
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
+import { CLEAR_ACTION, STATUS_ACCOUNT_CREATED } from "../../redux/types"
 
 const registerView = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false)
@@ -30,6 +31,17 @@ const registerView = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const uiData = useSelector((state) => state.ui)
+
+    const onSubmit = () => {
+        dispatch(registerUser(formData))
+    }
+
+    useEffect(() => {
+        if (uiData.actionStatus == STATUS_ACCOUNT_CREATED) {
+            dispatch({ type: CLEAR_ACTION })
+            setModalOpen(true)
+        }
+    }, [uiData.actionStatus])
 
     const SuccessfullyRegisteredModal = () => (
         <Modal
@@ -53,16 +65,6 @@ const registerView = ({ navigation }) => {
             </Paragraph>
         </Modal>
     )
-
-    const onSubmit = () => {
-        dispatch(registerUser(formData))
-    }
-
-    useEffect(() => {
-        if (uiData.actionSuccess) {
-            setModalOpen(true)
-        }
-    }, [uiData.actionSuccess])
 
     return (
         <FadeInView>

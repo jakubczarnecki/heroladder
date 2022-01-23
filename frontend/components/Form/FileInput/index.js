@@ -5,8 +5,9 @@ import Button from "../../../components/Form/Button"
 import { DetailText } from "../../Layout/Typography"
 import * as ImagePicker from "expo-image-picker"
 
-const FileInput = ({ title, value, onChange }) => {
+const FileInput = ({ title, onChange }) => {
     const [errorMsg, setErrorMsg] = useState(null)
+    const [value, setValue] = useState("")
 
     const pickImage = async () => {
         let { status } = await ImagePicker.requestCameraPermissionsAsync()
@@ -23,7 +24,15 @@ const FileInput = ({ title, value, onChange }) => {
         })
 
         if (!result.cancelled) {
-            onChange(result.uri)
+            let localUri = result.uri
+            let filename = localUri.split("/").pop()
+            setValue(localUri)
+
+            let match = /\.(\w+)$/.exec(filename)
+            let type = match ? `image/${match[1]}` : "image"
+
+            onChange(localUri, filename, type)
+            // onChange(result.uri)
         }
     }
 
@@ -50,7 +59,6 @@ const FileInput = ({ title, value, onChange }) => {
 
 FileInput.propTypes = {
     title: PropTypes.string,
-    value: PropTypes.string,
     onChange: PropTypes.func,
 }
 

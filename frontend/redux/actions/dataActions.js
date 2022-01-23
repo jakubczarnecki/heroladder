@@ -16,6 +16,7 @@ import {
     UPDATE_TOURNAMENT,
     STATUS_TOURNAMENT_UPDATED,
     STATUS_TOURNAMENT_ADDED,
+    STATUS_TEAM_ADDED,
 } from "../types"
 
 export const setFeed = (location) => (dispatch) => {
@@ -34,22 +35,27 @@ export const setFeed = (location) => (dispatch) => {
 
             Promise.all(
                 uniqueUsers.map((userID) => axios.get(`/users/${userID}`))
-            ).then((res) => {
-                tournaments.map((tournament) => {
-                    const creator = res.find(
-                        (r) => r.data._id === tournament.organizerId
-                    )
-                    payload.push({
-                        ...tournament,
-                        organizerUsername: creator.data.username,
-                        organizerAvatar: creator.data.avatar
-                            ? `pictures/${creator.data._id}/avatar`
-                            : null,
+            )
+                .then((res) => {
+                    tournaments.map((tournament) => {
+                        const creator = res.find(
+                            (r) => r.data._id === tournament.organizerId
+                        )
+                        payload.push({
+                            ...tournament,
+                            organizerUsername: creator.data.username,
+                            organizerAvatar: creator.data.avatar
+                                ? `pictures/${creator.data._id}/avatar`
+                                : null,
+                        })
                     })
-                })
 
-                dispatch({ type: SET_FEED, payload: payload })
-            })
+                    dispatch({ type: SET_FEED, payload: payload })
+                })
+                .catch((err) => {
+                    console.log("promise allerror", err.response.data)
+                    dispatch({ type: ADD_ERROR, payload: err.response.data })
+                })
         })
         .catch((err) => {
             console.log("error", err.response.data)
@@ -116,6 +122,22 @@ export const updateTournament = (tournamentData, id) => (dispatch) => {
                 payload: STATUS_TOURNAMENT_UPDATED,
             })
             dispatch({ type: UPDATE_TOURNAMENT, payload: tournamentData })
+        })
+        .catch((err) => {
+            console.log("error", err.response.data)
+            dispatch({ type: ADD_ERROR, payload: err.response.data })
+        })
+}
+
+export const registerYourTeam = (teamData, tournamentID) => (dispatch) => {
+    dispatch({ type: SET_LOADING_DATA })
+    dispatch({ type: CLEAR_ERRORS })
+    axios
+        .put(`/tournaments/${tournamentID}/join`, teamData)
+        .then((res) => {
+            console.log("Team added:", res)
+            dispatch({ type: SET_ACTION_STATUS, payload: STATUS_TEAM_ADDED })
+            dispatch(setTournament(tournamentID))
         })
         .catch((err) => {
             console.log("error", err.response.data)
@@ -202,7 +224,10 @@ export const getUserData = (userID) => (dispatch) => {
         .then((organized) => {
             userData = { ...userData, organizedTournaments: organized.data }
             // + tournament history
-
+            return axios.get(`/users/${userID}/tournamentsHistory`)
+        })
+        .then((history) => {
+            userData = { ...userData, tournamentsHistory: history.data }
             dispatch({ type: SET_USER_PROFILE, payload: userData })
         })
         .catch((err) => {

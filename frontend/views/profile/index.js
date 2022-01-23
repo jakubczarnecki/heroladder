@@ -18,7 +18,7 @@ import { FadeInView } from "../../components/Transitions"
 import bg2 from "../../assets/img/bg2.jpg"
 
 import { Avatar } from "../../components/misc"
-import { Title } from "../../components/Layout"
+import { ParagraphBold, Title } from "../../components/Layout"
 import TournamentSmallTile from "./TournamentSmallTile"
 import SettingsModal from "./SettingsModal"
 import { useDispatch, useSelector } from "react-redux"
@@ -73,60 +73,76 @@ const profileView = ({ route, navigation }) => {
                 <ProfileContent>
                     <Section>
                         <SectionHeader>Tournaments History</SectionHeader>
-                        <TournamentHistory horizontal={true}>
-                            <TournamentSmallTile
-                                icon="volleyball-ball"
-                                title="Siatkówka"
-                                date="24.09.2021"
-                            />
-                            <TournamentSmallTile
-                                icon="volleyball-ball"
-                                title="Siatkówka"
-                                date="24.09.2021"
-                            />
-                            <TournamentSmallTile
-                                icon="volleyball-ball"
-                                title="Siatkówka"
-                                date="24.09.2021"
-                            />
-                            <TournamentSmallTile
-                                icon="volleyball-ball"
-                                title="Siatkówka"
-                                date="24.09.2021"
-                            />
-                        </TournamentHistory>
+                        {userData.tournamentsHistory &&
+                            (userData.tournamentsHistory.length > 0 ? (
+                                <TournamentHistory horizontal={true}>
+                                    {userData.tournamentsHistory.map(
+                                        (tournament, index) => (
+                                            <TournamentSmallTile
+                                                key={index}
+                                                icon={getDisciplineIcon(
+                                                    tournament.discipline
+                                                )}
+                                                title={
+                                                    tournament.tournamentName
+                                                }
+                                                date={moment(
+                                                    tournament.date
+                                                ).format("DD/MM/YY hh:mm")}
+                                                onPress={() =>
+                                                    navigation.navigate(
+                                                        "Tournament",
+                                                        {
+                                                            tournamentID:
+                                                                tournament._id,
+                                                        }
+                                                    )
+                                                }
+                                            />
+                                        )
+                                    )}
+                                </TournamentHistory>
+                            ) : (
+                                <ParagraphBold>
+                                    User has not participated in any tournaments
+                                    yet
+                                </ParagraphBold>
+                            ))}
                     </Section>
                     <Section>
                         <SectionHeader>Created tournaments</SectionHeader>
-                        {userData.organizedTournaments ? (
-                            <TournamentHistory horizontal={true}>
-                                {userData.organizedTournaments.map(
-                                    (tournament, index) => (
-                                        <TournamentSmallTile
-                                            key={index}
-                                            icon={getDisciplineIcon(
-                                                tournament.discipline
-                                            )}
-                                            title={tournament.discipline}
-                                            date={moment(
-                                                tournament.date
-                                            ).format("DD/MM/YYYY")}
-                                            onPress={() =>
-                                                navigation.navigate(
-                                                    "Tournament",
-                                                    {
-                                                        tournamentID:
-                                                            tournament._id,
-                                                    }
-                                                )
-                                            }
-                                        />
-                                    )
-                                )}
-                            </TournamentHistory>
-                        ) : (
-                            <Title>Has not created any tournaments yet</Title>
-                        )}
+                        {userData.organizedTournaments &&
+                            (userData.organizedTournaments.length > 0 ? (
+                                <TournamentHistory horizontal={true}>
+                                    {userData.organizedTournaments.map(
+                                        (tournament, index) => (
+                                            <TournamentSmallTile
+                                                key={index}
+                                                icon={getDisciplineIcon(
+                                                    tournament.discipline
+                                                )}
+                                                title={tournament.discipline}
+                                                date={moment(
+                                                    tournament.date
+                                                ).format("DD/MM/YYYY")}
+                                                onPress={() =>
+                                                    navigation.navigate(
+                                                        "Tournament",
+                                                        {
+                                                            tournamentID:
+                                                                tournament._id,
+                                                        }
+                                                    )
+                                                }
+                                            />
+                                        )
+                                    )}
+                                </TournamentHistory>
+                            ) : (
+                                <ParagraphBold>
+                                    User has not created any tournaments yet
+                                </ParagraphBold>
+                            ))}
                         <TournamentHistory
                             horizontal={true}
                         ></TournamentHistory>

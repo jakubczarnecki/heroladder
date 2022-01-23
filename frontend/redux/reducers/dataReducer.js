@@ -10,6 +10,7 @@ import {
     SET_USERS_FOUND,
     SET_USER_PROFILE,
     UPDATE_TOURNAMENT,
+    ADD_TEAM,
 } from "../types"
 
 const initialState = {

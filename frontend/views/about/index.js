@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Paragraph, Title } from "../../components/Layout"
+import { Title } from "../../components/Layout"
 import theme from "frontend/styles/Theme.js"
 import {
     AboutTile,
@@ -9,11 +9,13 @@ import {
     AboutHeader,
     AboutDetailText,
     AboutLogo,
+    AboutText,
+    AboutTextLastLine,
 } from "./styled"
 import LogoWhite from "../../assets/img/logo-01.png"
 import { FadeInView } from "../../components/Transitions"
 
-const aboutView = ({ navigation }) => {
+const aboutView = () => {
     return (
         <FadeInView>
             <AboutWrapper>
@@ -22,18 +24,28 @@ const aboutView = ({ navigation }) => {
                         <AboutIcon name="info-circle" />
                         <Title>About the application</Title>
                     </AboutHeader>
-                    <Paragraph>
-                        Gdyby album „Typhoons” mógł być miejscem pracy, byłby to
-                        placem budowy. Perkusista Ben Thatcher atakuje tam swój
-                        zestaw jak operator młota pneumatycznego, natomiast
-                        wokalista, klawiszowiec i basista Mike Kerr wycina
-                        basowe solówki z kunsztem godnym najlepszego
-                        rzemieślnika. Nie tylko słychać, ale i czuć, że zespół
-                        Royal Blood wycisnął z siebie siódme poty, aby całe
-                        dzieło tworzyło spójną całość. Gotowi? Przed Wami jedna
-                        z naszych płyt roku - ostrzegamy, że nasza stacja nie
-                        ponosi odpowiedzialności za sypiące się tynki.
-                    </Paragraph>
+                    <AboutText>
+                        HeroLadder™ is an innovative incentive for (not only!)
+                        young people to improve their physical and mental health
+                        by participating in various sport tournaments.
+                    </AboutText>
+                    <AboutText>
+                        Apart from that, our mission is to create a friendly
+                        community that gives opportunities to meet up and
+                        develop good sportmanship, get to know new people and
+                        simply have fun. Everyone can make their own tournament
+                        and join the rivalry.
+                    </AboutText>
+                    <AboutText>
+                        One may ask: "What sports can I find here?" - the answer
+                        is whatever you can think of! It can be football,
+                        volleyball, ping pong, but also some other games that
+                        are not so popular, because we wanted to make
+                        HeroLadder™ as flexible as we can imagine.
+                    </AboutText>
+                    <AboutTextLastLine>
+                        So, what are you waiting for? Join us right now! 🧡
+                    </AboutTextLastLine>
                 </AboutTile>
                 <AboutLogo
                     source={LogoWhite}

@@ -24,12 +24,15 @@ export const MarkerWrapper = styled(Callout).attrs(() => ({
 
 export const MarkerIconWrapper = styled(Tile)`
     border-radius: 50px;
-    padding: 7px;
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     margin-top: 5px;
     align-items: center;
     justify-content: center;
+
+    border-color: ${(props) =>
+        props.premium ? theme.colors.primary : theme.colors.gray};
+    border-width: 2px;
 `
 
 export const MarkerIcon = styled(FontAwesome5).attrs(() => ({

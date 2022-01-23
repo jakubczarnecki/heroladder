@@ -17,7 +17,7 @@ import { addTournament } from "../../../redux/actions/dataActions"
 import SuccessfullyCreatedModal from "../SuccessfullyCreatedModal"
 import { CLEAR_ACTION, STATUS_TOURNAMENT_ADDED } from "../../../redux/types"
 
-const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
+const AddTournamentModal = ({ isOpen, onCancel, onSubmit, location }) => {
     const [disciplineValue, setDisciplineValue] = useState("")
     const [successModalIsOpen, setSuccessModalIsOpen] = useState(false)
     const [formData, setFormData] = useState({
@@ -54,7 +54,7 @@ const AddTournamentModal = ({ isOpen, onCancel, onSubmit }) => {
                 isOpen={isOpen}
                 onCancel={onCancel}
                 onSubmit={() => {
-                    dispatch(addTournament(formData, user))
+                    dispatch(addTournament(formData, location))
                 }}
             >
                 <Section>
@@ -198,6 +198,7 @@ AddTournamentModal.propTypes = {
     isOpen: PropTypes.bool,
     onCancel: PropTypes.func,
     onSubmit: PropTypes.func,
+    location: PropTypes.object,
 }
 
 export default AddTournamentModal

@@ -71,7 +71,7 @@ const RegisterYourTeamModal = ({
             <Section>
                 <TitleSmaller>Team informations</TitleSmaller>
                 <FormInput
-                    title="Tournament title"
+                    title="Team name"
                     value={teamName}
                     onChangeText={(text) => setTeamName(text)}
                 />
@@ -110,7 +110,10 @@ const RegisterYourTeamModal = ({
                 ))}
 
                 {uiData.errors && uiData.errors.length > 0 && (
-                    <ErrorFormBox errors={uiData.errors} types={["join"]} />
+                    <ErrorFormBox
+                        errors={uiData.errors}
+                        types={["join", "members"]}
+                    />
                 )}
             </Section>
 

@@ -110,9 +110,9 @@ const Ladder = ({ tournament }) => {
                                             height={ladderSizes.BOX_HEIGHT / 2}
                                             width={15}
                                             fill={
-                                                match.winner
-                                                    ? match.winner ===
-                                                      teamIndex + 1
+                                                match.winner == 0 ||
+                                                match.winner == 1
+                                                    ? match.winner === teamIndex
                                                         ? theme.colors.green
                                                         : theme.colors.accent
                                                     : theme.colors.gray

@@ -88,12 +88,32 @@ export const setTournament = (tournamentID) => (dispatch) => {
             tournament = res.data
 
             const teams = []
-
             tournament.matches[0].forEach((match) => {
                 if (match.teams.length != 0) {
                     match.teams.forEach((team) => teams.push(team))
                 }
             })
+            tournament.teams = teams
+            const members = teams.map((team) => team.members).flat()
+
+            return Promise.all(
+                members.map((userID) => axios.get(`/users/${userID}`))
+            )
+        })
+        .then((res) => {
+            const teams = tournament.teams.map((team) => ({
+                teamName: team.teamName,
+                members: team.members.map((member) => {
+                    const user = res.find((r) => r.data._id === member)
+                    return {
+                        userID: member,
+                        avatar: user.avatar
+                            ? `pictures/${member}/avatar`
+                            : null,
+                    }
+                }),
+            }))
+
             tournament.teams = teams
             return axios.get(`/users/${tournament.organizerId}`)
         })

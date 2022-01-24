@@ -28,7 +28,7 @@ import {
 import moment from "moment"
 import RegisterYourTeamModal from "../RegisterYourTeamModal"
 
-const Details = ({ tournament }) => {
+const Details = ({ tournament, navigation }) => {
     const [modalOpen, setModalOpen] = useState(false)
 
     return (
@@ -87,7 +87,16 @@ const Details = ({ tournament }) => {
                                             (member, memberIndex) => (
                                                 <UserAvatar
                                                     size={45}
+                                                    img={member.avatar}
                                                     key={`member${memberIndex}`}
+                                                    onPress={() =>
+                                                        navigation.navigate(
+                                                            "Profile",
+                                                            {
+                                                                userID: member.userID,
+                                                            }
+                                                        )
+                                                    }
                                                 />
                                             )
                                         )}
@@ -120,6 +129,7 @@ const Details = ({ tournament }) => {
 
 Details.propTypes = {
     tournament: PropTypes.object,
+    navigation: PropTypes.object,
 }
 
 export default Details

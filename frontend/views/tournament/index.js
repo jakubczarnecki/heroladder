@@ -29,7 +29,9 @@ const tournamentView = ({ route, navigation }) => {
     const navPages = [
         {
             name: "Details",
-            content: <Details tournament={tournament} />,
+            content: (
+                <Details tournament={tournament} navigation={navigation} />
+            ),
         },
         {
             name: "Location",

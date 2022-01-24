@@ -35,11 +35,6 @@ userRouter.get("/byUsername/:username", async (req, res, next) => {
 
     const users = await User.find({ username: { $regex: string, $options: "i" } });
 
-    if (users.length == 0) {
-      res.status(200).send({ message: "Sorry, we couldnt find any matches for this username :(", type: "search" });
-      return;
-    }
-
     res.status(200).json(users.slice(0, 8));
   } catch (err) {
     next(err);

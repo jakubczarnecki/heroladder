@@ -28,6 +28,7 @@ const RegisterYourTeamModal = ({
     onCancel,
     onSubmit,
     tournamentID,
+    teamSize,
 }) => {
     const [successModalIsOpen, setSuccessModalIsOpen] = useState(false)
     const [team, setTeam] = useState([])
@@ -79,10 +80,19 @@ const RegisterYourTeamModal = ({
             <Section>
                 <SectionHeader>
                     <TitleSmaller>Your team</TitleSmaller>
-                    <TitleSmaller>{team.length + 1}/8</TitleSmaller>
+                    <TitleSmaller>
+                        {team.length + 1}/{teamSize}
+                    </TitleSmaller>
                 </SectionHeader>
 
-                <SearchUserInput onSelect={addUser} exclude={team} />
+                <SearchUserInput
+                    onSelect={(user) => {
+                        if (team.length < teamSize) {
+                            addUser(user)
+                        }
+                    }}
+                    exclude={team}
+                />
 
                 <TeamItemWrapper>
                     <TeammateWrapper>
@@ -137,6 +147,7 @@ RegisterYourTeamModal.propTypes = {
     onCancel: PropTypes.func,
     onSubmit: PropTypes.func,
     tournamentID: PropTypes.string,
+    teamSize: PropTypes.number,
 }
 
 export default RegisterYourTeamModal

@@ -63,6 +63,8 @@ const Searchbox = ({ onSelect, exclude, style }) => {
             )
         }
 
+        console.log(users)
+
         return users
             .filter(
                 (user) => !exclude.some((excluded) => excluded._id === user._id)

@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
-import User from "../../../Schema/User.js";
+import User from "../../Schema/User.js";
 import supertest from "supertest";
 
 import chai from "chai";
 import chaiHttp from "chai-http";
 const should = chai.should();
-import app from "../../../index.js";
+import app from "../../index.js";
 
 chai.use(chaiHttp);
 
-describe("Authorization", () => {
+describe("--- AUTHORIZATION ---", () => {
   beforeEach((done) => {
     //Before each test we empty the database
     User.deleteMany({}, (err) => {

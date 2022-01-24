@@ -6,15 +6,28 @@
   "engines": {
     "node": "16.x"
   },
+  "config": {
+    "blanket": {
+      "pattern": [
+        ""
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ]
+    }
+  },
   "scripts": {
     "start": "SET NODE_ENV=dev&& nodemon index.js",
-    "test": "SET NODE_ENV=test&& nyc --all true mocha --timeout 10000  --recursive"
+    "test": "SET NODE_ENV=test&& mocha --recursive"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@image4io/image4ionodejssdk": "^1.0.4",
     "bcrypt": "^5.0.1",
+    "blanket": "^1.2.3",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -32,10 +45,13 @@
   },
   "description": "",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-http": "^2.0.1",
+    "babel-cli": "^6.18.0",
+    "babel-plugin-istanbul": "^3.0.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-register": "^6.18.0",
     "knex": "^0.11.10",
-    "mocha": "^9.0.0",
+    "mocha": "^9.1.4",
     "nyc": "^15.1.0",
     "pg": "^6.1.0"
   }

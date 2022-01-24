@@ -35,11 +35,6 @@ userRouter.get("/byUsername/:username", async (req, res, next) => {
 
     const users = await User.find({ username: { $regex: string, $options: "i" } });
 
-    if (users.length == 0) {
-      res.status(200).send({ message: "Sorry, we couldnt find any matches for this username :(", type: "search" });
-      return;
-    }
-
     res.status(200).json(users.slice(0, 8));
   } catch (err) {
     next(err);
@@ -103,14 +98,14 @@ userRouter.post("/feed", async (req, res, next) => {
       "location.longitude": { $gt: longitude - 0.1, $lt: longitude + 0.1 },
       "winners": null,
       "premium": true,
-    });
+    }).sort({ createdAt: "-1" });
 
     const nonPremiumTournaments = await Tournament.find({
       "location.latitude": { $gt: latitude - 1, $lt: latitude + 1 },
       "location.longitude": { $gt: longitude - 1, $lt: longitude + 1 },
       "winners": null,
       "premium": false,
-    });
+    }).sort({ createdAt: "-1" });
 
     feed.push(...premiumTournaments, ...nonPremiumTournaments);
     res.status(200).json(feed);

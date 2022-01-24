@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import PropTypes from "prop-types"
 import { LayoutWrapperScroll, Paragraph } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
@@ -58,21 +58,20 @@ const homeView = ({ navigation }) => {
             >
                 <HomeWrapper>
                     <HelloBox />
-                    <Ad />
                     {loadingData ? (
                         <HomeLoader />
                     ) : tournaments && tournaments.length > 0 ? (
                         tournaments.map((tournament, index) => {
-                            if (index % 3 == 1) {
+                            if (index % 3 == 0) {
                                 return (
-                                    <>
-                                        <Ad />
+                                    <Fragment key={index}>
                                         <TournamentFeedItem
                                             navigation={navigation}
                                             tournament={tournament}
                                             key={index}
                                         />
-                                    </>
+                                        <Ad />
+                                    </Fragment>
                                 )
                             }
                             return (

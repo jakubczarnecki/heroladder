@@ -31,9 +31,6 @@ pictureRouter.get("/:id/avatar", async (req, res, next) => {
 pictureRouter.put("/avatar", upload.single("avatar"), authenticate, async (req, res, next) => {
   try {
     const user = await User.findById(res._id.id);
-    console.log("FILE", req.file);
-    console.log("BODY", req.body);
-    console.log("HEADERS", req.headers);
     const data = utils.pictureFrom(req.file);
 
     if (user.avatar == null) {

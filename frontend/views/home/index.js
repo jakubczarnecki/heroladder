@@ -41,7 +41,6 @@ const homeView = ({ navigation }) => {
 
     useEffect(() => {
         if (location) {
-            console.log("HOME LOCATION", location)
             dispatch(setFeed(location))
         }
     }, [location])

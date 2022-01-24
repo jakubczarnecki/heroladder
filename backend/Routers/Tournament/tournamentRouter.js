@@ -203,11 +203,28 @@ tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, ne
     let nextStage = currentStage + 1;
 
     let minus = 0;
-    if (currentStage > 0) minus = tournament.matches[currentStage - 1].at(-1).number;
+    if (currentStage > 0) {
+      minus = tournament.matches[currentStage - 1].at(-1).number;
+    }
     let numberOfMatchInNextStage = Math.floor((req.body.number - 1 - minus) / 2);
 
     //update winner in current match and promote to next stage
     tournament.matches[currentStage].find((match) => match.number == req.body.number).winner = winnerNumber;
+
+    //if match is a final update winner of a tournament
+    if (nextStage == Math.log2(tournament.bracketSize)) {
+      tournament.winners = winnerTeam;
+      await Tournament.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: tournament,
+        },
+        { useFindAndModify: false }
+      );
+      res.status(200).send("Winner of the tournament has beed updated succesfully.");
+      return;
+    }
+
     tournament.matches[nextStage][numberOfMatchInNextStage].teams.push(winnerTeam);
 
     await Tournament.findOneAndUpdate(
@@ -217,19 +234,6 @@ tournamentRouter.put("/:id/claimWinner", authorizeOrginizer, async (req, res, ne
       },
       { useFindAndModify: false }
     );
-
-    //if match is a final update winner of a tournament
-    if (nextStage == Math.log2(tournament.bracketSize)) {
-      await Tournament.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          $set: { winners: winnerTeam },
-        },
-        { useFindAndModify: false }
-      );
-      res.status(200).send("Winner of the tournament has beed updated succesfully.");
-      return;
-    }
 
     res.status(200).send(`Winner has beed updated succesfully.`);
   } catch (err) {

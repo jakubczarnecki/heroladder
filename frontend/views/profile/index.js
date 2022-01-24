@@ -61,10 +61,7 @@ const profileView = ({ route, navigation }) => {
                     <AvatarWrapper>
                         <Avatar img={userData.avatar} size={180} />
                         <Title>{userData.username}</Title>
-                        <UserSubtitle>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Facilis minus
-                        </UserSubtitle>
+                        <UserSubtitle />
                     </AvatarWrapper>
                 </ProfileHeader>
 

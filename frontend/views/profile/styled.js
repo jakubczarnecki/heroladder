@@ -1,16 +1,12 @@
 import styled from "styled-components/native"
 import theme from "../../styles/Theme"
 import axios from "axios"
-import {
-    LayoutWrapperScroll,
-    Subtitle,
-    TitleSmall,
-} from "../../components/Layout"
+import { LayoutWrapperScroll, TitleSmall } from "../../components/Layout"
 import defaultBackground from "../../assets/img/defaultProfileBackground.jpg"
 import { LinearGradient } from "expo-linear-gradient"
 import { FontAwesome5 } from "@expo/vector-icons"
 import { CircleButton } from "../../components/Form"
-import { Loader } from "../../components/misc"
+import { Loader, RandomSentences } from "../../components/misc"
 
 export const ProfileWrapperScroll = styled(LayoutWrapperScroll)`
     background-color: ${theme.colors.grayLight};
@@ -53,8 +49,10 @@ export const AvatarWrapper = styled.View`
     align-items: center;
 `
 
-export const UserSubtitle = styled(Subtitle)`
+export const UserSubtitle = styled(RandomSentences)`
     width: 300px;
+    margin-top: 10px;
+    margin-bottom: -35px;
     text-align: center;
 `
 

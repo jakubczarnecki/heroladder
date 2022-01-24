@@ -122,6 +122,7 @@ const Details = ({ tournament, navigation }) => {
                 onCancel={() => setModalOpen(false)}
                 onSubmit={() => setModalOpen(false)}
                 tournamentID={tournament._id}
+                teamSize={tournament.teamSize}
             />
         </DetailsWrapper>
     )

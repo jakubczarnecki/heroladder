@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import PropTypes from "prop-types"
 import { LayoutWrapperScroll, Paragraph } from "../../components/Layout"
 import { FadeInView } from "../../components/Transitions"
@@ -16,6 +16,7 @@ import AddTournamentModal from "./AddTournamentModal"
 import { useDispatch, useSelector } from "react-redux"
 import { setFeed } from "../../redux/actions/dataActions"
 import useCurrentLocation from "../../hooks/useCurrentLocation"
+import Ad from "../../components/misc/Ad"
 
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
@@ -40,7 +41,6 @@ const homeView = ({ navigation }) => {
 
     useEffect(() => {
         if (location) {
-            console.log("HOME LOCATION", location)
             dispatch(setFeed(location))
         }
     }, [location])
@@ -60,13 +60,27 @@ const homeView = ({ navigation }) => {
                     {loadingData ? (
                         <HomeLoader />
                     ) : tournaments && tournaments.length > 0 ? (
-                        tournaments.map((tournament, index) => (
-                            <TournamentFeedItem
-                                navigation={navigation}
-                                tournament={tournament}
-                                key={index}
-                            />
-                        ))
+                        tournaments.map((tournament, index) => {
+                            if (index % 3 == 0) {
+                                return (
+                                    <Fragment key={index}>
+                                        <TournamentFeedItem
+                                            navigation={navigation}
+                                            tournament={tournament}
+                                            key={index}
+                                        />
+                                        <Ad />
+                                    </Fragment>
+                                )
+                            }
+                            return (
+                                <TournamentFeedItem
+                                    navigation={navigation}
+                                    tournament={tournament}
+                                    key={index}
+                                />
+                            )
+                        })
                     ) : (
                         <NoTournamentsParagraph>
                             There are no tournaments nearby :(

@@ -63,7 +63,6 @@ const areaView = ({ navigation }) => {
                         title="Ask for permissions"
                         type="contained"
                         color="accentLight"
-                        onPress={() => console.log("a")}
                     />
                 </>
             )}

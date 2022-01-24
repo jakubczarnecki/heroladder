@@ -53,7 +53,7 @@ export const setFeed = (location) => (dispatch) => {
                     dispatch({ type: SET_FEED, payload: payload })
                 })
                 .catch((err) => {
-                    console.log("promise allerror", err.response.data)
+                    console.log("promise all error", err.response.data)
                     dispatch({ type: ADD_ERROR, payload: err.response.data })
                 })
         })
@@ -107,7 +107,7 @@ export const setTournament = (tournamentID) => (dispatch) => {
                     const user = res.find((r) => r.data._id === member)
                     return {
                         userID: member,
-                        avatar: user.avatar
+                        avatar: user.data.avatar
                             ? `pictures/${member}/avatar`
                             : null,
                     }
@@ -161,7 +161,6 @@ export const registerYourTeam = (teamData, tournamentID) => (dispatch) => {
             members: team,
         })
         .then((res) => {
-            console.log("Team added:", res)
             dispatch({ type: SET_ACTION_STATUS, payload: STATUS_TEAM_ADDED })
             dispatch(setTournament(tournamentID))
         })
@@ -174,8 +173,6 @@ export const registerYourTeam = (teamData, tournamentID) => (dispatch) => {
 export const selectWinner = (tournamentID, matchData) => (dispatch) => {
     dispatch({ type: SET_LOADING_DATA })
     dispatch({ type: CLEAR_ERRORS })
-
-    console.log("Match data", matchData)
 
     axios
         .put(`/tournaments/${tournamentID}/claimWinner`, matchData)

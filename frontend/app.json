@@ -21,10 +21,21 @@
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#FE8A18"
+            },
+            "config": {
+                "googleMobileAdsAppId": "ca-app-pub-1115471354920646~7990592542"
             }
         },
         "web": {
             "favicon": "./assets/favicon.png"
-        }
+        },
+        "plugins": [
+            [
+                "expo-ads-admob",
+                {
+                    "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+                }
+            ]
+        ]
     }
 }

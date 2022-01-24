@@ -78,7 +78,6 @@ export const updateProfile = (userData, confirmPassword) => (dispatch) => {
                 confirmPassword,
             })
             .then((res) => {
-                console.log("User basic data res", res)
                 dispatch({
                     type: SET_ACTION_STATUS,
                     payload: STATUS_PROFILE_UPDATED,
@@ -116,7 +115,6 @@ export const updateProfile = (userData, confirmPassword) => (dispatch) => {
                 return true
             })
             .then((res) => {
-                console.log("Avatar res", JSON.stringify(res, null, 2))
                 dispatch({
                     type: SET_ACTION_STATUS,
                     payload: STATUS_PROFILE_UPDATED,

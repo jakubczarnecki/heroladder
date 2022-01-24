@@ -10,6 +10,11 @@ import theme from "./styles/Theme"
 import { DrawerNavigator } from "./navigation"
 import { NavigationContainer } from "@react-navigation/native"
 
+// const testID = "google-test-id"
+// const productionID = "my-id"
+// // Is a real device and running in production.
+// const adUnitID = Constants.isDevice && !__DEV__ ? productionID : testID
+
 // 10.0.2.2 - przekierowanie emulatora na localhost gospodarza (domyślne)
 axios.defaults.baseURL = "http://10.0.2.2:8800/api/"
 // axios.defaults.baseURL = "http://192.168.1.13:8800/api/"

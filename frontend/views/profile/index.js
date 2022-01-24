@@ -38,8 +38,6 @@ const profileView = ({ route, navigation }) => {
         dispatch(getUserData(route.params.userID))
     }, [route.params.userID])
 
-    console.log(userData)
-
     if (loading) {
         return (
             <FadeInView>
@@ -63,10 +61,7 @@ const profileView = ({ route, navigation }) => {
                     <AvatarWrapper>
                         <Avatar img={userData.avatar} size={180} />
                         <Title>{userData.username}</Title>
-                        <UserSubtitle>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Facilis minus
-                        </UserSubtitle>
+                        <UserSubtitle />
                     </AvatarWrapper>
                 </ProfileHeader>
 

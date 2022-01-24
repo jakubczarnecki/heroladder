@@ -17,8 +17,11 @@ import {
 } from "./styled"
 
 const MapMarker = ({
+    navigation,
+    tournamentID,
     icon,
     title,
+    premium,
     date,
     teamSize,
     teamCount,
@@ -32,11 +35,18 @@ const MapMarker = ({
                 style={{
                     transform: [{ scale: markerScale }],
                 }}
+                premium={premium}
             >
                 <MarkerIcon name={icon} />
             </MarkerIconWrapper>
 
-            <MarkerWrapper>
+            <MarkerWrapper
+                onPress={() => {
+                    navigation.navigate("Tournament", {
+                        tournamentID,
+                    })
+                }}
+            >
                 <ContentWrapper>
                     <ContentHeader>
                         <ParagraphBold>{title}</ParagraphBold>
@@ -71,7 +81,6 @@ const MapMarker = ({
                                 title="Details"
                                 type="contained"
                                 size="thin"
-                                onPress={() => console.log("Details")}
                             />
                         </ButtonsWrapper>
                     </ContentDetails>
@@ -82,6 +91,8 @@ const MapMarker = ({
 }
 
 MapMarker.propTypes = {
+    navigation: PropTypes.object,
+    tournamentID: PropTypes.string,
     icon: PropTypes.string.isRequired,
     premium: PropTypes.bool,
     title: PropTypes.string,

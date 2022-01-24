@@ -26,7 +26,7 @@ export default [
         title: "Tournaments",
         icon: "th-list",
         onPress: (navigation) => {
-            navigation.navigate("Tournaments")
+            navigation.navigate("About")
         },
     },
     {

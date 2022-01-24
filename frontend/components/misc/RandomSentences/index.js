@@ -6,7 +6,7 @@ const RandomSentences = ({ style }) => {
     const [rnd, setRnd] = useState(null)
 
     useEffect(() => {
-        setRnd(Math.floor(Math.random() * sentences.length))
+        setRnd(Math.floor(Math.random() * (sentences.length - 1)))
     }, [])
 
     return <Paragraph style={style}>{rnd ? sentences[rnd] : null}</Paragraph>

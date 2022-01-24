@@ -38,8 +38,6 @@ const profileView = ({ route, navigation }) => {
         dispatch(getUserData(route.params.userID))
     }, [route.params.userID])
 
-    console.log(userData)
-
     if (loading) {
         return (
             <FadeInView>

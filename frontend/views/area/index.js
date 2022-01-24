@@ -104,6 +104,9 @@ const areaView = ({ navigation }) => {
                                     icon={getDisciplineIcon(
                                         tournament.discipline
                                     )}
+                                    navigation={navigation}
+                                    premium={tournament.premium}
+                                    tournamentID={tournament._id}
                                     title={tournament.tournamentName}
                                     date={tournament.date}
                                     teamSize={tournament.teamSize}

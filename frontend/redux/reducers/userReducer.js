@@ -1,4 +1,9 @@
-import { SET_UNAUTHENTICATED, SET_USER, UPDATE_USER } from "../types"
+import {
+    SET_UNAUTHENTICATED,
+    SET_USER,
+    UPDATE_USER,
+    UPDATE_USERNAME,
+} from "../types"
 
 const initialState = {
     id: "",
@@ -23,6 +28,13 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload,
+            }
+        }
+
+        case UPDATE_USERNAME: {
+            return {
+                ...state,
+                username: action.payload,
             }
         }
 

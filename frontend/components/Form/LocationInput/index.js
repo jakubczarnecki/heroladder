@@ -31,12 +31,18 @@ const LocationInput = ({ value, onChange }) => {
             initialRegion={{
                 latitude: location.latitude,
                 longitude: location.longitude,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.015,
+                latitudeDelta: 0.04,
+                longitudeDelta: 0.04,
             }}
             onPress={(e) => {
-                onChange(e.nativeEvent.coordinate)
-                setLocation(e.nativeEvent.coordinate)
+                onChange({
+                    latitude: e.nativeEvent.coordinate.latitude,
+                    longitude: e.nativeEvent.coordinate.longitude,
+                })
+                setLocation({
+                    latitude: e.nativeEvent.coordinate.latitude,
+                    longitude: e.nativeEvent.coordinate.longitude,
+                })
             }}
             height={250}
         >

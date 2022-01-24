@@ -25,14 +25,14 @@ const FileInput = ({ title, onChange }) => {
 
         if (!result.cancelled) {
             let localUri = result.uri
-            let filename = localUri.split("/").pop()
+            // let filename = localUri.split("/").pop()
             setValue(localUri)
 
-            let match = /\.(\w+)$/.exec(filename)
-            let type = match ? `image/${match[1]}` : "image"
+            // let match = /\.(\w+)$/.exec(filename)
+            // let type = match ? `image/${match[1]}` : "image"
 
-            onChange(localUri, filename, type)
-            // onChange(result.uri)
+            // onChange(localUri, filename, type)
+            onChange(result.uri)
         }
     }
 

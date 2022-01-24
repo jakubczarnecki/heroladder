@@ -16,6 +16,7 @@ import AddTournamentModal from "./AddTournamentModal"
 import { useDispatch, useSelector } from "react-redux"
 import { setFeed } from "../../redux/actions/dataActions"
 import useCurrentLocation from "../../hooks/useCurrentLocation"
+import Ad from "../../components/misc/Ad"
 
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
@@ -57,16 +58,31 @@ const homeView = ({ navigation }) => {
             >
                 <HomeWrapper>
                     <HelloBox />
+                    <Ad />
                     {loadingData ? (
                         <HomeLoader />
                     ) : tournaments && tournaments.length > 0 ? (
-                        tournaments.map((tournament, index) => (
-                            <TournamentFeedItem
-                                navigation={navigation}
-                                tournament={tournament}
-                                key={index}
-                            />
-                        ))
+                        tournaments.map((tournament, index) => {
+                            if (index % 3 == 1) {
+                                return (
+                                    <>
+                                        <Ad />
+                                        <TournamentFeedItem
+                                            navigation={navigation}
+                                            tournament={tournament}
+                                            key={index}
+                                        />
+                                    </>
+                                )
+                            }
+                            return (
+                                <TournamentFeedItem
+                                    navigation={navigation}
+                                    tournament={tournament}
+                                    key={index}
+                                />
+                            )
+                        })
                     ) : (
                         <NoTournamentsParagraph>
                             There are no tournaments nearby :(

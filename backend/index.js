@@ -38,7 +38,7 @@ mongoose.connect(config.DBHost, { useNewUrlParser: true, useUnifiedTopology: tru
   console.log("Connected to MongoDB.");
 });
 
-app.listen("8800" || 8800, () => {
+app.listen(process.env.PORT || PORT, () => {
   console.log(`Server started at port ${PORT}`);
 });
 

@@ -7,7 +7,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "config:set NODE_ENV=dev&& nodemon index.js",
+    "start": "config:set NODE_ENV=dev&& nodemon index.js"
     //"test": "config:set NODE_ENV=test&& mocha --timeout 10000  --recursive"
   },
   "author": "",

@@ -39,7 +39,7 @@ mongoose.connect(config.DBHost, { useNewUrlParser: true, useUnifiedTopology: tru
 });
 
 app.listen(process.env.PORT || PORT, () => {
-  console.log(`Server started at port ${PORT}`);
+  console.log(`Server started at port ${process.env.PORT}`);
 });
 
 export default app;
